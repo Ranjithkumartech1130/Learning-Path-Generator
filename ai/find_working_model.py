@@ -2,10 +2,11 @@ import google.generativeai as genai
 import os
 import time
 
-key = "AIzaSyBYy2BK8qZzqIiQGCWZ9gAAm7R8VEdbTyY"
+key = "AIzaSyBcG-Ct_pHaUMhXBOsPvPriFIddPJfVcHI"
 genai.configure(api_key=key)
 
 models_to_test = [
+    "gemini-2.5-flash",
     "gemini-2.0-flash-lite-preview-02-05",
     "gemini-2.0-flash-lite",
     "gemini-1.5-flash-8b", # commonly available sometimes

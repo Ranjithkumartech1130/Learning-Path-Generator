@@ -4,12 +4,14 @@ const bodyParser = require('body-parser');
 const axios = require('axios');
 const dotenv = require('dotenv');
 const path = require('path');
+const fs = require('fs');
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 const AI_SERVICE_URL = process.env.AI_SERVICE_URL || 'http://localhost:8001';
+const DATA_FILE = path.join(__dirname, 'data', 'users.json');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -17,12 +19,43 @@ app.use(bodyParser.json());
 // Serve static files from the 'public' folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-// In-memory User Database
-const users = {};
+// Helper functions for persistence
+const loadUsers = () => {
+    try {
+        if (!fs.existsSync(DATA_FILE)) {
+            // Ensure directory exists
+            const dir = path.dirname(DATA_FILE);
+            if (!fs.existsSync(dir)) {
+                fs.mkdirSync(dir, { recursive: true });
+            }
+            fs.writeFileSync(DATA_FILE, '{}');
+            return {};
+        }
+        const data = fs.readFileSync(DATA_FILE, 'utf8');
+        return JSON.parse(data);
+    } catch (err) {
+        console.error("Error loading users:", err);
+        return {};
+    }
+};
+
+const saveUsers = (users) => {
+    try {
+        const dir = path.dirname(DATA_FILE);
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true });
+        }
+        fs.writeFileSync(DATA_FILE, JSON.stringify(users, null, 2));
+    } catch (err) {
+        console.error("Error saving users:", err);
+    }
+};
 
 // --- Auth Routes ---
 app.post('/api/register', (req, res) => {
     const { username, email, password } = req.body;
+    const users = loadUsers();
+
     if (users[username]) return res.status(400).json({ message: "User already exists" });
 
     users[username] = {
@@ -41,15 +74,27 @@ app.post('/api/register', (req, res) => {
             onboarding_completed: false
         },
         learning_paths: [],
-        progress: { streak: 0, completed_modules: 0, total_study_time: 0 }
+        tasks: [], // Store assigned tasks here
+        progress: { streak: 0, completed_tasks: 0, last_active: null }
     };
+    saveUsers(users);
     res.json({ message: "Registration successful" });
 });
 
 app.post('/api/login', (req, res) => {
     const { username, password } = req.body;
+    const users = loadUsers();
     const user = users[username];
+
     if (user && user.password === password) {
+        // Log Login
+        if (!user.login_logs) user.login_logs = [];
+        user.login_logs.push({
+            timestamp: new Date().toISOString(),
+            userAgent: req.headers['user-agent']
+        });
+        saveUsers(users);
+
         res.json({ success: true, user });
     } else {
         res.status(401).json({ message: "Invalid credentials" });
@@ -58,10 +103,103 @@ app.post('/api/login', (req, res) => {
 
 app.post('/api/user/profile', (req, res) => {
     const { username, profile } = req.body;
+    const users = loadUsers();
+
     if (!users[username]) return res.status(404).json({ message: "User not found" });
 
     users[username].profile = { ...users[username].profile, ...profile, onboarding_completed: true };
+    saveUsers(users);
     res.json({ message: "Profile updated", user: users[username] });
+});
+
+app.post('/api/user/save-path', (req, res) => {
+    const { username, path } = req.body;
+    const users = loadUsers();
+    if (!users[username]) return res.status(404).json({ message: "User not found" });
+
+    // Handle existing paths array
+    if (!users[username].learning_paths) users[username].learning_paths = [];
+
+    users[username].learning_paths.push({
+        id: Date.now(),
+        content: path,
+        created_at: new Date().toISOString()
+    });
+    saveUsers(users);
+    res.json({ success: true, user: users[username] });
+});
+
+// --- Task & Streak Routes ---
+app.post('/api/user/assign-tasks', (req, res) => {
+    const { username, tasks } = req.body; // tasks array from AI
+    const users = loadUsers();
+    if (!users[username]) return res.status(404).json({ message: "User not found" });
+
+    // Add unique IDs to tasks if missing
+    const newTasks = tasks.map(t => ({
+        ...t,
+        id: t.id || Date.now() + Math.random().toString(36).substr(2, 9),
+        status: 'pending',
+        assigned_at: new Date().toISOString()
+    }));
+
+    if (!users[username].tasks) users[username].tasks = [];
+    users[username].tasks = [...users[username].tasks, ...newTasks];
+    saveUsers(users);
+    res.json({ success: true, tasks: newTasks, user: users[username] });
+});
+
+app.post('/api/user/complete-task', (req, res) => {
+    const { username, taskId } = req.body;
+    const users = loadUsers();
+    if (!users[username]) return res.status(404).json({ message: "User not found" });
+
+    if (!users[username].tasks) users[username].tasks = [];
+    const taskIndex = users[username].tasks.findIndex(t => t.id === taskId);
+
+    if (taskIndex === -1) return res.status(404).json({ message: "Task not found" });
+
+    if (users[username].tasks[taskIndex].status !== 'completed') {
+        users[username].tasks[taskIndex].status = 'completed';
+
+        if (!users[username].progress) users[username].progress = { streak: 0, completed_tasks: 0, last_active: null };
+        users[username].progress.completed_tasks += 1;
+
+        // Streak Logic: Check if last active was yesterday or today
+        const today = new Date().toDateString();
+        const lastActiveDate = users[username].progress.last_active ? new Date(users[username].progress.last_active) : null;
+        const lastActive = lastActiveDate ? lastActiveDate.toDateString() : null;
+
+        if (today !== lastActive) {
+            if (lastActive) {
+                const yesterday = new Date();
+                yesterday.setDate(yesterday.getDate() - 1);
+
+                if (lastActive === yesterday.toDateString()) {
+                    users[username].progress.streak += 1;
+                } else {
+                    // Streak broken
+                    users[username].progress.streak = 1;
+                }
+            } else {
+                users[username].progress.streak = 1;
+            }
+            users[username].progress.last_active = new Date().toISOString();
+        }
+    }
+
+    saveUsers(users);
+    res.json({ success: true, user: users[username] });
+});
+
+app.post('/api/run-code', async (req, res) => {
+    try {
+        const response = await axios.post(`${AI_SERVICE_URL}/run-code`, req.body);
+        res.json(response.data);
+    } catch (error) {
+        console.error("Exec Error:", error.response?.data || error.message);
+        res.status(500).json({ success: false, error: "Execution server failed" });
+    }
 });
 
 // --- AI Proxy Routes ---
@@ -79,6 +217,19 @@ app.post('/api/generate-path', async (req, res) => {
     }
 });
 
+app.post('/api/generate-tasks', async (req, res) => {
+    try {
+        const response = await axios.post(`${AI_SERVICE_URL}/generate-tasks`, req.body);
+        res.json(response.data);
+    } catch (error) {
+        console.error("AI Service Task Error:", error.response?.data || error.message);
+        res.status(500).json({
+            message: "AI Service connection failed",
+            error: error.response?.data || error.message
+        });
+    }
+});
+
 app.post('/api/generate-resume', async (req, res) => {
     try {
         const response = await axios.post(`${AI_SERVICE_URL}/generate-resume`, req.body);
@@ -91,10 +242,6 @@ app.post('/api/generate-resume', async (req, res) => {
         });
     }
 });
-
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public', 'index.html'));
-// });
 
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running at http://localhost:${PORT}`);

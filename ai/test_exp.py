@@ -1,10 +1,10 @@
 import google.generativeai as genai
 import os
 
-key = "AIzaSyBYy2BK8qZzqIiQGCWZ9gAAm7R8VEdbTyY"
+key = "AIzaSyBcG-Ct_pHaUMhXBOsPvPriFIddPJfVcHI"
 genai.configure(api_key=key)
 
-model_name = "gemini-exp-1206"
+model_name = "gemini-2.5-flash"
 print(f"Testing {model_name}...")
 try:
     model = genai.GenerativeModel(model_name)

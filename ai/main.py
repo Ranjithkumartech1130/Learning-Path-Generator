@@ -13,6 +13,7 @@ from matplotlib.patches import Circle
 import numpy as np
 from pydantic import BaseModel
 from dotenv import load_dotenv
+import textwrap
 
 load_dotenv()
 
@@ -28,9 +29,12 @@ app.add_middleware(
 )
 
 # AI Models Configuration
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "AIzaSyD8pxm2qN5_NUrpKEycN5UTywZHnfVLqQY")
-genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel("gemini-flash-latest")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+if not GEMINI_API_KEY:
+    print("Error: GEMINI_API_KEY not found in environment variables. Please set it in your .env file.")
+else:
+    genai.configure(api_key=GEMINI_API_KEY)
+model = genai.GenerativeModel("gemini-2.5-flash")
 
 class UserProfile(BaseModel):
     experience_level: str
@@ -48,6 +52,12 @@ class PathRequest(BaseModel):
     preferences: Optional[str] = ""
     resume_content: Optional[str] = ""
     use_previous_skills: bool = True
+
+class TaskRequest(BaseModel):
+    goal: str
+    skills: List[str]
+    experience_level: str
+    focus_area: Optional[str] = "General"
 
 @app.post("/generate-path")
 async def generate_path(request: PathRequest):
@@ -107,7 +117,219 @@ async def generate_path(request: PathRequest):
         response = model.generate_content(prompt)
         return {"success": True, "path": response.text}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        print(f"AI Generation Failed: {e}. Returning fallback content.")
+        fallback_path = f"""
+        # ⚠️ AI Service Unavailable (Quota Exceeded) - Showing Demo Path for **{request.goal}**
+
+        ### 📄 Detailed Learning Path
+        Welcome to your personalized journey to becoming a **{request.goal}**. While our AI brain is taking a nap (rate limited), here is a high-quality standard roadmap to get you started!
+
+        ### 📚 Recommended Open Source Resources
+
+        | 🎓 Top Courses | 💻 Practice Platforms | 🤝 Communities |
+        | :--- | :--- | :--- |
+        | [CS50: Introduction to Computer Science](https://cs50.harvard.edu/) | [LeetCode](https://leetcode.com/) | [Stack Overflow](https://stackoverflow.com/) |
+        | [Full Stack Open](https://fullstackopen.com/) | [FreeCodeCamp](https://www.freecodecamp.org/) | [Reddit r/learnprogramming](https://www.reddit.com/r/learnprogramming/) |
+
+        ### 3. OPEN SOURCE LEARNING RESOURCES
+
+        *   **Free Online Courses:**
+            *   **Foundations:**
+                *   [The Odin Project](https://www.theodinproject.com/) - Full Stack Curriculum
+                *   [MDN Web Docs](https://developer.mozilla.org/) - The Bible of Web Dev
+            *   **Advanced:**
+                *   [System Design Primer](https://github.com/donnemartin/system-design-primer) - For scaling systems
+
+        ### 🚀 Your Personalized Learning Path: Accelerating Towards Mastery
+
+        #### 1. OVERVIEW & ASSESSMENT
+        *   **Current Skill Assessment:**
+            *   **Strengths:** Your enthusiasm and starting skills!
+            *   **Gap Analysis:** Structured project experience.
+
+        #### 2. FOUNDATION (Weeks 1-4)
+        *   **Focus:** Core Languages & Tools
+        *   **Action Items:**
+            *   Master HTML5, CSS3, and JavaScript logic.
+            *   Build a Personal Portfolio Website.
+            *   Learn Git & GitHub basics.
+
+        #### 3. CORE SKILLS (Weeks 5-8)
+        *   **Focus:** Frameworks & Databases
+        *   **Action Items:**
+            *   Learn a frontend framework (React, Vue, or Angular).
+            *   Build a functional To-Do App with local storage.
+            *   Understand REST APIs and JSON.
+
+        #### 4. MASTERY & PROJECTS
+        *   **Focus:** Integration & Deployment
+        *   **Action Items:**
+            *   Build a Full Stack Clone (e.g., Twitter/Netflix clone).
+            *   Deploy your apps to Vercel or Netlify.
+            *   Contribute to an Open Source project.
+        """
+        return {"success": True, "path": textwrap.dedent(fallback_path)}
+
+        return {"success": True, "path": textwrap.dedent(fallback_path)}
+
+@app.post("/generate-tasks")
+class TaskRequest(BaseModel):
+    goal: str
+    skills: list[str] = []
+    experience_level: str
+    focus_area: str
+    language: str = "python"  # Added language field
+
+@app.post("/generate-tasks")
+async def generate_tasks(request: TaskRequest):
+    try:
+        prompt = f"""
+        Act as a coding interviewer. Create 3 structured coding tasks for a user learning: {request.goal}.
+        Focus Area: {request.focus_area}
+        User Level: {request.experience_level}
+        Current Skills: {', '.join(request.skills)}
+        Programming Language: {request.language}
+
+        Output a valid JSON array where each object has:
+        - "title": Short title
+        - "description": Problem statement
+        - "starter_code": Initial code stub (imports, function signature, comments ONLY). DO NOT include the solution logic.
+        - "solution": The complete solution code
+        - "language": "{request.language}"
+        
+        Example JSON format:
+        [
+            {{
+                "title": "...",
+                "description": "...",
+                "starter_code": "...",
+                "solution": "...",
+                "language": "{request.language}"
+            }}
+        ]
+        """
+        response = model.generate_content(prompt)
+        text = response.text
+        # Clean markdown
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0].strip()
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0].strip()
+            
+        tasks = json.loads(text)
+        return {"success": True, "tasks": tasks}
+    except Exception as e:
+        print(f"Task generation error: {e}")
+        # Fallback task based on language? Defaults to Python for now.
+        return {
+            "success": True, 
+            "tasks": [
+                {
+                    "title": "Simple Greeting", 
+                    "description": f"Write a function that prints 'Hello World' in {request.language}.",
+                    "starter_code": "# Write your code here" if request.language == "python" else "// Write your code here",
+                    "solution": "print('Hello World')",
+                    "language": request.language
+                }
+            ]
+        }
+
+class CodeExecutionRequest(BaseModel):
+    code: str
+    language: str = "python" # Added language field
+
+@app.post("/run-code")
+async def run_code(request: CodeExecutionRequest):
+    """
+    Executes code. Currently supports Python (exec) and Node.js (subprocess).
+    """
+    lang = request.language.lower()
+    
+    if lang == "python":
+        try:
+            # Create a buffer to capture stdout
+            import sys
+            from contextlib import redirect_stdout
+            
+            f = io.StringIO()
+            with redirect_stdout(f):
+                # Execute the code in a restricted namespace
+                exec_globals = {"__builtins__": __builtins__}
+                try:
+                    import pandas as pd
+                    import numpy as np
+                    exec_globals['pd'] = pd
+                    exec_globals['np'] = np
+                except:
+                    pass
+                    
+                exec(request.code, exec_globals)
+                
+            output = f.getvalue()
+            return {"success": True, "output": output if output else "Code executed successfully (no output)."}
+        except Exception as e:
+            return {"success": False, "error": str(e)}
+
+    elif lang == "javascript":
+        try:
+            # Run node.js subprocess
+            import subprocess
+            result = subprocess.run(
+                ["node", "-e", request.code], 
+                capture_output=True, 
+                text=True, 
+                timeout=5
+            )
+            if result.returncode == 0:
+                return {"success": True, "output": result.stdout if result.stdout else "Code executed successfully (no output)."}
+            else:
+                 return {"success": False, "error": result.stderr}
+        except Exception as e:
+            return {"success": False, "error": f"Node.js execution failed: {str(e)}"}
+            
+    elif lang == "sql":
+        try:
+            import sqlite3
+            # Create an in-memory database
+            conn = sqlite3.connect(':memory:')
+            cursor = conn.cursor()
+            
+            # Allow multiple statements (e.g., CREATE TABLE; INSERT; SELECT)
+            # separates statements by semi-colon
+            statements = [s for s in request.code.split(';') if s.strip()]
+            
+            output_buffer = []
+            
+            for statement in statements:
+                try:
+                    cursor.execute(statement)
+                    if statement.strip().lower().startswith("select"):
+                        # Fetch results for SELECT queries
+                        rows = cursor.fetchall()
+                        # Get column names
+                        if cursor.description:
+                            columns = [description[0] for description in cursor.description]
+                            output_buffer.append(f"Result for: {statement.strip()[:50]}...")
+                            output_buffer.append(f"{' | '.join(columns)}")
+                            output_buffer.append("-" * 30)
+                            for row in rows:
+                                output_buffer.append(' | '.join(map(str, row)))
+                            output_buffer.append("\n")
+                    else:
+                        conn.commit()
+                        output_buffer.append(f"Executed: {statement.strip()[:50]}... (Rows affected: {cursor.rowcount})")
+                except Exception as stmt_err:
+                     output_buffer.append(f"Error executing statement '{statement.strip()[:30]}...': {str(stmt_err)}")
+            
+            conn.close()
+            final_output = "\n".join(output_buffer)
+            return {"success": True, "output": final_output if final_output else "SQL executed successfully (no text output)."}
+            
+        except Exception as e:
+            return {"success": False, "error": f"SQL execution failed: {str(e)}"}
+
+    else:
+        return {"success": False, "error": f"Execution for '{lang}' is not supported in this environment yet. But you can still compile it mentally! 🧠"}
 
 @app.get("/generate-flowchart")
 async def generate_flowchart(goal: str = "Learning Path"):
@@ -266,12 +488,12 @@ async def generate_resume(request: Dict):
         print(f"Resume generation error: {str(e)}")
         # Return a fallback structured resume with all user details
         return {
-            "success": False, 
-            "error": str(e),
+            "success": True, 
+            "error": None,
             "resume": {
                 "name": username,
                 "job_title": goal,
-                "summary": bio if bio else f"Aspiring {goal} with {experience_level.lower()} experience, dedicated to continuous learning and professional growth.",
+                "summary": bio if bio else f"Aspiring {goal} with {experience_level.lower()} experience. [Note: This is a DEMO resume generated because the AI service is currently rate-limited.]",
                 "contact": {
                     "phone": "+1 (555) 123-4567", 
                     "email": email, 

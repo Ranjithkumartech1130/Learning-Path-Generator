@@ -15,6 +15,16 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="template-styles.css">
+    <!-- CodeMirror -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/clike/clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/htmlmixed/htmlmixed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/css/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/sql/sql.min.js"></script>
 </head>
 
 <body>
@@ -154,6 +164,7 @@
                 <button class="nav-tab" onclick="switchTab('progress')"><i data-lucide="trending-up"></i>
                     Progress</button>
                 <button class="nav-tab" onclick="switchTab('resume')"><i data-lucide="file-text"></i> AI Resume</button>
+                <button class="nav-tab" onclick="switchTab('ide')"><i data-lucide="code"></i> IDE & Tasks</button>
                 <button class="nav-tab" onclick="switchTab('profile')"><i data-lucide="user"></i> Profile</button>
             </div>
 
@@ -411,6 +422,89 @@
                             <button class="btn-primary logout-btn" onclick="logout()">
                                 <i data-lucide="log-out"></i> Logout
                             </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- TAB: IDE -->
+            <div id="tab-ide" class="tab-view" style="display: none;">
+                <div class="ide-container">
+                    <div class="task-sidebar">
+                        <div class="task-sidebar-header">
+                            <h3 style="color: #60a5fa; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+                                <i data-lucide="list"></i> Tasks
+                            </h3>
+                        </div>
+                        <div id="task-list" class="task-list">
+                            <p class="text-sm" style="color: var(--text-dim); padding: 10px;">Select a goal to generate
+                                tasks.</p>
+                        </div>
+                        <div style="padding: 15px;">
+                            <button class="btn-primary w-full justify-center" onclick="generateTasks()"
+                                id="fetch-tasks-btn">
+                                <i data-lucide="plus"></i> Get More Tasks
+                            </button>
+                        </div>
+                    </div>
+                    <div class="code-area">
+                        <div
+                            style="padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: start;">
+                            <div>
+                                <h2 id="current-task-title" class="text-xl font-bold mb-1" style="color: white;">Select
+                                    a Task</h2>
+                                <p id="current-task-desc" class="text-sm" style="color: var(--text-dim);">Code your
+                                    solution below.</p>
+                            </div>
+                            <div style="width: 150px;">
+                                <select id="language-select" onchange="changeLanguage()"
+                                    style="background: rgba(15, 23, 42, 0.8); color: var(--text-dim); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 6px; font-size: 0.85rem;">
+                                    <option value="python">Python</option>
+                                    <option value="javascript">JavaScript</option>
+                                    <option value="java">Java</option>
+                                    <option value="cpp">C++</option>
+                                    <option value="csharp">C#</option>
+                                    <option value="html">HTML</option>
+                                    <option value="css">CSS</option>
+                                    <option value="sql">SQL</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="editor-container" style="flex: 1; overflow: hidden; position: relative;">
+                            <textarea id="code-editor" name="code-editor"></textarea>
+                        </div>
+
+                        <!-- Output Area -->
+                        <div style="padding: 0 20px; margin-top: 10px;">
+                            <div id="execution-result" style="display: none;"></div>
+                        </div>
+
+                        <!-- Controls -->
+                        <div class="code-toolbar">
+                            <div class="flex gap-3">
+                                <button class="btn-hint" onclick="toggleHint()" id="hint-btn">
+                                    <i data-lucide="lightbulb"></i> Show Hint
+                                </button>
+                                <button class="btn-secondary" onclick="resetCode()">
+                                    <i data-lucide="rotate-ccw"></i> Reset
+                                </button>
+                            </div>
+                            <div class="flex gap-3">
+                                <button class="btn-run" onclick="runCode()">
+                                    <i data-lucide="play"></i> Run Code
+                                </button>
+                                <button class="btn-primary" onclick="submitTask()">
+                                    <i data-lucide="check-circle"></i> Submit
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="solution-area"
+                            style="display: none; margin: 0 20px 20px 20px; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 8px; border: 1px dashed #f59e0b;">
+                            <h4 style="color: #f59e0b; font-size: 0.9rem; font-weight: bold; margin-bottom: 10px;">💡
+                                Solution / Hint</h4>
+                            <pre id="solution-code"
+                                style="color: #cbd5e1; font-family: 'Fira Code', monospace; font-size: 0.9rem; overflow-x: auto; white-space: pre-wrap;"></pre>
                         </div>
                     </div>
                 </div>

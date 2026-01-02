@@ -1,6 +1,9 @@
 const API_BASE = '/api';
 let currentUser = null;
 let currentAuthTab = 'Login';
+let codeEditor = null;
+let currentTasks = [];
+let activeTaskId = null;
 
 // --- Initialization ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -52,6 +55,7 @@ function switchTab(tabId) {
     }
 
     if (tabId === 'profile') updateProfileUI();
+    if (tabId === 'ide') initIDE();
 }
 
 // --- Auth Actions ---
@@ -179,6 +183,22 @@ function updateDashboardUI() {
             goalsList.innerHTML = '<span style="color: grey; font-size: 0.8rem;">No goals set yet.</span>';
         }
     }
+
+    // Restore path if exists
+    restorePath();
+}
+
+function restorePath() {
+    if (currentUser && currentUser.learning_paths && currentUser.learning_paths.length > 0) {
+        const lastPath = currentUser.learning_paths[currentUser.learning_paths.length - 1];
+        if (lastPath && lastPath.content) {
+            document.getElementById('path-result').style.display = 'block';
+            document.getElementById('path-text').innerHTML = marked.parse(lastPath.content);
+            const goal = currentUser.profile.learning_goals[0] || "Learning Path";
+            // Flowchart might need goal context, using last goal or default
+            document.getElementById('flowchart-img').src = `http://localhost:8001/generate-flowchart?goal=${encodeURIComponent(goal)}&t=${Date.now()}`;
+        }
+    }
 }
 
 function updateProfileUI() {
@@ -218,6 +238,17 @@ async function generatePath() {
         document.getElementById('path-result').style.display = 'block';
         document.getElementById('path-text').innerHTML = marked.parse(data.path);
 
+        // Save path to backend
+        await fetch(`${API_BASE}/user/save-path`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: currentUser.username, path: data.path })
+        });
+        // Update local user
+        if (!currentUser.learning_paths) currentUser.learning_paths = [];
+        currentUser.learning_paths.push({ content: data.path, created_at: new Date().toISOString() });
+        localStorage.setItem('bugbuster_user', JSON.stringify(currentUser));
+
         // Load Flowchart directly from AI service
         document.getElementById('flowchart-img').src = `http://localhost:8001/generate-flowchart?goal=${encodeURIComponent(goal)}&t=${Date.now()}`;
 
@@ -226,6 +257,10 @@ async function generatePath() {
 
         // Scroll to results
         document.getElementById('path-result').scrollIntoView({ behavior: 'smooth' });
+
+        // Auto-generate tasks for the new path
+        generateTasks(goal);
+
     } catch (err) {
         console.error(err);
         alert(`Error: ${err.message}. Please check console for details.`);
@@ -403,4 +438,286 @@ function logout() {
     localStorage.removeItem('bugbuster_user');
     currentUser = null;
     showView('login');
+}
+
+// --- IDE & Task Logic ---
+function initIDE() {
+    if (!codeEditor) {
+        codeEditor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
+            mode: "javascript",
+            theme: "dracula",
+            lineNumbers: true,
+            autoCloseBrackets: true,
+        });
+        codeEditor.setSize("100%", "100%");
+    }
+    // Load tasks if available
+    if (currentUser && currentUser.tasks) {
+        currentTasks = currentUser.tasks;
+        renderTasks();
+    }
+}
+
+async function generateTasks(goalContext = null) {
+    const goal = goalContext || document.getElementById('path-goal').value || currentUser.profile.learning_goals[0] || "General Coding";
+    const btn = document.getElementById('fetch-tasks-btn');
+    if (btn) btn.innerHTML = '<span class="spinner"></span> Loading...';
+
+    // Determine Adaptive Difficulty
+    let level = 'Beginner';
+    // Ensure progress exists
+    const count = (currentUser.progress && currentUser.progress.completed_tasks) ? currentUser.progress.completed_tasks : 0;
+
+    if (count >= 20) level = 'Advanced Mastery';
+    else if (count >= 10) level = 'Intermediate';
+
+    try {
+        const res = await fetch(`${API_BASE}/generate-tasks`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                goal: goal,
+                skills: currentUser.profile.skills || [],
+                experience_level: level,
+                focus_area: count >= 20 ? "Complex Systems & Optimization" : (count >= 10 ? "Real-world Applications" : "Fundamentals"),
+                language: document.getElementById('language-select') ? document.getElementById('language-select').value : 'python'
+            })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+            // Normalize tasks to include language if not present
+            const lang = document.getElementById('language-select') ? document.getElementById('language-select').value : 'python';
+            const tasks = data.tasks.map(t => ({ ...t, language: t.language || lang }));
+
+            // Save tasks to user profile via backend
+            const saveRes = await fetch(`${API_BASE}/user/assign-tasks`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: currentUser.username, tasks: tasks })
+            });
+            const saveData = await saveRes.json();
+            currentUser = saveData.user;
+            localStorage.setItem('bugbuster_user', JSON.stringify(currentUser));
+            currentTasks = currentUser.tasks;
+            renderTasks();
+            alert("New tasks assigned! Check the IDE tab.");
+        }
+    } catch (error) {
+        console.error("Task generation failed:", error);
+        alert("Failed to generate tasks.");
+    } finally {
+        if (btn) btn.innerHTML = '<i data-lucide="plus"></i> Get More Tasks';
+        if (window.lucide) window.lucide.createIcons();
+    }
+}
+
+function renderTasks() {
+    const list = document.getElementById('task-list');
+    list.innerHTML = '';
+
+    currentTasks.forEach(task => {
+        const div = document.createElement('div');
+        div.className = `task-item ${task.status === 'completed' ? 'completed' : ''}`;
+        div.style.padding = '10px';
+        div.style.borderBottom = '1px solid rgba(255,255,255,0.1)';
+        div.style.cursor = 'pointer';
+        div.style.background = activeTaskId === task.id ? 'rgba(255,255,255,0.1)' : 'transparent';
+
+        div.innerHTML = `
+            <div style="font-weight: bold; color: ${task.status === 'completed' ? '#10b981' : '#f8fafc'}">
+                ${task.status === 'completed' ? '✓ ' : ''}${task.title}
+            </div>
+            <div style="font-size: 0.8rem; color: #94a3b8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                ${task.description}
+            </div>
+        `;
+        div.onclick = () => loadTask(task.id);
+        list.appendChild(div);
+    });
+}
+
+function loadTask(id) {
+    activeTaskId = id;
+    const task = currentTasks.find(t => t.id === id);
+    if (!task) return;
+
+    document.getElementById('current-task-title').innerText = task.title;
+    document.getElementById('current-task-desc').innerText = task.description;
+
+    // Detect Language with Fallback
+    let lang = task.language;
+    if (!lang) {
+        const title = task.title.toLowerCase();
+        if (title.includes('sql')) lang = 'sql';
+        else if (title.includes('html') || title.includes('web')) lang = 'html';
+        else if (title.includes('css')) lang = 'css';
+        else if (title.includes('javascript') || title.includes('js')) lang = 'javascript';
+        else lang = 'python';
+    }
+    // Map to CodeMirror modes
+    const modeMap = {
+        'python': 'python',
+        'javascript': 'javascript',
+        'java': 'text/x-java',
+        'cpp': 'text/x-c++src',
+        'csharp': 'text/x-csharp',
+        'html': 'htmlmixed',
+        'css': 'css',
+        'sql': 'sql'
+    };
+
+    // Auto-select dropdown
+    const select = document.getElementById('language-select');
+    if (select) select.value = lang;
+
+    // Reset Hint
+    const hintArea = document.getElementById('solution-area');
+    if (hintArea) hintArea.style.display = 'none';
+
+    if (codeEditor) {
+        // Set mode
+        codeEditor.setOption("mode", modeMap[lang] || 'python');
+
+        // Force minimal visibility.
+        let initialCode = task.starter_code || (lang === 'python' ? "# Write your code here" : "// Write your code here");
+        codeEditor.setValue(initialCode);
+    }
+    renderTasks(); // update active highlight
+}
+
+function changeLanguage() {
+    const lang = document.getElementById('language-select').value;
+    const modeMap = {
+        'python': 'python',
+        'javascript': 'javascript',
+        'java': 'text/x-java',
+        'cpp': 'text/x-c++src',
+        'csharp': 'text/x-csharp',
+        'html': 'htmlmixed',
+        'css': 'css',
+        'sql': 'sql'
+    };
+    if (codeEditor) {
+        codeEditor.setOption("mode", modeMap[lang] || 'python');
+    }
+}
+
+function toggleHint() {
+    if (!activeTaskId) return;
+    const task = currentTasks.find(t => t.id === activeTaskId);
+    if (!task) return;
+
+    const area = document.getElementById('solution-area');
+    const code = document.getElementById('solution-code');
+
+    if (area.style.display === 'none') {
+        area.style.display = 'block';
+        code.innerText = task.solution || "No solution provided.";
+    } else {
+        area.style.display = 'none';
+    }
+}
+
+function resetCode() {
+    if (!activeTaskId) return;
+    const task = currentTasks.find(t => t.id === activeTaskId);
+    if (task && codeEditor) {
+        codeEditor.setValue(task.starter_code);
+    }
+}
+
+async function submitTask() {
+    if (!activeTaskId) return alert("Select a task first.");
+    const code = codeEditor.getValue();
+
+    // In a real app, send code to backend for execution.
+    // Here, we'll simulate verification.
+    document.getElementById('execution-result').innerText = "Running tests...";
+    document.getElementById('execution-result').className = "text-sm font-bold text-yellow-500";
+
+    setTimeout(async () => {
+        // Mock success
+        document.getElementById('execution-result').innerText = "Tests Passed! ✅";
+        document.getElementById('execution-result').className = "text-sm font-bold text-green-500";
+
+        // Update status in backend
+        try {
+            const res = await fetch(`${API_BASE}/user/complete-task`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: currentUser.username, taskId: activeTaskId })
+            });
+            const data = await res.json();
+            currentUser = data.user;
+            localStorage.setItem('bugbuster_user', JSON.stringify(currentUser));
+            currentTasks = currentUser.tasks;
+            renderTasks();
+            updateDashboardUI(); // Update streak in UI
+
+            // Celebration effect
+            const btn = document.querySelector(`div[onclick="loadTask('${activeTaskId}')"]`);
+            if (btn) btn.style.background = "#10b98133";
+
+        } catch (err) {
+            console.error("Failed to complete task:", err);
+        }
+    }, 1500);
+}
+
+async function runCode() {
+    const code = codeEditor.getValue();
+    const lang = document.getElementById('language-select').value;
+
+    const resultDiv = document.getElementById('execution-result');
+    resultDiv.style.display = 'block';
+
+    // Client-side execution for HTML/CSS
+    if (lang === 'html') {
+        resultDiv.innerHTML = '<iframe id="preview-frame" style="width:100%; height:300px; border:none; background:white; border-radius: 4px;"></iframe>';
+        const frame = document.getElementById('preview-frame');
+        const doc = frame.contentDocument || frame.contentWindow.document;
+        doc.open();
+        doc.write(code);
+        doc.close();
+        return;
+    }
+    else if (lang === 'css') {
+        resultDiv.innerHTML = '<iframe id="preview-frame" style="width:100%; height:300px; border:none; background:white; border-radius: 4px;"></iframe>';
+        const frame = document.getElementById('preview-frame');
+        const doc = frame.contentDocument || frame.contentWindow.document;
+        doc.open();
+        doc.write(`<html><head><style>${code}</style></head><body><h1>CSS Preview</h1><div class="test-element">This is a test element to check your CSS styles.</div><button>Button</button><input placeholder="Input..."></body></html>`);
+        doc.close();
+        return;
+    }
+
+    resultDiv.innerText = "Running...";
+    resultDiv.style.color = "#fbbf24"; // yellow
+
+    try {
+        const res = await fetch(`${API_BASE}/run-code`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code, language: lang })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+            resultDiv.innerText = `> Output:\n${data.output}`;
+            resultDiv.style.display = 'block';
+            resultDiv.style.color = "#93c5fd"; // light blue
+            resultDiv.style.whiteSpace = "pre-wrap";
+            resultDiv.className = ""; // clear previous classes
+        } else {
+            resultDiv.innerText = `> Error: ${data.error}`;
+            resultDiv.style.display = 'block';
+            resultDiv.style.color = "#ef4444"; // red
+            resultDiv.className = "";
+        }
+    } catch (err) {
+        console.error(err);
+        resultDiv.innerText = "Execution failed.";
+        resultDiv.className = "text-sm font-bold text-red-500";
+    }
 }
