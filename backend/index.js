@@ -253,11 +253,14 @@ const wss = new WebSocketServer({ server, path: '/terminal' });
 wss.on('connection', (ws) => {
     console.log('Terminal connected');
 
-    const shell = process.platform === 'win32' ? 'powershell.exe' : 'bash';
-    const term = spawn(shell, ['-NoLogo', '-NoExit', '-Command', '-'], {
+    // Switch to cmd.exe on Windows for better stability with standard streams if powershell behaves oddly
+    const shell = process.platform === 'win32' ? 'cmd.exe' : 'bash';
+    const args = process.platform === 'win32' ? [] : ['-i'];
+
+    const term = spawn(shell, args, {
         cwd: path.join(__dirname, '..'), // Parent dir of backend (project root)
-        env: process.env,
-        shell: true
+        env: { ...process.env, TERM: 'xterm-256color' },
+        shell: false
     });
 
     term.stdout.on('data', (data) => {
@@ -269,15 +272,23 @@ wss.on('connection', (ws) => {
     });
 
     ws.on('message', (msg) => {
-        term.stdin.write(msg.toString());
+        // Log input for debugging
+        // console.log('Term raw input:', msg);
+        term.stdin.write(msg);
     });
 
     ws.on('close', () => {
+        console.log('Terminal disconnected');
         term.kill();
     });
 
     term.on('close', () => {
         ws.close();
+    });
+
+    term.on('error', (err) => {
+        console.error('Failed to start terminal process:', err);
+        ws.send('\r\n\x1b[31m[ ERROR: Failed to start shell process ]\x1b[0m\r\n');
     });
 });
 

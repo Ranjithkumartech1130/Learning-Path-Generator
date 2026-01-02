@@ -239,7 +239,17 @@ async function generatePath() {
         }
 
         document.getElementById('path-result').style.display = 'block';
-        document.getElementById('path-text').innerHTML = marked.parse(data.path);
+
+        // Typing effect for the path
+        typeMarkedContent('path-text', data.path);
+
+        // Also display in terminal if connected
+        if (xterm && terminalSocket && terminalSocket.readyState === WebSocket.OPEN) {
+            xterm.write('\r\n\x1b[36m[ AI: Generating Learning Path... ]\x1b[0m\r\n');
+            const cleanText = data.path.replace(/\n/g, '\r\n');
+            // Write to terminal with a slight delay imitation if desired, or just dump it
+            xterm.write(cleanText + '\r\n');
+        }
 
         // Save path to backend
         await fetch(`${API_BASE}/user/save-path`, {
@@ -428,6 +438,34 @@ function buildPremiumResume(data) {
         </div>
     `;
 }
+
+function typeMarkedContent(elementId, fullText) {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+    element.innerHTML = '';
+    let currentText = '';
+    let index = 0;
+    const speed = 2; // Fast typing speed
+
+    function type() {
+        if (index < fullText.length) {
+            currentText += fullText[index];
+            element.innerHTML = marked.parse(currentText);
+            index++;
+
+            // Auto-scroll to bottom of the content
+            const container = element.parentElement;
+            if (container) container.scrollTop = container.scrollHeight;
+
+            setTimeout(type, speed);
+        } else {
+            element.innerHTML = marked.parse(fullText);
+            if (window.lucide) window.lucide.createIcons();
+        }
+    }
+    type();
+}
+
 
 function updateProgress() {
     alert("Activity Logged! (This is a demonstration - progress tracking is being saved to your profile).");
