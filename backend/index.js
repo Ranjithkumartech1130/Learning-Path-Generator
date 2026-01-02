@@ -243,6 +243,44 @@ app.post('/api/generate-resume', async (req, res) => {
     }
 });
 
-app.listen(PORT, '0.0.0.0', () => {
+const http = require('http');
+const { WebSocketServer } = require('ws');
+const { spawn } = require('child_process');
+
+const server = http.createServer(app);
+const wss = new WebSocketServer({ server, path: '/terminal' });
+
+wss.on('connection', (ws) => {
+    console.log('Terminal connected');
+
+    const shell = process.platform === 'win32' ? 'powershell.exe' : 'bash';
+    const term = spawn(shell, ['-NoLogo', '-NoExit', '-Command', '-'], {
+        cwd: path.join(__dirname, '..'), // Parent dir of backend (project root)
+        env: process.env,
+        shell: true
+    });
+
+    term.stdout.on('data', (data) => {
+        ws.send(data.toString());
+    });
+
+    term.stderr.on('data', (data) => {
+        ws.send(data.toString());
+    });
+
+    ws.on('message', (msg) => {
+        term.stdin.write(msg.toString());
+    });
+
+    ws.on('close', () => {
+        term.kill();
+    });
+
+    term.on('close', () => {
+        ws.close();
+    });
+});
+
+server.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });

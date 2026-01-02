@@ -4,6 +4,9 @@ let currentAuthTab = 'Login';
 let codeEditor = null;
 let currentTasks = [];
 let activeTaskId = null;
+let xterm = null;
+let terminalSocket = null;
+let fitAddon = null;
 
 // --- Initialization ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -732,4 +735,105 @@ async function runCode() {
         resultDiv.innerText = "Execution failed.";
         resultDiv.className = "text-sm font-bold text-red-500";
     }
+}
+
+// --- Terminal Logic ---
+function toggleTerminal() {
+    const panel = document.getElementById('terminal-panel');
+    const btn = document.getElementById('terminal-toggle-btn');
+    const isHidden = panel.style.display === 'none';
+
+    if (isHidden) {
+        panel.style.display = 'block';
+        btn.classList.add('active');
+        initTerminal();
+    } else {
+        panel.style.display = 'none';
+        btn.classList.remove('active');
+        if (terminalSocket) {
+            terminalSocket.close();
+            terminalSocket = null;
+        }
+    }
+}
+
+function initTerminal() {
+    if (xterm) {
+        connectTerminalSocket();
+        setTimeout(() => fitAddon.fit(), 100);
+        return;
+    }
+
+    // Initialize xterm
+    xterm = new Terminal({
+        cursorBlink: true,
+        fontSize: 13,
+        fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
+        theme: {
+            background: '#0a0a0a',
+            foreground: '#f8fafc',
+            cursor: '#60a5fa',
+            selection: 'rgba(96, 165, 250, 0.3)',
+            black: '#000000',
+            red: '#ef4444',
+            green: '#22c55e',
+            yellow: '#eab308',
+            blue: '#3b82f6',
+            magenta: '#a855f7',
+            cyan: '#06b6d4',
+            white: '#f8fafc'
+        }
+    });
+
+    try {
+        fitAddon = new (window.FitAddon?.FitAddon || window.fitAddon?.FitAddon)();
+        xterm.loadAddon(fitAddon);
+    } catch (e) {
+        console.error("FitAddon load failed:", e);
+    }
+
+    xterm.open(document.getElementById('terminal-container'));
+    if (fitAddon) fitAddon.fit();
+
+    // Resize listener
+    window.addEventListener('resize', () => {
+        const p = document.getElementById('terminal-panel');
+        if (p && p.style.display !== 'none' && fitAddon) fitAddon.fit();
+    });
+
+    xterm.onData(data => {
+        if (terminalSocket && terminalSocket.readyState === WebSocket.OPEN) {
+            terminalSocket.send(data);
+        }
+    });
+
+    connectTerminalSocket();
+}
+
+function connectTerminalSocket() {
+    if (terminalSocket && terminalSocket.readyState === WebSocket.OPEN) return;
+
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const wsUrl = `${protocol}//${window.location.host}/terminal`;
+
+    terminalSocket = new WebSocket(wsUrl);
+
+    terminalSocket.onopen = () => {
+        xterm.write('\r\n\x1b[32m[ SYSTEM: Terminal Connected ]\x1b[0m\r\n');
+        // Clear anything and show prompt
+        terminalSocket.send('\r');
+    };
+
+    terminalSocket.onmessage = (event) => {
+        xterm.write(event.data);
+    };
+
+    terminalSocket.onclose = () => {
+        xterm.write('\r\n\x1b[31m[ SYSTEM: Terminal Disconnected ]\x1b[0m\r\n');
+    };
+
+    terminalSocket.onerror = (err) => {
+        console.error('Terminal WebSocket Error:', err);
+        xterm.write('\r\n\x1b[31m[ SYSTEM: Error connecting to terminal backend ]\x1b[0m\r\n');
+    };
 }

@@ -421,6 +421,12 @@ body::before {
     color: white;
 }
 
+.btn-secondary.active {
+    background: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
+    border-color: rgba(59, 130, 246, 0.4);
+}
+
 .btn-run {
     background: linear-gradient(135deg, #10b981 0%, #059669 100%);
     color: white;
