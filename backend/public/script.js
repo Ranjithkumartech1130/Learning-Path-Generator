@@ -444,13 +444,23 @@ function logout() {
 function initIDE() {
     if (!codeEditor) {
         codeEditor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
-            mode: "javascript",
+            mode: "python",
             theme: "dracula",
             lineNumbers: true,
             autoCloseBrackets: true,
+            scrollbarStyle: "native",
+            tabSize: 4,
+            indentUnit: 4,
+            lineWrapping: true
         });
         codeEditor.setSize("100%", "100%");
     }
+
+    // Refresh editor to fix display issues after showing hidden tab
+    setTimeout(() => {
+        codeEditor.refresh();
+    }, 100);
+
     // Load tasks if available
     if (currentUser && currentUser.tasks) {
         currentTasks = currentUser.tasks;
@@ -518,14 +528,11 @@ function renderTasks() {
 
     currentTasks.forEach(task => {
         const div = document.createElement('div');
-        div.className = `task-item ${task.status === 'completed' ? 'completed' : ''}`;
-        div.style.padding = '10px';
-        div.style.borderBottom = '1px solid rgba(255,255,255,0.1)';
-        div.style.cursor = 'pointer';
-        div.style.background = activeTaskId === task.id ? 'rgba(255,255,255,0.1)' : 'transparent';
+        const isActive = activeTaskId === task.id;
+        div.className = `task-item ${task.status === 'completed' ? 'completed' : ''} ${isActive ? 'active-task' : ''}`;
 
         div.innerHTML = `
-            <div style="font-weight: bold; color: ${task.status === 'completed' ? '#10b981' : '#f8fafc'}">
+            <div style="font-weight: bold; color: ${task.status === 'completed' ? '#10b981' : (isActive ? '#60a5fa' : '#f8fafc')}">
                 ${task.status === 'completed' ? '✓ ' : ''}${task.title}
             </div>
             <div style="font-size: 0.8rem; color: #94a3b8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
@@ -582,6 +589,11 @@ function loadTask(id) {
         // Force minimal visibility.
         let initialCode = task.starter_code || (lang === 'python' ? "# Write your code here" : "// Write your code here");
         codeEditor.setValue(initialCode);
+
+        // Refresh to ensure correct rendering
+        setTimeout(() => {
+            codeEditor.refresh();
+        }, 50);
     }
     renderTasks(); // update active highlight
 }

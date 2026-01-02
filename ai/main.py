@@ -75,24 +75,24 @@ async def generate_path(request: PathRequest):
 
         OUTPUT FORMAT (Markdown):
 
-        ### 📄 Detailed Learning Path
+        ### 🚀 Your Personalized Curriculum
+        
         [Introductory motivational paragraph about their journey to {request.goal}, referencing their current skills]
 
         ### 📚 Recommended Open Source Resources
-
-        | 🎓 Top Courses | 💻 Practice Platforms | 🤝 Communities |
+        
+        | 🎓 Platform / Course | 🔗 Link | 💡 Why this? |
         | :--- | :--- | :--- |
-        | [Course Name](link) | [Platform Name](link) | [Community Name](link) |
-        | [Course Name](link) | [Platform Name](link) | [Community Name](link) |
+        | [Name] | [Link] | [Benefit] |
+        | [Name] | [Link] | [Benefit] |
+
+        ### 🗂️ Detailed Learning Modules
         
-        ### 3. OPEN SOURCE LEARNING RESOURCES
-        
-        *   **Free Online Courses:**
-            *   **Topic 1:**
-                *   [Resource Name](link) - [Brief description]
-                *   [Resource Name](link) - [Brief description]
-            *   **Topic 2:**
-                *   ...
+        #### 1. Phase 1: Foundations & Core Concepts
+        *   **Focus:** [Topics]
+        *   **Key Resources:**
+            *   [Resource 1](link) - [Brief description]
+            *   [Resource 2](link) - [Brief description]
         
         ### 🚀 Your Personalized Learning Path: Accelerating Towards Mastery
         
@@ -101,17 +101,20 @@ async def generate_path(request: PathRequest):
             *   **Strengths:** [List strengths]
             *   **Gap Analysis:** [What is missing]
 
-        #### 2. FOUNDATION (Weeks 1-4)
+        #### 2. Phase 2: Core Expertise & Integration
         *   **Focus:** [Topics]
         *   **Action Items:**
             *   [Task 1]
             *   [Task 2]
         
-        #### 3. CORE SKILLS (Weeks 5-8)
-        *   ...
+        #### 3. Phase 3: Advanced Mastery & Real-world Projects
+        *   **Focus:** [Deep dive topics]
+        *   **Portfolio Project:** [Detailed project idea]
 
-        #### 4. MASTERY & PROJECTS
-        *   ...
+        #### 🚀 Next Steps: Journey to Success
+        *   [Certification recommendation]
+        *   [Networking strategy]
+        *   [Contribution to Open Source]
         """
         
         response = model.generate_content(prompt)
@@ -170,15 +173,12 @@ async def generate_path(request: PathRequest):
         """
         return {"success": True, "path": textwrap.dedent(fallback_path)}
 
-        return {"success": True, "path": textwrap.dedent(fallback_path)}
-
-@app.post("/generate-tasks")
 class TaskRequest(BaseModel):
     goal: str
-    skills: list[str] = []
+    skills: List[str] = []
     experience_level: str
     focus_area: str
-    language: str = "python"  # Added language field
+    language: str = "python"
 
 @app.post("/generate-tasks")
 async def generate_tasks(request: TaskRequest):
