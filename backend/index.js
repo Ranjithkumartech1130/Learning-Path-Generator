@@ -149,8 +149,18 @@ app.post('/api/user/assign-tasks', (req, res) => {
     res.json({ success: true, tasks: newTasks, user: users[username] });
 });
 
+app.post('/api/user/clear-tasks', (req, res) => {
+    const { username } = req.body;
+    const users = loadUsers();
+    if (!users[username]) return res.status(404).json({ message: "User not found" });
+
+    users[username].tasks = [];
+    saveUsers(users);
+    res.json({ success: true, user: users[username] });
+});
+
 app.post('/api/user/complete-task', (req, res) => {
-    const { username, taskId } = req.body;
+    const { username, taskId, duration } = req.body;
     const users = loadUsers();
     if (!users[username]) return res.status(404).json({ message: "User not found" });
 
@@ -159,33 +169,49 @@ app.post('/api/user/complete-task', (req, res) => {
 
     if (taskIndex === -1) return res.status(404).json({ message: "Task not found" });
 
-    if (users[username].tasks[taskIndex].status !== 'completed') {
-        users[username].tasks[taskIndex].status = 'completed';
+    // Allow updating time/stats even if already completed (if user improves solution)
+    // But usually we only count streak once.
+    // Let's assume we update status to completed if not already.
+    const isFirstCompletion = users[username].tasks[taskIndex].status !== 'completed';
+    users[username].tasks[taskIndex].status = 'completed';
 
-        if (!users[username].progress) users[username].progress = { streak: 0, completed_tasks: 0, last_active: null };
+    // Store time spent on this specific task
+    const taskDuration = duration || 0; // in seconds
+    users[username].tasks[taskIndex].time_spent = (users[username].tasks[taskIndex].time_spent || 0) + taskDuration;
+
+    if (!users[username].progress) users[username].progress = { streak: 0, completed_tasks: 0, last_active: null, active_days: 0, total_time: 0 };
+
+    // Update global total time
+    users[username].progress.total_time = (users[username].progress.total_time || 0) + taskDuration;
+
+    if (isFirstCompletion) {
         users[username].progress.completed_tasks += 1;
+    }
 
-        // Streak Logic: Check if last active was yesterday or today
-        const today = new Date().toDateString();
-        const lastActiveDate = users[username].progress.last_active ? new Date(users[username].progress.last_active) : null;
-        const lastActive = lastActiveDate ? lastActiveDate.toDateString() : null;
+    // Streak and Active Days Logic
+    const today = new Date().toDateString();
+    const lastActiveDate = users[username].progress.last_active ? new Date(users[username].progress.last_active) : null;
+    const lastActive = lastActiveDate ? lastActiveDate.toDateString() : null;
 
-        if (today !== lastActive) {
-            if (lastActive) {
-                const yesterday = new Date();
-                yesterday.setDate(yesterday.getDate() - 1);
+    if (today !== lastActive) {
+        // Increment Active Days (unique days)
+        users[username].progress.active_days = (users[username].progress.active_days || 0) + 1;
 
-                if (lastActive === yesterday.toDateString()) {
-                    users[username].progress.streak += 1;
-                } else {
-                    // Streak broken
-                    users[username].progress.streak = 1;
-                }
+        if (lastActive) {
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+
+            if (lastActive === yesterday.toDateString()) {
+                users[username].progress.streak += 1;
             } else {
+                // Streak broken, reset to 1 (since they are active today)
                 users[username].progress.streak = 1;
             }
-            users[username].progress.last_active = new Date().toISOString();
+        } else {
+            // First time ever active
+            users[username].progress.streak = 1;
         }
+        users[username].progress.last_active = new Date().toISOString();
     }
 
     saveUsers(users);
@@ -199,6 +225,16 @@ app.post('/api/run-code', async (req, res) => {
     } catch (error) {
         console.error("Exec Error:", error.response?.data || error.message);
         res.status(500).json({ success: false, error: "Execution server failed" });
+    }
+});
+
+app.post('/api/evaluate-code', async (req, res) => {
+    try {
+        const response = await axios.post(`${AI_SERVICE_URL}/evaluate-code`, req.body);
+        res.json(response.data);
+    } catch (error) {
+        console.error("Eval Error:", error.response?.data || error.message);
+        res.status(500).json({ success: false, error: "Evaluation server failed" });
     }
 });
 

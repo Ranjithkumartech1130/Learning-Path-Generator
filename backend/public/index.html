@@ -174,15 +174,15 @@
                 <div class="metrics-row">
                     <div class="metric-card">
                         <div class="title">Active Days</div>
-                        <div class="value">1 Days</div>
+                        <div class="value" id="active-days-val">1 Days</div>
                     </div>
-                    <div class="metric-card">
+                    <div class="metric-card" id="streak-card">
                         <div class="title">Current Streak</div>
-                        <div class="value">1 Days 🔥</div>
+                        <div class="value" id="streak-val">1 Days 🔥</div>
                     </div>
                     <div class="metric-card">
                         <div class="title">Total Time</div>
-                        <div class="value">1h 0m</div>
+                        <div class="value" id="total-time-val">1h 0m</div>
                     </div>
                 </div>
                 <div class="grid-2 mt-4">
@@ -291,15 +291,15 @@
                     <div class="metrics-row">
                         <div class="metric-card">
                             <div class="title">Active Days</div>
-                            <div class="value">1 days</div>
+                            <div class="value" id="prog-active-days-val">1 days</div>
                         </div>
-                        <div class="metric-card">
+                        <div class="metric-card" id="prog-streak-card">
                             <div class="title">Current Streak</div>
-                            <div class="value">1 days 🔥</div>
+                            <div class="value" id="prog-streak-val">1 days 🔥</div>
                         </div>
                         <div class="metric-card">
                             <div class="title">Total Time</div>
-                            <div class="value">1h 0m</div>
+                            <div class="value" id="prog-total-time-val">1h 0m</div>
                         </div>
                     </div>
 
@@ -440,25 +440,37 @@
                             <p class="text-sm" style="color: var(--text-dim); padding: 10px;">Select a goal to generate
                                 tasks.</p>
                         </div>
-                        <div style="padding: 15px;">
+                        <div style="padding: 15px; display: flex; flex-direction: column; gap: 10px;">
                             <button class="btn-primary w-full justify-center" onclick="generateTasks()"
                                 id="fetch-tasks-btn">
                                 <i data-lucide="plus"></i> Get More Tasks
                             </button>
+                            <button class="btn-secondary w-full justify-center" onclick="clearTasks()"
+                                id="clear-tasks-btn" style="color: #ef4444; border-color: rgba(239, 68, 68, 0.2);">
+                                <i data-lucide="trash-2"></i> Clear All Tasks
+                            </button>
                         </div>
                     </div>
                     <div class="code-area">
+                        <div class="editor-header">
+                            <div class="editor-tab active">
+                                <i data-lucide="file-code" style="width: 14px; color: #3b82f6;"></i>
+                                <span id="tab-filename">solution.py</span>
+                            </div>
+                        </div>
                         <div
-                            style="padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: start;">
+                            style="padding: 12px 20px; background: #1e1e1e; border-bottom: 1px solid #333; display: flex; justify-content: space-between; align-items: center;">
                             <div>
-                                <h2 id="current-task-title" class="text-xl font-bold mb-1" style="color: white;">Select
+                                <h2 id="current-task-title" class="text-lg font-bold"
+                                    style="color: #60a5fa; margin: 0;">Select
                                     a Task</h2>
-                                <p id="current-task-desc" class="text-sm" style="color: var(--text-dim);">Code your
+                                <p id="current-task-desc" class="text-xs" style="color: #858585; margin: 2px 0 0 0;">
+                                    Code your
                                     solution below.</p>
                             </div>
-                            <div style="width: 150px;">
+                            <div style="width: 130px;">
                                 <select id="language-select" onchange="changeLanguage()"
-                                    style="background: rgba(15, 23, 42, 0.8); color: var(--text-dim); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 6px; font-size: 0.85rem;">
+                                    style="background: #252526; color: #cccccc; border: 1px solid #3c3c3c; border-radius: 4px; padding: 4px 8px; font-size: 0.75rem;">
                                     <option value="python">Python</option>
                                     <option value="javascript">JavaScript</option>
                                     <option value="java">Java</option>

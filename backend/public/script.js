@@ -7,6 +7,7 @@ let activeTaskId = null;
 let xterm = null;
 let terminalSocket = null;
 let fitAddon = null;
+let currentTaskStartTime = null;
 
 // --- Initialization ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -187,8 +188,36 @@ function updateDashboardUI() {
         }
     }
 
+    // Metrics
+    if (currentUser.progress) {
+        const p = currentUser.progress;
+
+        // Active Days
+        const activeDaysText = `${p.active_days || 0} Days`;
+        if (document.getElementById('active-days-val')) document.getElementById('active-days-val').innerText = activeDaysText;
+        if (document.getElementById('prog-active-days-val')) document.getElementById('prog-active-days-val').innerText = activeDaysText;
+
+        // Streak
+        const streakText = `${p.streak || 0} Days 🔥`;
+        if (document.getElementById('streak-val')) document.getElementById('streak-val').innerText = streakText;
+        if (document.getElementById('prog-streak-val')) document.getElementById('prog-streak-val').innerText = streakText;
+
+        // Total Time
+        const timeText = formatTime(p.total_time || 0);
+        if (document.getElementById('total-time-val')) document.getElementById('total-time-val').innerText = timeText;
+        if (document.getElementById('prog-total-time-val')) document.getElementById('prog-total-time-val').innerText = timeText;
+    }
+
     // Restore path if exists
     restorePath();
+}
+
+function formatTime(seconds) {
+    if (!seconds) return "0m";
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    if (h > 0) return `${h}h ${m}m`;
+    return `${m}m`;
 }
 
 function restorePath() {
@@ -563,6 +592,36 @@ async function generateTasks(goalContext = null) {
     }
 }
 
+async function clearTasks() {
+    if (!confirm("Are you sure you want to clear all tasks? This cannot be undone.")) return;
+
+    try {
+        const res = await fetch(`${API_BASE}/user/clear-tasks`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: currentUser.username })
+        });
+        const data = await res.json();
+        if (data.success) {
+            currentUser = data.user;
+            localStorage.setItem('bugbuster_user', JSON.stringify(currentUser));
+            currentTasks = [];
+            activeTaskId = null;
+            renderTasks();
+
+            // Clear editor
+            if (codeEditor) codeEditor.setValue("");
+            document.getElementById('current-task-title').innerText = "Select a Task";
+            document.getElementById('current-task-desc').innerText = "Code your solution below.";
+
+            alert("Tasks cleared successfully.");
+        }
+    } catch (error) {
+        console.error("Failed to clear tasks:", error);
+        alert("Failed to clear tasks.");
+    }
+}
+
 function renderTasks() {
     const list = document.getElementById('task-list');
     list.innerHTML = '';
@@ -637,6 +696,9 @@ function loadTask(id) {
         }, 50);
     }
     renderTasks(); // update active highlight
+
+    // Start Timer
+    currentTaskStartTime = Date.now();
 }
 
 function changeLanguage() {
@@ -654,6 +716,14 @@ function changeLanguage() {
     if (codeEditor) {
         codeEditor.setOption("mode", modeMap[lang] || 'python');
     }
+
+    // Update Tab Filename
+    const extMap = {
+        'python': 'py', 'javascript': 'js', 'java': 'java', 'cpp': 'cpp',
+        'csharp': 'cs', 'html': 'html', 'css': 'css', 'sql': 'sql'
+    };
+    const tabLabel = document.getElementById('tab-filename');
+    if (tabLabel) tabLabel.innerText = `solution.${extMap[lang] || 'txt'}`;
 }
 
 function toggleHint() {
@@ -682,40 +752,74 @@ function resetCode() {
 
 async function submitTask() {
     if (!activeTaskId) return alert("Select a task first.");
+    const task = currentTasks.find(t => t.id === activeTaskId);
+    if (!task) return;
+
     const code = codeEditor.getValue();
+    const resultDiv = document.getElementById('execution-result');
+    resultDiv.style.display = 'block';
+    resultDiv.innerHTML = '<span class="spinner" style="width: 14px; height: 14px;"></span> Running evaluation tests...';
+    resultDiv.style.color = "#fbbf24";
 
-    // In a real app, send code to backend for execution.
-    // Here, we'll simulate verification.
-    document.getElementById('execution-result').innerText = "Running tests...";
-    document.getElementById('execution-result').className = "text-sm font-bold text-yellow-500";
+    try {
+        const res = await fetch(`${API_BASE}/evaluate-code`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                code: code,
+                language: task.language || document.getElementById('language-select').value,
+                test_cases: task.test_cases || []
+            })
+        });
+        const data = await res.json();
 
-    setTimeout(async () => {
-        // Mock success
-        document.getElementById('execution-result').innerText = "Tests Passed! ✅";
-        document.getElementById('execution-result').className = "text-sm font-bold text-green-500";
+        if (data.success) {
+            if (data.all_passed) {
+                resultDiv.innerHTML = '<div style="color: #10b981; font-weight: bold;">All Tests Passed! ✅</div>';
 
-        // Update status in backend
-        try {
-            const res = await fetch(`${API_BASE}/user/complete-task`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username: currentUser.username, taskId: activeTaskId })
-            });
-            const data = await res.json();
-            currentUser = data.user;
-            localStorage.setItem('bugbuster_user', JSON.stringify(currentUser));
-            currentTasks = currentUser.tasks;
-            renderTasks();
-            updateDashboardUI(); // Update streak in UI
+                // Show breakdown if multiple tests
+                if (data.results && data.results.length > 0) {
+                    let breakdown = '<div style="font-size: 0.8rem; margin-top: 5px; color: #94a3b8;">' +
+                        data.results.map(r => `Test ${r.test_id}: Passed`).join(' | ') +
+                        '</div>';
+                    resultDiv.innerHTML += breakdown;
+                }
 
-            // Celebration effect
-            const btn = document.querySelector(`div[onclick="loadTask('${activeTaskId}')"]`);
-            if (btn) btn.style.background = "#10b98133";
+                // Update status in backend
+                const duration = currentTaskStartTime ? Math.round((Date.now() - currentTaskStartTime) / 1000) : 0;
+                currentTaskStartTime = Date.now();
 
-        } catch (err) {
-            console.error("Failed to complete task:", err);
+                const completeRes = await fetch(`${API_BASE}/user/complete-task`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: currentUser.username, taskId: activeTaskId, duration: duration })
+                });
+                const completeData = await completeRes.json();
+                currentUser = completeData.user;
+                localStorage.setItem('bugbuster_user', JSON.stringify(currentUser));
+                currentTasks = currentUser.tasks;
+                renderTasks();
+                updateDashboardUI();
+            } else {
+                resultDiv.innerHTML = '<div style="color: #ef4444; font-weight: bold;">Some Tests Failed. ❌</div>';
+                let list = '<ul style="font-size: 0.85rem; margin-top: 5px; list-style: none; padding: 0;">';
+                data.results.forEach(r => {
+                    if (!r.passed) {
+                        list += `<li style="margin-bottom: 5px; color: #f87171;">Test ${r.test_id} Failed: ${r.error || `Expected "${r.expected}", Got "${r.actual}"`}</li>`;
+                    }
+                });
+                list += '</ul>';
+                resultDiv.innerHTML += list;
+            }
+        } else {
+            resultDiv.innerText = `Evaluation Error: ${data.error}`;
+            resultDiv.style.color = "#ef4444";
         }
-    }, 1500);
+    } catch (err) {
+        console.error(err);
+        resultDiv.innerText = "Connection failed during evaluation.";
+        resultDiv.style.color = "#ef4444";
+    }
 }
 
 async function runCode() {
