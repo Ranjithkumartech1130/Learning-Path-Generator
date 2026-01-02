@@ -34,7 +34,7 @@ if not GEMINI_API_KEY:
     print("Error: GEMINI_API_KEY not found in environment variables. Please set it in your .env file.")
 else:
     genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel("gemini-2.5-flash")
+model = genai.GenerativeModel("gemini-1.5-flash")
 
 class UserProfile(BaseModel):
     experience_level: str
@@ -62,16 +62,78 @@ class TaskRequest(BaseModel):
 @app.post("/generate-path")
 async def generate_path(request: PathRequest):
     try:
-        skill_strategy = ("Leverage the user's existing skills to accelerate the path." 
-                         if request.use_previous_skills else "Start from foundations.")
+        skill_strategy = ("Leveraging your existing expertise to fast-track your progress." 
+                         if request.use_previous_skills else "Starting from foundational principles for a solid base.")
         
         prompt = f"""
+        Act as a Principal Engineer and Career Architect. Generate a RIGOROUSLY ACCURATE and hyper-specific learning path for becoming a: {request.goal}
+
+        USER CONTEXT:
+        - Experience Level: {request.user_profile.experience_level}
+        - Current Skills: {', '.join(request.user_profile.skills)}
+        - Learning Strategy: {skill_strategy}
+
+        CORE REQUIREMENT: You MUST provide specific, domain-relevant Open Source resources. Do not give generic links like 'Google' or 'YouTube'. Find actual GitHub repositories, official documentation, and specialized open-source curricula for {request.goal}.
+
+        OUTPUT FORMAT (Markdown) - FOLLOW THIS EXACT STRUCTURE:
+
+        ### 🚀 Your Personalized Curriculum
+        
+        [Motivational intro for {request.goal}, referencing their current {request.user_profile.experience_level} status.]
+
+        ### 📚 Global Master Resources
+        
+        | 🎓 Resource / GitHub Repo | 🔗 Direct Link | 💡 Context for {request.goal} |
+        | :--- | :--- | :--- |
+        | [Specific Repo/Doc Name] | [Exact URL] | [Global Authority link] |
+
+        ### 🗂️ Detailed Learning Modules
+        
+        #### 1. Phase 1: Foundations & Core Concepts
+        *   **Focus:** [Pillars of {request.goal}]
+        *   **📖 Resources & Documentation:**
+            * [Resource Name](link) - Description of why this is needed for Phase 1.
+            * [Resource Name](link) - Description of why this is needed for Phase 1.
+        *   **🏁 Milestone Project:** [Project description]
+        
+        #### 2. Phase 2: Core Expertise & Integration
+        *   **Focus:** [Advanced {request.goal} tech stack]
+        *   **📖 Resources & Documentation:**
+            * [Resource Name](link) - Description of why this is needed for Phase 2.
+            * [Resource Name](link) - Description of why this is needed for Phase 2.
+        *   **🏁 Milestone Project:** [Project description]
+
+        #### 3. Phase 3: Advanced Mastery & Specialization
+        *   **Focus:** [Scaling and optimization]
+        *   **📖 Resources & Documentation:**
+            * [Resource Name](link) - Advanced docs for Phase 3.
+            * [Resource Name](link) - Advanced docs for Phase 3.
+        *   **🏁 Capstone Project:** [Complex project idea]
+
+        ### 🚀 Accelerating Towards Mastery: Assessment
+        *   **Current Skill Assessment:**
+            *   **Strengths:** [Specific to goal]
+            *   **Gap Analysis:** [Specific to {request.goal}]
+
+        ### 🚀 Next Steps: Journey to Success
+        *   [Relevant Certification]
+        *   [Industry Networking]
+        *   [Open Source Contribution Strategy]
+
+        IMPORTANT: Ensure every single phase has specific, REAL, and ACCURATE links.
+        """
+        
+        response = model.generate_content(prompt)
+        return {"success": True, "path": response.text}
+    except Exception as e:
+        print(f"AI Generation Failed: {e}. Returning fallback content.")
+        fallback_path = f"""
         Act as a career mentor. Generate a detailed learning path for: {request.goal}
 
         USER PROFILE:
-        - Level: {request.user_profile.experience_level}
-        - Skills: {', '.join(request.user_profile.skills)}
-        - Strategy: {skill_strategy}
+            - Level: {request.user_profile.experience_level}
+            - Skills: {', '.join(request.user_profile.skills)}
+            - Strategy: {skill_strategy}
 
         OUTPUT FORMAT (Markdown):
 
@@ -92,10 +154,10 @@ async def generate_path(request: PathRequest):
         *   **Focus:** [Topics]
         *   **Key Resources:**
             *   [Resource 1](link) - [Brief description]
-            *   [Resource 2](link) - [Brief description]
-        
+                *   [Resource 2](link) - [Brief description]
+                
         ### 🚀 Your Personalized Learning Path: Accelerating Towards Mastery
-        
+                
         #### 1. OVERVIEW & ASSESSMENT
         *   **Current Skill Assessment:**
             *   **Strengths:** [List strengths]
@@ -106,7 +168,7 @@ async def generate_path(request: PathRequest):
         *   **Action Items:**
             *   [Task 1]
             *   [Task 2]
-        
+                
         #### 3. Phase 3: Advanced Mastery & Real-world Projects
         *   **Focus:** [Deep dive topics]
         *   **Portfolio Project:** [Detailed project idea]
@@ -116,62 +178,10 @@ async def generate_path(request: PathRequest):
         *   [Networking strategy]
         *   [Contribution to Open Source]
         """
-        
+                
         response = model.generate_content(prompt)
         return {"success": True, "path": response.text}
-    except Exception as e:
-        print(f"AI Generation Failed: {e}. Returning fallback content.")
-        fallback_path = f"""
-        # ⚠️ AI Service Unavailable (Quota Exceeded) - Showing Demo Path for **{request.goal}**
-
-        ### 📄 Detailed Learning Path
-        Welcome to your personalized journey to becoming a **{request.goal}**. While our AI brain is taking a nap (rate limited), here is a high-quality standard roadmap to get you started!
-
-        ### 📚 Recommended Open Source Resources
-
-        | 🎓 Top Courses | 💻 Practice Platforms | 🤝 Communities |
-        | :--- | :--- | :--- |
-        | [CS50: Introduction to Computer Science](https://cs50.harvard.edu/) | [LeetCode](https://leetcode.com/) | [Stack Overflow](https://stackoverflow.com/) |
-        | [Full Stack Open](https://fullstackopen.com/) | [FreeCodeCamp](https://www.freecodecamp.org/) | [Reddit r/learnprogramming](https://www.reddit.com/r/learnprogramming/) |
-
-        ### 3. OPEN SOURCE LEARNING RESOURCES
-
-        *   **Free Online Courses:**
-            *   **Foundations:**
-                *   [The Odin Project](https://www.theodinproject.com/) - Full Stack Curriculum
-                *   [MDN Web Docs](https://developer.mozilla.org/) - The Bible of Web Dev
-            *   **Advanced:**
-                *   [System Design Primer](https://github.com/donnemartin/system-design-primer) - For scaling systems
-
-        ### 🚀 Your Personalized Learning Path: Accelerating Towards Mastery
-
-        #### 1. OVERVIEW & ASSESSMENT
-        *   **Current Skill Assessment:**
-            *   **Strengths:** Your enthusiasm and starting skills!
-            *   **Gap Analysis:** Structured project experience.
-
-        #### 2. FOUNDATION (Weeks 1-4)
-        *   **Focus:** Core Languages & Tools
-        *   **Action Items:**
-            *   Master HTML5, CSS3, and JavaScript logic.
-            *   Build a Personal Portfolio Website.
-            *   Learn Git & GitHub basics.
-
-        #### 3. CORE SKILLS (Weeks 5-8)
-        *   **Focus:** Frameworks & Databases
-        *   **Action Items:**
-            *   Learn a frontend framework (React, Vue, or Angular).
-            *   Build a functional To-Do App with local storage.
-            *   Understand REST APIs and JSON.
-
-        #### 4. MASTERY & PROJECTS
-        *   **Focus:** Integration & Deployment
-        *   **Action Items:**
-            *   Build a Full Stack Clone (e.g., Twitter/Netflix clone).
-            *   Deploy your apps to Vercel or Netlify.
-            *   Contribute to an Open Source project.
-        """
-        return {"success": True, "path": textwrap.dedent(fallback_path)}
+                
 
 class TaskRequest(BaseModel):
     goal: str
@@ -184,27 +194,40 @@ class TaskRequest(BaseModel):
 async def generate_tasks(request: TaskRequest):
     try:
         prompt = f"""
-        Act as a coding interviewer. Create 3 structured coding tasks for a user learning: {request.goal}.
-        Focus Area: {request.focus_area}
-        User Level: {request.experience_level}
-        Current Skills: {', '.join(request.skills)}
-        Programming Language: {request.language}
+        Act as a Senior Software Architect and Coding Interviewer. 
+        Create 3 CHALLENGING and REAL-WORLD coding tasks for a user learning: {request.goal}.
+        
+        CONTEXT:
+        - Focus Area: {request.focus_area}
+        - User Level: {request.experience_level}
+        - Programming Language: {request.language}
+        - Current Skills: {', '.join(request.skills)}
 
+        CRITERIA FOR TASKS:
+        1. "Real-world": Avoid generic academic problems. Tasks should be scenarios like "Process User Logs", "Validate API Payload", "Calculate Financial Ratios", or "Optimize Data Queries".
+        2. Professional Starter Code: Include proper comments, type hints (if applicable for {request.language}), and a clear function signature.
+        3. Testability: Ensure the tasks can be verified with input/output matching.
+        
         Output a valid JSON array where each object has:
-        - "title": Short title
-        - "description": Problem statement
-        - "starter_code": Initial code stub (imports, function signature, comments ONLY). DO NOT include the solution logic.
-        - "solution": The complete solution code
+        - "title": A professional, descriptive title.
+        - "description": A detailed problem statement following professional standards.
+        - "starter_code": Professional boilerplate code.
+        - "solution": The complete, optimized solution.
         - "language": "{request.language}"
+        - "test_cases": An array of objects: [{"input": "function_call_or_input_code", "expected_output": "stringified_result"}]
         
         Example JSON format:
         [
             {{
-                "title": "...",
-                "description": "...",
-                "starter_code": "...",
-                "solution": "...",
-                "language": "{request.language}"
+                "title": "Data Pipeline: Email Validator",
+                "description": "Implement a robust email validation logic for a user registration pipeline. The function should check for...",
+                "starter_code": "def validate_email(email: str) -> bool:\n    # Implement logic to validate format\n    pass",
+                "solution": "import re\n\ndef validate_email(email: str) -> bool:\n    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{{2,}}$'\n    return bool(re.match(pattern, email))",
+                "language": "python",
+                "test_cases": [
+                    {{"input": "validate_email('test@example.com')", "expected_output": "True"}},
+                    {{"input": "validate_email('invalid-email')", "expected_output": "False"}}
+                ]
             }}
         ]
         """
@@ -220,19 +243,125 @@ async def generate_tasks(request: TaskRequest):
         return {"success": True, "tasks": tasks}
     except Exception as e:
         print(f"Task generation error: {e}")
-        # Fallback task based on language? Defaults to Python for now.
+        # Return 3 distinct fallback tasks related to the goal
         return {
             "success": True, 
             "tasks": [
                 {
-                    "title": "Simple Greeting", 
-                    "description": f"Write a function that prints 'Hello World' in {request.language}.",
-                    "starter_code": "# Write your code here" if request.language == "python" else "// Write your code here",
-                    "solution": "print('Hello World')",
-                    "language": request.language
+                    "title": f"Foundation: {request.goal} Analysis", 
+                    "description": f"Perform a basic analysis and architectural setup for a {request.goal} project.",
+                    "starter_code": f"# Project: {request.goal}\n# Step 1: Initialize core components\n",
+                    "solution": "print('Environment ready')",
+                    "language": request.language,
+                    "test_cases": [{"input": "", "expected_output": "Environment ready"}]
+                },
+                {
+                    "title": f"Logic: {request.goal} Data Handler", 
+                    "description": f"Create a function to handle incoming signals for the {request.goal} system.",
+                    "starter_code": "def process_data(data):\n    # Your logic here\n    pass",
+                    "solution": "def process_data(data): return data",
+                    "language": request.language,
+                    "test_cases": [{"input": "process_data('test')", "expected_output": "test"}]
+                },
+                {
+                    "title": f"Production: {request.goal} API Mock", 
+                    "description": f"Implement a mock interface for testing the {request.goal} integration.",
+                    "starter_code": "class MockAPI:\n    def get_status(self):\n        return 'offline'",
+                    "solution": "class MockAPI:\n    def get_status(self):\n        return 'online'",
+                    "language": request.language,
+                    "test_cases": [{"input": "MockAPI().get_status()", "expected_output": "online"}]
                 }
             ]
         }
+
+class EvaluationRequest(BaseModel):
+    code: str
+    language: str
+    test_cases: List[Dict[str, str]]
+
+@app.post("/evaluate-code")
+async def evaluate_code(request: EvaluationRequest):
+    """
+    Evaluates code against test cases.
+    """
+    results = []
+    all_passed = True
+    lang = request.language.lower()
+
+    for i, tc in enumerate(request.test_cases):
+        input_code = tc.get("input", "")
+        expected = tc.get("expected_output", "").strip()
+        
+        # Construct code to run: user code + the test case call (if any)
+        # For Python, we'll try to execute and get the last expression result or stdout
+        if lang == "python":
+            full_code = request.code + "\n"
+            if input_code:
+                # If there's a call like add(5,3), we want its result
+                full_code += f"\nprint({input_code})"
+                
+            try:
+                import sys
+                from contextlib import redirect_stdout
+                f = io.StringIO()
+                with redirect_stdout(f):
+                    exec_globals = {"__builtins__": __builtins__}
+                    exec(full_code, exec_globals)
+                
+                actual_output = f.getvalue().strip()
+                passed = actual_output == expected
+                results.append({
+                    "test_id": i + 1,
+                    "input": input_code,
+                    "expected": expected,
+                    "actual": actual_output,
+                    "passed": passed
+                })
+                if not passed: all_passed = False
+            except Exception as e:
+                all_passed = False
+                results.append({
+                    "test_id": i + 1,
+                    "error": str(e),
+                    "passed": False
+                })
+        
+        elif lang == "javascript":
+            # For JS, we'll append a console.log of the input code
+            full_code = request.code + "\n"
+            if input_code:
+                full_code += f"\nconsole.log({input_code});"
+            
+            try:
+                import subprocess
+                result = subprocess.run(
+                    ["node", "-e", full_code], 
+                    capture_output=True, 
+                    text=True, 
+                    timeout=3
+                )
+                actual_output = result.stdout.strip()
+                if result.returncode != 0:
+                    passed = False
+                    error = result.stderr
+                else:
+                    passed = actual_output == expected
+                    error = None
+                
+                results.append({
+                    "test_id": i + 1,
+                    "input": input_code,
+                    "expected": expected,
+                    "actual": actual_output,
+                    "passed": passed,
+                    "error": error
+                })
+                if not passed: all_passed = False
+            except Exception as e:
+                all_passed = False
+                results.append({"test_id": i+1, "error": str(e), "passed": False})
+
+    return {"success": True, "all_passed": all_passed, "results": results}
 
 class CodeExecutionRequest(BaseModel):
     code: str
