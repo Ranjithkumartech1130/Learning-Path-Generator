@@ -126,61 +126,47 @@ async def generate_path(request: PathRequest):
         response = model.generate_content(prompt)
         return {"success": True, "path": response.text}
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         print(f"AI Generation Failed: {e}. Returning fallback content.")
         fallback_path = f"""
-        Act as a career mentor. Generate a detailed learning path for: {request.goal}
-
-        USER PROFILE:
-            - Level: {request.user_profile.experience_level}
-            - Skills: {', '.join(request.user_profile.skills)}
-            - Strategy: {skill_strategy}
-
-        OUTPUT FORMAT (Markdown):
-
-        ### 🚀 Your Personalized Curriculum
+        ### 🚀 Your Personalized Curriculum: {request.goal} (Fallback)
         
-        [Introductory motivational paragraph about their journey to {request.goal}, referencing their current skills]
-
+        It looks like our AI is currently taking a coffee break (or hitting rate limits), but don't worry! Here is a solid starting point for your journey to becoming a {request.goal}.
+        
         ### 📚 Recommended Open Source Resources
         
         | 🎓 Platform / Course | 🔗 Link | 💡 Why this? |
         | :--- | :--- | :--- |
-        | [Name] | [Link] | [Benefit] |
-        | [Name] | [Link] | [Benefit] |
+        | FreeCodeCamp | https://www.freecodecamp.org/ | Great for foundations |
+        | MDN Web Docs | https://developer.mozilla.org/ | Industry standard documentation |
+        | Roadmap.sh | https://roadmap.sh/ | Visual guides for career paths |
+        | GitHub Awesome Lists | https://github.com/sindresorhus/awesome | Curated lists of resources |
 
         ### 🗂️ Detailed Learning Modules
         
         #### 1. Phase 1: Foundations & Core Concepts
-        *   **Focus:** [Topics]
+        *   **Focus:** Core technologies and basics
         *   **Key Resources:**
-            *   [Resource 1](link) - [Brief description]
-                *   [Resource 2](link) - [Brief description]
+            *   [Intro to {request.goal}](https://www.google.com/search?q=introduction+to+{request.goal}) - General overview
+            *   [Official Docs](https://www.google.com/search?q=official+documentation+for+{request.goal}) - Start with the source
                 
-        ### 🚀 Your Personalized Learning Path: Accelerating Towards Mastery
-                
-        #### 1. OVERVIEW & ASSESSMENT
-        *   **Current Skill Assessment:**
-            *   **Strengths:** [List strengths]
-            *   **Gap Analysis:** [What is missing]
-
         #### 2. Phase 2: Core Expertise & Integration
-        *   **Focus:** [Topics]
+        *   **Focus:** Building functional projects
         *   **Action Items:**
-            *   [Task 1]
-            *   [Task 2]
+            *   Set up your development environment
+            *   Build a simple CRUD application related to {request.goal}
                 
         #### 3. Phase 3: Advanced Mastery & Real-world Projects
-        *   **Focus:** [Deep dive topics]
-        *   **Portfolio Project:** [Detailed project idea]
+        *   **Focus:** Scaling and complex features
+        *   **Portfolio Project:** Build a comprehensive project that solves a real-world problem.
 
         #### 🚀 Next Steps: Journey to Success
-        *   [Certification recommendation]
-        *   [Networking strategy]
-        *   [Contribution to Open Source]
+        *   Keep practicing daily
+        *   Contribute to Open Source
+        *   Network with other developers in the field
         """
-                
-        response = model.generate_content(prompt)
-        return {"success": True, "path": response.text}
+        return {"success": True, "path": fallback_path, "is_fallback": True}
                 
 
 class TaskRequest(BaseModel):
