@@ -26,9 +26,64 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/htmlmixed/htmlmixed.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/css/css.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/sql/sql.min.js"></script>
+
+    <!-- GSAP for Parallax -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap" rel="stylesheet">
 </head>
 
 <body>
+    <!-- Parallax Landing -->
+    <div id="landing-view" class="view">
+        <div class="scrollDist"></div>
+        <main class="parallax-main">
+            <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                <mask id="m">
+                    <g class="cloud1">
+                        <rect fill="#fff" width="100%" height="801" y="799" />
+                        <image xlink:href="https://assets.codepen.io/721952/cloud1Mask.jpg" width="1200" height="800" />
+                    </g>
+                </mask>
+
+                <image class="sky" xlink:href="https://assets.codepen.io/721952/sky.jpg" width="1200" height="590" />
+                <image class="mountBg" xlink:href="https://assets.codepen.io/721952/mountBg.png" width="1200"
+                    height="800" />
+                <image class="mountMg" xlink:href="https://assets.codepen.io/721952/mountMg.png" width="1200"
+                    height="800" />
+                <image class="cloud2" xlink:href="https://assets.codepen.io/721952/cloud2.png" width="1200"
+                    height="800" />
+                <image class="mountFg" xlink:href="https://assets.codepen.io/721952/mountFg.png" width="1200"
+                    height="800" />
+                <image class="cloud1" xlink:href="https://assets.codepen.io/721952/cloud1.png" width="1200"
+                    height="800" />
+                <image class="cloud3" xlink:href="https://assets.codepen.io/721952/cloud3.png" width="1200"
+                    height="800" />
+
+                <text fill="#fff" x="50%" y="200" text-anchor="middle">EXPLORE</text>
+
+                <polyline class="arrow" fill="#fff"
+                    points="599,250 599,289 590,279 590,282 600,292 610,282 610,279 601,289 601,250" />
+
+                <g mask="url(#m)">
+                    <rect fill="#fff" width="100%" height="100%" />
+                    <text x="50%" y="200" fill="#162a43" text-anchor="middle">FURTHER</text>
+                </g>
+
+                <rect id="arrow-btn" width="100" height="100" opacity="0" x="550" y="220" style="cursor:pointer" />
+            </svg>
+
+            <div class="landing-content">
+                <h1 class="glow-text">BugBuster AI</h1>
+                <p>Architecting your journey from novice to master with precision-engineered learning paths.</p>
+                <button class="btn-primary start-btn" onclick="scrollToLogin()">Get Started <i
+                        data-lucide="arrow-down"></i></button>
+            </div>
+        </main>
+    </div>
+
     <div class="stApp">
         <!-- Login View -->
         <div id="login-view" class="view">

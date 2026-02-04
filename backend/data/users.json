@@ -72,6 +72,11 @@
         "id": 1767375185925,
         "content": "\n### 🚀 Your Personalized Curriculum\n\nWhile our AI engine is currently processing a high volume of requests, here is a pre-verified, industry-standard roadmap to becoming a **Data Analyst**.\n\n### 📚 Recommended Open Source Resources\n\n| 🎓 Platform / Course | 🔗 Link | 💡 Why this? |\n| :--- | :--- | :--- |\n| [Roadmap.sh] | [https://roadmap.sh/](https://roadmap.sh/) | Visual Guide for developers |\n| [FreeCodeCamp] | [https://www.freecodecamp.org/](https://www.freecodecamp.org/) | Hands-on certifications |\n\n### 🗂️ Detailed Learning Modules\n\n#### 1. Phase 1: Foundations & Core Concepts\n*   **Focus:** Core syntax and architectural basics.\n*   **📖 Key Resources:** Official Documentation for Data Analyst.\n\n#### 2. Phase 2: Core Expertise & Integration\n*   **Focus:** Frameworks and system integration.\n*   **🏁 Milestone Project:** Build a functional CRUD application.\n\n#### 3. Phase 3: Advanced Mastery & Real-world Projects\n*   **Focus:** Scaling, security, and deployment.\n*   **🏁 Capstone Project:** A production-ready portfolio piece.\n\n### 🚀 Next Steps: Journey to Success\n*   Study official docs daily.\n*   Join relevant developer communities.\n*   Contribute to open source on GitHub.\n",
         "created_at": "2026-01-02T17:33:05.925Z"
+      },
+      {
+        "id": 1767468430767,
+        "content": "\n        ### 🚀 Your Personalized Curriculum: machine learning (Fallback)\n        \n        It looks like our AI is currently taking a coffee break (or hitting rate limits), but don't worry! Here is a solid starting point for your journey to becoming a machine learning.\n        \n        ### 📚 Recommended Open Source Resources\n        \n        | 🎓 Platform / Course | 🔗 Link | 💡 Why this? |\n        | :--- | :--- | :--- |\n        | FreeCodeCamp | https://www.freecodecamp.org/ | Great for foundations |\n        | MDN Web Docs | https://developer.mozilla.org/ | Industry standard documentation |\n        | Roadmap.sh | https://roadmap.sh/ | Visual guides for career paths |\n        | GitHub Awesome Lists | https://github.com/sindresorhus/awesome | Curated lists of resources |\n\n        ### 🗂️ Detailed Learning Modules\n        \n        #### 1. Phase 1: Foundations & Core Concepts\n        *   **Focus:** Core technologies and basics\n        *   **Key Resources:**\n            *   [Intro to machine learning](https://www.google.com/search?q=introduction+to+machine learning) - General overview\n            *   [Official Docs](https://www.google.com/search?q=official+documentation+for+machine learning) - Start with the source\n                \n        #### 2. Phase 2: Core Expertise & Integration\n        *   **Focus:** Building functional projects\n        *   **Action Items:**\n            *   Set up your development environment\n            *   Build a simple CRUD application related to machine learning\n                \n        #### 3. Phase 3: Advanced Mastery & Real-world Projects\n        *   **Focus:** Scaling and complex features\n        *   **Portfolio Project:** Build a comprehensive project that solves a real-world problem.\n\n        #### 🚀 Next Steps: Journey to Success\n        *   Keep practicing daily\n        *   Contribute to Open Source\n        *   Network with other developers in the field\n        ",
+        "created_at": "2026-01-03T19:27:10.767Z"
       }
     ],
     "tasks": [
@@ -506,6 +511,54 @@
         "id": "1767375188433uk023qojq",
         "status": "pending",
         "assigned_at": "2026-01-02T17:33:08.433Z"
+      },
+      {
+        "title": "Foundation: machine learning Analysis",
+        "description": "Perform a basic analysis and architectural setup for a machine learning project.",
+        "starter_code": "# Project: machine learning\n# Step 1: Initialize core components\n",
+        "solution": "print('Environment ready')",
+        "language": "python",
+        "test_cases": [
+          {
+            "input": "",
+            "expected_output": "Environment ready"
+          }
+        ],
+        "id": "1767468431292lyjws3j9a",
+        "status": "pending",
+        "assigned_at": "2026-01-03T19:27:11.292Z"
+      },
+      {
+        "title": "Logic: machine learning Data Handler",
+        "description": "Create a function to handle incoming signals for the machine learning system.",
+        "starter_code": "def process_data(data):\n    # Your logic here\n    pass",
+        "solution": "def process_data(data): return data",
+        "language": "python",
+        "test_cases": [
+          {
+            "input": "process_data('test')",
+            "expected_output": "test"
+          }
+        ],
+        "id": "1767468431292ouyyn6mt5",
+        "status": "pending",
+        "assigned_at": "2026-01-03T19:27:11.292Z"
+      },
+      {
+        "title": "Production: machine learning API Mock",
+        "description": "Implement a mock interface for testing the machine learning integration.",
+        "starter_code": "class MockAPI:\n    def get_status(self):\n        return 'offline'",
+        "solution": "class MockAPI:\n    def get_status(self):\n        return 'online'",
+        "language": "python",
+        "test_cases": [
+          {
+            "input": "MockAPI().get_status()",
+            "expected_output": "online"
+          }
+        ],
+        "id": "1767468431292lhn7lknzc",
+        "status": "pending",
+        "assigned_at": "2026-01-03T19:27:11.292Z"
       }
     ],
     "progress": {

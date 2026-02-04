@@ -11,20 +11,81 @@ let currentTaskStartTime = null;
 
 // --- Initialization ---
 document.addEventListener('DOMContentLoaded', () => {
+    initParallax();
+
     const savedUser = localStorage.getItem('bugbuster_user');
     if (savedUser) {
         currentUser = JSON.parse(savedUser);
-        showView(currentUser.profile?.onboarding_completed ? 'dashboard' : 'onboarding');
         updateDashboardUI();
+        // If we want to skip landing for logged in users:
+        // showView(currentUser.profile?.onboarding_completed ? 'dashboard' : 'onboarding');
+        // But for now, let's show the wonderful landing:
+        showView('landing');
     } else {
-        showView('login');
+        showView('landing');
     }
 });
 
 // --- Navigation ---
 function showView(viewId) {
-    document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
-    document.getElementById(viewId + '-view').style.display = 'block';
+    const landingView = document.getElementById('landing-view');
+    const stApp = document.querySelector('.stApp');
+    const targetViewId = viewId.includes('-view') ? viewId : viewId + '-view';
+
+    if (viewId === 'landing') {
+        landingView.style.display = 'block';
+        stApp.style.display = 'block';
+        stApp.style.opacity = '1';
+
+        const savedUser = localStorage.getItem('bugbuster_user');
+        const defaultViewId = savedUser ? 'dashboard-view' : 'login-view';
+
+        document.querySelectorAll('.stApp .view').forEach(v => v.style.display = 'none');
+        const defaultView = document.getElementById(defaultViewId);
+        defaultView.style.display = 'block';
+
+        // GSAP Animation for landing entrance
+        gsap.from(defaultView.querySelectorAll('.hero-card, .login-container'), {
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.2,
+            ease: "power4.out"
+        });
+
+        document.body.style.overflowY = 'auto';
+        window.scrollTo(0, 0);
+    } else {
+        const currentViews = document.querySelectorAll('.stApp .view');
+        const targetView = document.getElementById(targetViewId);
+
+        if (targetView) {
+            currentViews.forEach(v => v.style.display = 'none');
+            targetView.style.display = 'block';
+
+            // GSAP Animation for view switch
+            gsap.from(targetView.querySelectorAll('.hero-card, .glass-card, .metrics-row > div'), {
+                y: 30,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: "power3.out"
+            });
+
+            // Special stagger for titles
+            gsap.from(targetView.querySelectorAll('h1, h2, h3'), {
+                x: -20,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.1,
+                ease: "power2.out",
+                delay: 0.2
+            });
+        }
+
+        stApp.style.display = 'block';
+        stApp.style.opacity = '1';
+    }
 
     if (viewId === 'onboarding' && currentUser) {
         document.getElementById('onboarding-title').innerText = `👋 Welcome, ${currentUser.username}!`;
@@ -40,20 +101,64 @@ function switchAuthTab(tab) {
     btns.forEach(b => b.classList.remove('active'));
     event.target.classList.add('active');
 
-    document.getElementById('auth-title').innerText = tab === 'Login' ? 'Welcome Back!' : 'Join BugBusters';
-    document.getElementById('auth-btn').innerText = tab;
-    document.getElementById('register-fields').style.display = tab === 'Register' ? 'block' : 'none';
-    document.getElementById('confirm-fields').style.display = tab === 'Register' ? 'block' : 'none';
+    const authContent = document.querySelector('.login-container .mt-6');
+
+    gsap.to(authContent, {
+        opacity: 0,
+        y: 10,
+        duration: 0.3,
+        onComplete: () => {
+            document.getElementById('auth-title').innerText = tab === 'Login' ? 'Welcome Back!' : 'Join BugBusters';
+            document.getElementById('auth-btn').innerText = tab;
+            document.getElementById('register-fields').style.display = tab === 'Register' ? 'block' : 'none';
+            document.getElementById('confirm-fields').style.display = tab === 'Register' ? 'block' : 'none';
+
+            gsap.to(authContent, {
+                opacity: 1,
+                y: 0,
+                duration: 0.5,
+                ease: "back.out(1.7)"
+            });
+        }
+    });
 }
 
 function switchTab(tabId) {
-    document.querySelectorAll('.tab-view').forEach(v => v.style.display = 'none');
-    document.getElementById('tab-' + tabId).style.display = 'block';
+    const tabs = document.querySelectorAll('.tab-view');
+    const targetTab = document.getElementById('tab-' + tabId);
+
+    if (targetTab.style.display === 'block') return;
+
+    tabs.forEach(v => {
+        if (v.style.display === 'block') {
+            gsap.to(v, {
+                opacity: 0,
+                x: -20,
+                duration: 0.3,
+                onComplete: () => {
+                    v.style.display = 'none';
+                    targetTab.style.display = 'block';
+                    gsap.fromTo(targetTab,
+                        { opacity: 0, x: 20 },
+                        { opacity: 1, x: 0, duration: 0.5, ease: "power2.out" }
+                    );
+
+                    // Stagger animate elements inside the tab
+                    gsap.from(targetTab.querySelectorAll('.glass-card, .metric-card, .form-group'), {
+                        y: 20,
+                        opacity: 0,
+                        duration: 0.6,
+                        stagger: 0.05,
+                        ease: "power2.out"
+                    });
+                }
+            });
+        }
+    });
 
     const btns = document.querySelectorAll('#dashboard-view .nav-tab');
     btns.forEach(b => b.classList.remove('active'));
 
-    // Find the button that was clicked. Simple way: find by text or use event.currentTarget
     if (event && event.currentTarget) {
         event.currentTarget.classList.add('active');
     }
@@ -978,4 +1083,71 @@ function connectTerminalSocket() {
         console.error('Terminal WebSocket Error:', err);
         xterm.write('\r\n\x1b[31m[ SYSTEM: Error connecting to terminal backend ]\x1b[0m\r\n');
     };
+}
+// --- Parallax Logic ---
+function initParallax() {
+    if (!window.gsap || !window.ScrollTrigger) return;
+
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+    const tl = gsap.timeline({
+        scrollTrigger: {
+            trigger: '.scrollDist',
+            start: '0 0',
+            end: '100% 100%',
+            scrub: 1
+        }
+    });
+
+    tl.fromTo('.sky', { y: 0 }, { y: -200 }, 0)
+        .fromTo('.cloud1', { y: 100 }, { y: -800 }, 0)
+        .fromTo('.cloud2', { y: -150 }, { y: -500 }, 0)
+        .fromTo('.cloud3', { y: -50 }, { y: -650 }, 0)
+        .fromTo('.mountBg', { y: -10 }, { y: -100 }, 0)
+        .fromTo('.mountMg', { y: -30 }, { y: -250 }, 0)
+        .fromTo('.mountFg', { y: -50 }, { y: -600 }, 0);
+
+    // Fade out landing as we reach the app content
+    gsap.to('.parallax-main', {
+        scrollTrigger: {
+            trigger: '.stApp',
+            start: 'top 95%',
+            end: 'top 30%',
+            scrub: true
+        },
+        opacity: 0,
+        pointerEvents: 'none'
+    });
+
+    const arrowBtn = document.querySelector('#arrow-btn');
+    if (arrowBtn) {
+        arrowBtn.addEventListener('mouseenter', () => {
+            gsap.to('.arrow', { y: 10, duration: 0.8, ease: 'back.inOut(3)', overwrite: 'auto' });
+        });
+
+        arrowBtn.addEventListener('mouseleave', () => {
+            gsap.to('.arrow', { y: 0, duration: 0.5, ease: 'power3.out', overwrite: 'auto' });
+        });
+
+        arrowBtn.addEventListener('click', () => {
+            scrollToLogin();
+        });
+    }
+}
+
+function scrollToLogin() {
+    gsap.to(window, {
+        scrollTo: { y: '.stApp', autoKill: false },
+        duration: 1,
+        ease: 'power2.inOut',
+        onComplete: () => {
+            const savedUser = localStorage.getItem('bugbuster_user');
+            if (savedUser) {
+                showView(currentUser?.profile?.onboarding_completed ? 'dashboard' : 'onboarding');
+            } else {
+                showView('login');
+            }
+            window.scrollTo(0, 0); // Reset scroll for the main app
+        }
+    });
 }
