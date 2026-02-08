@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -78,8 +78,7 @@
             <div class="landing-content">
                 <h1 class="glow-text">BugBuster AI</h1>
                 <p>Architecting your journey from novice to master with precision-engineered learning paths.</p>
-                <button class="btn-primary start-btn" onclick="scrollToLogin()">Get Started <i
-                        data-lucide="arrow-down"></i></button>
+
             </div>
         </main>
     </div>
@@ -88,14 +87,14 @@
         <!-- Login View -->
         <div id="login-view" class="view">
             <div class="hero-card">
-                <h1>🎓 <span>BugBuster</span> AI</h1>
+                <h1>ðŸŽ“ <span>BugBuster</span> AI</h1>
                 <p>Personalized learning journeys powered by Generative AI. Explore detailed roadmaps, curated
                     resources, and track your growth.</p>
             </div>
             <div class="login-container mx-auto" style="max-width: 450px;">
                 <div class="nav-tabs">
-                    <button class="nav-tab active" onclick="switchAuthTab('Login')">Login</button>
-                    <button class="nav-tab" onclick="switchAuthTab('Register')">Register</button>
+                    <button class="nav-tab active" onclick="switchAuthTab('Login', event)">Login</button>
+                    <button class="nav-tab" onclick="switchAuthTab('Register', event)">Register</button>
                 </div>
                 <div class="mt-6">
                     <h3 id="auth-title" class="text-center mb-6" style="font-family: 'Outfit'; font-size: 1.5rem;">
@@ -112,12 +111,12 @@
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" id="auth-password" placeholder="••••••••">
+                        <input type="password" id="auth-password" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢">
                     </div>
                     <div id="confirm-fields" style="display: none;">
                         <div class="form-group">
                             <label>Confirm Password</label>
-                            <input type="password" id="auth-confirm" placeholder="••••••••">
+                            <input type="password" id="auth-confirm" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢">
                         </div>
                     </div>
                     <button class="btn-primary w-full justify-center" onclick="handleAuth()" id="auth-btn">
@@ -130,11 +129,11 @@
         <!-- Onboarding View -->
         <div id="onboarding-view" class="view" style="display: none;">
             <div class="hero-card">
-                <h1 id="onboarding-title">👋 Welcome!</h1>
+                <h1 id="onboarding-title">ðŸ‘‹ Welcome!</h1>
                 <p>Let's build your AI-powered profile to tailor your learning experience.</p>
             </div>
             <div class="glass-card max-w-4xl mx-auto">
-                <h2 class="text-2xl font-bold mb-6" style="font-family: 'Outfit';">📝 Profile Setup</h2>
+                <h2 class="text-2xl font-bold mb-6" style="font-family: 'Outfit';">ðŸ“ Profile Setup</h2>
                 <div class="grid-2">
                     <div>
                         <div class="form-group">
@@ -209,19 +208,24 @@
         <!-- Dashboard View -->
         <div id="dashboard-view" class="view" style="display: none;">
             <div class="hero-card">
-                <h1>🎓Bugbusters Dashboard</h1>
+                <h1>Bugbusters Dashboard</h1>
                 <p id="dashboard-subtitle">Welcome back! Ready to continue your learning journey?</p>
             </div>
 
             <div class="nav-tabs">
-                <button class="nav-tab active" onclick="switchTab('overview')"><i data-lucide="layout-dashboard"></i>
+                <button class="nav-tab active" onclick="switchTab('overview', event)"><i
+                        data-lucide="layout-dashboard"></i>
                     Overview</button>
-                <button class="nav-tab" onclick="switchTab('path')"><i data-lucide="target"></i> Learning Path</button>
-                <button class="nav-tab" onclick="switchTab('progress')"><i data-lucide="trending-up"></i>
+                <button class="nav-tab" onclick="switchTab('path', event)"><i data-lucide="target"></i> Learning
+                    Path</button>
+                <button class="nav-tab" onclick="switchTab('progress', event)"><i data-lucide="trending-up"></i>
                     Progress</button>
-                <button class="nav-tab" onclick="switchTab('resume')"><i data-lucide="file-text"></i> AI Resume</button>
-                <button class="nav-tab" onclick="switchTab('ide')"><i data-lucide="code"></i> IDE & Tasks</button>
-                <button class="nav-tab" onclick="switchTab('profile')"><i data-lucide="user"></i> Profile</button>
+                <button class="nav-tab" onclick="switchTab('resume', event)"><i data-lucide="file-text"></i> AI
+                    Resume</button>
+                <button class="nav-tab" onclick="switchTab('ide', event)"><i data-lucide="code"></i> IDE &
+                    Tasks</button>
+                <button class="nav-tab" onclick="switchTab('profile', event)"><i data-lucide="user"></i>
+                    Profile</button>
             </div>
 
             <!-- TAB: Overview -->
@@ -233,7 +237,7 @@
                     </div>
                     <div class="metric-card" id="streak-card">
                         <div class="title">Current Streak</div>
-                        <div class="value" id="streak-val">1 Days 🔥</div>
+                        <div class="value" id="streak-val">1 Days ðŸ”¥</div>
                     </div>
                     <div class="metric-card">
                         <div class="title">Total Time</div>
@@ -265,7 +269,8 @@
             <!-- TAB: Learning Path -->
             <div id="tab-path" class="tab-view" style="display: none;">
                 <div class="glass-card">
-                    <h3 class="text-2xl font-bold mb-6" style="font-family: 'Outfit';">🎯 Create Your Learning Path</h3>
+                    <h3 class="text-2xl font-bold mb-6" style="font-family: 'Outfit';">ðŸŽ¯ Create Your Learning Path
+                    </h3>
                     <div class="form-group">
                         <label>What is your learning goal? (e.g., Become a Data Analyst)</label>
                         <input type="text" id="path-goal" placeholder="e.g. Data Analyst">
@@ -288,7 +293,7 @@
                     </button>
 
                     <div id="path-result" style="display: none;" class="path-result">
-                        <h4 class="text-xl font-bold" style="color: #60a5fa; margin-bottom: 1.5rem;">🛤 Your
+                        <h4 class="text-xl font-bold" style="color: #60a5fa; margin-bottom: 1.5rem;">ðŸ›¤ Your
                             Personalized Journey</h4>
 
                         <div class="glass-card"
@@ -342,7 +347,7 @@
             <!-- TAB: Progress -->
             <div id="tab-progress" class="tab-view" style="display: none;">
                 <div class="glass-card">
-                    <h3 class="text-2xl font-bold mb-6" style="font-family: 'Outfit';">📈 Your Learning Progress</h3>
+                    <h3 class="text-2xl font-bold mb-6" style="font-family: 'Outfit';">Your Learning Progress</h3>
                     <div class="metrics-row">
                         <div class="metric-card">
                             <div class="title">Active Days</div>
@@ -350,7 +355,7 @@
                         </div>
                         <div class="metric-card" id="prog-streak-card">
                             <div class="title">Current Streak</div>
-                            <div class="value" id="prog-streak-val">1 days 🔥</div>
+                            <div class="value" id="prog-streak-val">1 days ðŸ”¥</div>
                         </div>
                         <div class="metric-card">
                             <div class="title">Total Time</div>
@@ -367,7 +372,8 @@
                         </div>
                     </div>
 
-                    <h4 class="text-xl font-bold mt-8 mb-6" style="font-family: 'Outfit';">📝 Update Your Progress</h4>
+                    <h4 class="text-xl font-bold mt-8 mb-6" style="font-family: 'Outfit';">ðŸ“ Update Your Progress
+                    </h4>
                     <div class="grid-2">
                         <div class="form-group">
                             <label>Activity Type</label>
@@ -460,7 +466,7 @@
                 <div class="glass-card">
                     <div class="grid-2">
                         <div>
-                            <h3 class="mb-4" style="color: #60a5fa; font-family: 'Outfit'; font-size: 1.5rem;">👤
+                            <h3 class="mb-4" style="color: #60a5fa; font-family: 'Outfit'; font-size: 1.5rem;">ðŸ‘¤
                                 Account Profile</h3>
                             <p class="mb-2"><span style="color: var(--text-dim);">USERNAME:</span> <span id="prof-user"
                                     style="font-weight: 600; color: white;"></span></p>
@@ -580,7 +586,7 @@
 
                         <div id="solution-area"
                             style="display: none; margin: 0 20px 20px 20px; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 8px; border: 1px dashed #f59e0b;">
-                            <h4 style="color: #f59e0b; font-size: 0.9rem; font-weight: bold; margin-bottom: 10px;">💡
+                            <h4 style="color: #f59e0b; font-size: 0.9rem; font-weight: bold; margin-bottom: 10px;">ðŸ’¡
                                 Solution / Hint</h4>
                             <pre id="solution-code"
                                 style="color: #cbd5e1; font-family: 'Fira Code', monospace; font-size: 0.9rem; overflow-x: auto; white-space: pre-wrap;"></pre>
@@ -591,13 +597,41 @@
         </div>
     </div>
 
+    <!-- Back to Top Button -->
+    <button id="back-to-top-btn" onclick="scrollToTop()" style="
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #78B8B8 0%, #7287AB 100%);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        z-index: 1000;
+        box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
+        transition: transform 0.2s, box-shadow 0.2s;
+    " onmouseenter="this.style.transform='scale(1.1) translateY(-2px)'; this.style.boxShadow='0 12px 32px rgba(59, 130, 246, 0.6)'"
+        onmouseleave="this.style.transform='scale(1) translateY(0)'; this.style.boxShadow='0 8px 24px rgba(59, 130, 246, 0.4)'">
+        <i data-lucide="arrow-up" style="width: 24px; height: 24px;"></i>
+    </button>
+
     <!-- xterm.js for Terminal -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@5.3.0/css/xterm.css" />
     <script src="https://cdn.jsdelivr.net/npm/xterm@5.3.0/lib/xterm.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/xterm-addon-fit@0.8.0/lib/xterm-addon-fit.js"></script>
 
-    <script src="template-selector.js"></script>
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    <div class="cursor-follower"></div>
 
+    <script src="template-selector.js"></script>
     <script src="script.js"></script>
     <script>
         // Initialize Lucide icons

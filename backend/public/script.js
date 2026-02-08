@@ -12,6 +12,7 @@ let currentTaskStartTime = null;
 // --- Initialization ---
 document.addEventListener('DOMContentLoaded', () => {
     initParallax();
+    initCustomCursor();
 
     const savedUser = localStorage.getItem('bugbuster_user');
     if (savedUser) {
@@ -25,6 +26,56 @@ document.addEventListener('DOMContentLoaded', () => {
         showView('landing');
     }
 });
+
+function initCustomCursor() {
+    if (!window.gsap) return;
+    const cursor = document.querySelector('.custom-cursor');
+    const follower = document.querySelector('.cursor-follower');
+
+    if (!cursor || !follower) return;
+
+    // Set initial position out of view but ready
+    gsap.set([cursor, follower], { xPercent: -50, yPercent: -50, opacity: 0 });
+    gsap.set(cursor, { rotation: -10 });
+
+    // Entrance pulse to show where the cursor is
+    setTimeout(() => {
+        gsap.to([cursor, follower], { opacity: 1, duration: 1 });
+    }, 500);
+
+    window.addEventListener('mousemove', (e) => {
+        gsap.to(cursor, {
+            x: e.clientX,
+            y: e.clientY,
+            duration: 0.1,
+            ease: "power2.out"
+        });
+        gsap.to(follower, {
+            x: e.clientX,
+            y: e.clientY,
+            duration: 0.4,
+            ease: "power3.out"
+        });
+    });
+
+    const interactives = 'button, a, input, select, textarea, .template-card, .task-item, .metric-card, .nav-tab, [onclick]';
+
+    document.addEventListener('mouseover', (e) => {
+        if (e.target.closest(interactives)) {
+            document.body.classList.add('cursor-hover');
+            gsap.to(cursor, { scale: 1.3, duration: 0.3 });
+            gsap.to(follower, { scale: 1.8, duration: 0.3 });
+        }
+    });
+
+    document.addEventListener('mouseout', (e) => {
+        if (e.target.closest(interactives)) {
+            document.body.classList.remove('cursor-hover');
+            gsap.to(cursor, { scale: 1, duration: 0.3 });
+            gsap.to(follower, { scale: 1, duration: 0.3 });
+        }
+    });
+}
 
 // --- Navigation ---
 function showView(viewId) {
@@ -42,16 +93,18 @@ function showView(viewId) {
 
         document.querySelectorAll('.stApp .view').forEach(v => v.style.display = 'none');
         const defaultView = document.getElementById(defaultViewId);
-        defaultView.style.display = 'block';
+        if (defaultView) {
+            defaultView.style.display = 'block';
 
-        // GSAP Animation for landing entrance
-        gsap.from(defaultView.querySelectorAll('.hero-card, .login-container'), {
-            y: 50,
-            opacity: 0,
-            duration: 1,
-            stagger: 0.2,
-            ease: "power4.out"
-        });
+            // GSAP Animation for landing entrance
+            gsap.from(defaultView.querySelectorAll('.hero-card, .login-container'), {
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.2,
+                ease: "power4.out"
+            });
+        }
 
         document.body.style.overflowY = 'auto';
         window.scrollTo(0, 0);
@@ -60,31 +113,30 @@ function showView(viewId) {
         const targetView = document.getElementById(targetViewId);
 
         if (targetView) {
-            currentViews.forEach(v => v.style.display = 'none');
-            targetView.style.display = 'block';
-
-            // GSAP Animation for view switch
-            gsap.from(targetView.querySelectorAll('.hero-card, .glass-card, .metrics-row > div'), {
-                y: 30,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.1,
-                ease: "power3.out"
+            // Find current visible view
+            let currentVisible = null;
+            currentViews.forEach(v => {
+                if (window.getComputedStyle(v).display !== 'none') {
+                    currentVisible = v;
+                }
             });
 
-            // Special stagger for titles
-            gsap.from(targetView.querySelectorAll('h1, h2, h3'), {
-                x: -20,
-                opacity: 0,
-                duration: 1,
-                stagger: 0.1,
-                ease: "power2.out",
-                delay: 0.2
-            });
+            if (currentVisible && currentVisible !== targetView) {
+                gsap.to(currentVisible, {
+                    opacity: 0,
+                    duration: 0.4,
+                    onComplete: () => {
+                        currentVisible.style.display = 'none';
+                        targetView.style.display = 'block';
+                        gsap.fromTo(targetView, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6 });
+                    }
+                });
+            } else {
+                currentViews.forEach(v => v.style.display = 'none');
+                targetView.style.display = 'block';
+                targetView.style.opacity = '1';
+            }
         }
-
-        stApp.style.display = 'block';
-        stApp.style.opacity = '1';
     }
 
     if (viewId === 'onboarding' && currentUser) {
@@ -95,13 +147,24 @@ function showView(viewId) {
     if (window.lucide) window.lucide.createIcons();
 }
 
-function switchAuthTab(tab) {
+function switchAuthTab(tab, event) {
     currentAuthTab = tab;
     const btns = document.querySelectorAll('#login-view .nav-tab');
     btns.forEach(b => b.classList.remove('active'));
-    event.target.classList.add('active');
+
+    // Find the button (target might be an icon)
+    const target = event ? event.currentTarget : null;
+    if (target) target.classList.add('active');
 
     const authContent = document.querySelector('.login-container .mt-6');
+    if (!authContent) {
+        // Fallback if content not found
+        document.getElementById('auth-title').innerText = tab === 'Login' ? 'Welcome Back!' : 'Join BugBusters';
+        document.getElementById('auth-btn').innerText = tab;
+        document.getElementById('register-fields').style.display = tab === 'Register' ? 'block' : 'none';
+        document.getElementById('confirm-fields').style.display = tab === 'Register' ? 'block' : 'none';
+        return;
+    }
 
     gsap.to(authContent, {
         opacity: 0,
@@ -123,38 +186,57 @@ function switchAuthTab(tab) {
     });
 }
 
-function switchTab(tabId) {
+function switchTab(tabId, event) {
     const tabs = document.querySelectorAll('.tab-view');
     const targetTab = document.getElementById('tab-' + tabId);
 
-    if (targetTab.style.display === 'block') return;
+    if (!targetTab) return;
+    if (window.getComputedStyle(targetTab).display === 'block') return;
 
+    let currentVisible = null;
     tabs.forEach(v => {
-        if (v.style.display === 'block') {
-            gsap.to(v, {
-                opacity: 0,
-                x: -20,
-                duration: 0.3,
-                onComplete: () => {
-                    v.style.display = 'none';
-                    targetTab.style.display = 'block';
-                    gsap.fromTo(targetTab,
-                        { opacity: 0, x: 20 },
-                        { opacity: 1, x: 0, duration: 0.5, ease: "power2.out" }
-                    );
-
-                    // Stagger animate elements inside the tab
-                    gsap.from(targetTab.querySelectorAll('.glass-card, .metric-card, .form-group'), {
-                        y: 20,
-                        opacity: 0,
-                        duration: 0.6,
-                        stagger: 0.05,
-                        ease: "power2.out"
-                    });
-                }
-            });
+        if (window.getComputedStyle(v).display === 'block') {
+            currentVisible = v;
         }
     });
+
+    if (currentVisible) {
+        gsap.to(currentVisible, {
+            opacity: 0,
+            x: -20,
+            duration: 0.3,
+            onComplete: () => {
+                currentVisible.style.display = 'none';
+                targetTab.style.display = 'block';
+                gsap.fromTo(targetTab,
+                    { opacity: 0, x: 20 },
+                    { opacity: 1, x: 0, duration: 0.5, ease: "power2.out" }
+                );
+
+                // Stagger animate elements inside the tab
+                gsap.from(targetTab.querySelectorAll('.glass-card, .metric-card, .form-group'), {
+                    y: 20,
+                    opacity: 0,
+                    duration: 0.6,
+                    stagger: 0.05,
+                    ease: "power2.out"
+                });
+            }
+        });
+    } else {
+        tabs.forEach(v => v.style.display = 'none');
+        targetTab.style.display = 'block';
+        targetTab.style.opacity = '1';
+
+        // Stagger animate elements inside the tab
+        gsap.from(targetTab.querySelectorAll('.glass-card, .metric-card, .form-group'), {
+            y: 20,
+            opacity: 0,
+            duration: 0.6,
+            stagger: 0.05,
+            ease: "power2.out"
+        });
+    }
 
     const btns = document.querySelectorAll('#dashboard-view .nav-tab');
     btns.forEach(b => b.classList.remove('active'));
@@ -282,9 +364,9 @@ function updateDashboardUI() {
         currentUser.profile?.learning_goals?.forEach(g => {
             const span = document.createElement('span');
             span.className = 'tag';
-            span.style.background = 'rgba(139, 92, 246, 0.2)';
-            span.style.borderColor = 'rgba(139, 92, 246, 0.3)';
-            span.style.color = '#c4b5fd';
+            span.style.background = 'rgba(120, 184, 184, 0.15)';
+            span.style.borderColor = 'rgba(120, 184, 184, 0.3)';
+            span.style.color = '#78B8B8';
             span.innerText = g;
             goalsList.appendChild(span);
         });
@@ -737,7 +819,7 @@ function renderTasks() {
         div.className = `task-item ${task.status === 'completed' ? 'completed' : ''} ${isActive ? 'active-task' : ''}`;
 
         div.innerHTML = `
-            <div style="font-weight: bold; color: ${task.status === 'completed' ? '#10b981' : (isActive ? '#60a5fa' : '#f8fafc')}">
+            <div style="font-weight: bold; color: ${task.status === 'completed' ? '#10b981' : (isActive ? '#78B8B8' : '#e2e8f0')}">
                 ${task.status === 'completed' ? '✓ ' : ''}${task.title}
             </div>
             <div style="font-size: 0.8rem; color: #94a3b8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
@@ -1045,12 +1127,32 @@ function initTerminal() {
     // Resize listener
     window.addEventListener('resize', () => {
         const p = document.getElementById('terminal-panel');
-        if (p && p.style.display !== 'none' && fitAddon) fitAddon.fit();
+        if (p && p.style.display !== 'none' && fitAddon) {
+            fitAddon.fit();
+            if (terminalSocket && terminalSocket.readyState === WebSocket.OPEN) {
+                terminalSocket.send(JSON.stringify({
+                    type: 'resize',
+                    cols: xterm.cols,
+                    rows: xterm.rows
+                }));
+            }
+        }
     });
 
     xterm.onData(data => {
         if (terminalSocket && terminalSocket.readyState === WebSocket.OPEN) {
             terminalSocket.send(data);
+        }
+    });
+
+    // Also trigger initial resize send after connection
+    xterm.onResize(size => {
+        if (terminalSocket && terminalSocket.readyState === WebSocket.OPEN) {
+            terminalSocket.send(JSON.stringify({
+                type: 'resize',
+                cols: size.cols,
+                rows: size.rows
+            }));
         }
     });
 
@@ -1107,7 +1209,7 @@ function initParallax() {
         .fromTo('.mountMg', { y: -30 }, { y: -250 }, 0)
         .fromTo('.mountFg', { y: -50 }, { y: -600 }, 0);
 
-    // Fade out landing as we reach the app content
+    // Fade out landing as we reach the app content (bidirectional)
     gsap.to('.parallax-main', {
         scrollTrigger: {
             trigger: '.stApp',
@@ -1115,9 +1217,29 @@ function initParallax() {
             end: 'top 30%',
             scrub: true
         },
-        opacity: 0,
-        pointerEvents: 'none'
+        autoAlpha: 0 // Handles opacity and visibility (pointer-events) automatically
     });
+
+    // Show/hide back to top button based on scroll position
+    const backToTopBtn = document.getElementById('back-to-top-btn');
+    if (backToTopBtn) {
+        ScrollTrigger.create({
+            trigger: '.stApp',
+            start: 'top 80%',
+            end: 'bottom bottom',
+            onEnter: () => {
+                backToTopBtn.style.display = 'flex';
+                gsap.to(backToTopBtn, { opacity: 1, duration: 0.3 });
+            },
+            onLeaveBack: () => {
+                gsap.to(backToTopBtn, {
+                    opacity: 0,
+                    duration: 0.3,
+                    onComplete: () => { backToTopBtn.style.display = 'none'; }
+                });
+            }
+        });
+    }
 
     const arrowBtn = document.querySelector('#arrow-btn');
     if (arrowBtn) {
@@ -1135,11 +1257,32 @@ function initParallax() {
     }
 }
 
+// Function to scroll back to top
+function scrollToTop() {
+    if (!window.gsap || !window.ScrollToPlugin) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+    }
+
+    gsap.to(window, {
+        scrollTo: { y: 0, autoKill: false },
+        duration: 1.5,
+        ease: 'power3.inOut'
+    });
+}
+
 function scrollToLogin() {
+    if (!window.gsap || !window.ScrollToPlugin) {
+        // Fallback if GSAP is missing
+        const stApp = document.querySelector('.stApp');
+        if (stApp) stApp.scrollIntoView({ behavior: 'smooth' });
+        return;
+    }
+
     gsap.to(window, {
         scrollTo: { y: '.stApp', autoKill: false },
-        duration: 1,
-        ease: 'power2.inOut',
+        duration: 1.2,
+        ease: 'power3.inOut',
         onComplete: () => {
             const savedUser = localStorage.getItem('bugbuster_user');
             if (savedUser) {
@@ -1147,7 +1290,7 @@ function scrollToLogin() {
             } else {
                 showView('login');
             }
-            window.scrollTo(0, 0); // Reset scroll for the main app
+            // Removed window.scrollTo(0,0) as it resets the parallax and hides the app
         }
     });
 }

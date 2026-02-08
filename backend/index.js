@@ -281,7 +281,7 @@ app.post('/api/generate-resume', async (req, res) => {
 
 const http = require('http');
 const { WebSocketServer } = require('ws');
-const { spawn } = require('child_process');
+const pty = require('node-pty');
 
 const server = http.createServer(app);
 const wss = new WebSocketServer({ server, path: '/terminal' });
@@ -289,42 +289,41 @@ const wss = new WebSocketServer({ server, path: '/terminal' });
 wss.on('connection', (ws) => {
     console.log('Terminal connected');
 
-    // Switch to cmd.exe on Windows for better stability with standard streams if powershell behaves oddly
-    const shell = process.platform === 'win32' ? 'cmd.exe' : 'bash';
-    const args = process.platform === 'win32' ? [] : ['-i'];
+    const shell = process.platform === 'win32' ? 'powershell.exe' : 'bash';
 
-    const term = spawn(shell, args, {
-        cwd: path.join(__dirname, '..'), // Parent dir of backend (project root)
-        env: { ...process.env, TERM: 'xterm-256color' },
-        shell: false
+    const ptyProcess = pty.spawn(shell, [], {
+        name: 'xterm-color',
+        cols: 80,
+        rows: 24,
+        cwd: path.join(__dirname, '..'),
+        env: process.env
     });
 
-    term.stdout.on('data', (data) => {
-        ws.send(data.toString());
-    });
-
-    term.stderr.on('data', (data) => {
-        ws.send(data.toString());
+    ptyProcess.onData((data) => {
+        ws.send(data);
     });
 
     ws.on('message', (msg) => {
-        // Log input for debugging
-        // console.log('Term raw input:', msg);
-        term.stdin.write(msg);
+        try {
+            const data = JSON.parse(msg);
+            if (data.type === 'resize') {
+                ptyProcess.resize(data.cols, data.rows);
+            } else {
+                ptyProcess.write(data.input || msg);
+            }
+        } catch (e) {
+            // If not JSON, it's raw input
+            ptyProcess.write(msg);
+        }
     });
 
     ws.on('close', () => {
         console.log('Terminal disconnected');
-        term.kill();
+        ptyProcess.kill();
     });
 
-    term.on('close', () => {
+    ptyProcess.onExit(() => {
         ws.close();
-    });
-
-    term.on('error', (err) => {
-        console.error('Failed to start terminal process:', err);
-        ws.send('\r\n\x1b[31m[ ERROR: Failed to start shell process ]\x1b[0m\r\n');
     });
 });
 

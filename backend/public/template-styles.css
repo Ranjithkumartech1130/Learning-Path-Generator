@@ -54,9 +54,9 @@
 
 /* Template-specific color schemes */
 .resume-modern {
-    --sidebar-bg: #1a3a4a;
-    --accent-color: #b8860b;
-    --main-bg: white;
+    --sidebar-bg: #5A5564;
+    --accent-color: #906C7D;
+    --main-bg: #f3f4f6;
 }
 
 .resume-creative {

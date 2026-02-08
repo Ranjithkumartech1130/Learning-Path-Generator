@@ -4,23 +4,17 @@
     "email": "ranjithkumark1130@gmail.com",
     "password": "1234567",
     "profile": {
-      "skills": [
-        "Python",
-        "SQL",
-        "Data Science"
-      ],
+      "skills": [],
       "experience_level": "Beginner",
-      "bio": "Software Developer",
-      "learning_goals": [
-        "Web Developement"
-      ],
+      "bio": "",
+      "learning_goals": [],
       "interests": [],
-      "time_commitment": "6-10 hours / week",
+      "time_commitment": "1-5 hours / week",
       "learning_style": "Visual",
       "difficulty_preference": "Beginner-friendly",
       "onboarding_completed": true,
-      "linkedin": "https://www.linkedin.com/in/ranjith-kumar-042574351/",
-      "phone": "9791910758"
+      "linkedin": "",
+      "phone": ""
     },
     "learning_paths": [
       {
@@ -77,154 +71,35 @@
         "id": 1767468430767,
         "content": "\n        ### 🚀 Your Personalized Curriculum: machine learning (Fallback)\n        \n        It looks like our AI is currently taking a coffee break (or hitting rate limits), but don't worry! Here is a solid starting point for your journey to becoming a machine learning.\n        \n        ### 📚 Recommended Open Source Resources\n        \n        | 🎓 Platform / Course | 🔗 Link | 💡 Why this? |\n        | :--- | :--- | :--- |\n        | FreeCodeCamp | https://www.freecodecamp.org/ | Great for foundations |\n        | MDN Web Docs | https://developer.mozilla.org/ | Industry standard documentation |\n        | Roadmap.sh | https://roadmap.sh/ | Visual guides for career paths |\n        | GitHub Awesome Lists | https://github.com/sindresorhus/awesome | Curated lists of resources |\n\n        ### 🗂️ Detailed Learning Modules\n        \n        #### 1. Phase 1: Foundations & Core Concepts\n        *   **Focus:** Core technologies and basics\n        *   **Key Resources:**\n            *   [Intro to machine learning](https://www.google.com/search?q=introduction+to+machine learning) - General overview\n            *   [Official Docs](https://www.google.com/search?q=official+documentation+for+machine learning) - Start with the source\n                \n        #### 2. Phase 2: Core Expertise & Integration\n        *   **Focus:** Building functional projects\n        *   **Action Items:**\n            *   Set up your development environment\n            *   Build a simple CRUD application related to machine learning\n                \n        #### 3. Phase 3: Advanced Mastery & Real-world Projects\n        *   **Focus:** Scaling and complex features\n        *   **Portfolio Project:** Build a comprehensive project that solves a real-world problem.\n\n        #### 🚀 Next Steps: Journey to Success\n        *   Keep practicing daily\n        *   Contribute to Open Source\n        *   Network with other developers in the field\n        ",
         "created_at": "2026-01-03T19:27:10.767Z"
+      },
+      {
+        "id": 1770177200804,
+        "content": "\n        ### 🚀 Your Personalized Curriculum: Machine learning .  (Fallback)\n        \n        It looks like our AI is currently taking a coffee break (or hitting rate limits), but don't worry! Here is a solid starting point for your journey to becoming a Machine learning . .\n        \n        ### 📚 Recommended Open Source Resources\n        \n        | 🎓 Platform / Course | 🔗 Link | 💡 Why this? |\n        | :--- | :--- | :--- |\n        | FreeCodeCamp | https://www.freecodecamp.org/ | Great for foundations |\n        | MDN Web Docs | https://developer.mozilla.org/ | Industry standard documentation |\n        | Roadmap.sh | https://roadmap.sh/ | Visual guides for career paths |\n        | GitHub Awesome Lists | https://github.com/sindresorhus/awesome | Curated lists of resources |\n\n        ### 🗂️ Detailed Learning Modules\n        \n        #### 1. Phase 1: Foundations & Core Concepts\n        *   **Focus:** Core technologies and basics\n        *   **Key Resources:**\n            *   [Intro to Machine learning . ](https://www.google.com/search?q=introduction+to+Machine learning . ) - General overview\n            *   [Official Docs](https://www.google.com/search?q=official+documentation+for+Machine learning . ) - Start with the source\n                \n        #### 2. Phase 2: Core Expertise & Integration\n        *   **Focus:** Building functional projects\n        *   **Action Items:**\n            *   Set up your development environment\n            *   Build a simple CRUD application related to Machine learning . \n                \n        #### 3. Phase 3: Advanced Mastery & Real-world Projects\n        *   **Focus:** Scaling and complex features\n        *   **Portfolio Project:** Build a comprehensive project that solves a real-world problem.\n\n        #### 🚀 Next Steps: Journey to Success\n        *   Keep practicing daily\n        *   Contribute to Open Source\n        *   Network with other developers in the field\n        ",
+        "created_at": "2026-02-04T03:53:20.804Z"
+      },
+      {
+        "id": 1770194851173,
+        "content": "\n# 🚀 Your Personalized Curriculum: Full stack \n\n> 💡 **AI Assistant Note:** Our AI is currently at capacity, but we've prepared a comprehensive, curated learning path just for you!\n\n---\n\n## 📚 **Essential Web Development Resources**\n\n| 🎓 **Platform / Course** | 🔗 **Link** | 💡 **Why This Matters** |\n| :--- | :--- | :--- |\n| **🌐 MDN Web Docs** | [developer.mozilla.org](https://developer.mozilla.org/) | The ultimate web development reference |\n| **🎯 FreeCodeCamp** | [freecodecamp.org](https://www.freecodecamp.org/) | Free, comprehensive web dev curriculum |\n| **🛤️ The Odin Project** | [theodinproject.com](https://www.theodinproject.com/) | Full-stack development path |\n| **⚛️ React Official Docs** | [react.dev](https://react.dev/) | Learn React from the source |\n| **💚 Node.js Guides** | [nodejs.org/en/docs](https://nodejs.org/en/docs/guides/) | Official Node.js documentation |\n| **🎨 CSS-Tricks** | [css-tricks.com](https://css-tricks.com/) | CSS tutorials and tips |\n| **⭐ Awesome Web Dev** | [GitHub Awesome](https://github.com/sindresorhus/awesome) | Curated web dev resources |\n| **🏗️ web.dev** | [web.dev](https://web.dev/) | Google's web development guidance |\n\n---\n\n## 🗂️ **Detailed Learning Modules**\n\n### 📘 **Phase 1: Frontend Foundations** (Weeks 1-8)\n\n**🎯 Focus:** HTML, CSS, JavaScript Fundamentals\n\n**📖 Key Resources:**\n- 🌐 **[HTML & CSS Tutorial](https://www.freecodecamp.org/learn/responsive-web-design/)** - FreeCodeCamp certification\n- 🎨 **[CSS Grid & Flexbox](https://cssgrid.io/)** - Wes Bos free course\n- ⚡ **[JavaScript30](https://javascript30.com/)** - 30 vanilla JS projects\n- 📱 **[Responsive Web Design](https://web.dev/responsive-web-design-basics/)** - Google's guide\n- 🎯 **[JavaScript.info](https://javascript.info/)** - Modern JavaScript tutorial\n- 🔧 **[Git & GitHub](https://www.freecodecamp.org/news/git-and-github-for-beginners/)** - Version control basics\n\n**🏁 Milestone Project:** Build a responsive portfolio website\n\n---\n\n### 📗 **Phase 2: Modern Frontend & Frameworks** (Weeks 9-16)\n\n**🎯 Focus:** React, Vue, or Angular + Modern Tools\n\n**📖 Key Resources:**\n- ⚛️ **[React Tutorial](https://react.dev/learn)** - Official React docs\n- 🎓 **[Full Stack Open](https://fullstackopen.com/)** - React + Node.js course\n- 🎨 **[Tailwind CSS](https://tailwindcss.com/docs)** - Utility-first CSS framework\n- 📦 **[npm & Package Management](https://docs.npmjs.com/)** - JavaScript packages\n- ⚡ **[Vite Documentation](https://vitejs.dev/)** - Modern build tool\n- 🔧 **[TypeScript Handbook](https://www.typescriptlang.org/docs/)** - Typed JavaScript\n\n**🏁 Milestone Project:** Build a full-featured React application\n\n---\n\n### 📙 **Phase 3: Backend & Full Stack** (Weeks 17-24)\n\n**🎯 Focus:** Node.js, Databases, APIs, Deployment\n\n**📖 Key Resources:**\n- 💚 **[Node.js Tutorial](https://nodejs.dev/learn)** - Official Node.js guide\n- 🚀 **[Express.js Guide](https://expressjs.com/en/guide/routing.html)** - Web framework for Node\n- 💾 **[MongoDB University](https://university.mongodb.com/)** - Free MongoDB courses\n- 🐘 **[PostgreSQL Tutorial](https://www.postgresqltutorial.com/)** - SQL database guide\n- 🔐 **[Authentication Guide](https://www.passportjs.org/)** - User authentication\n- ☁️ **[Deploy on Vercel](https://vercel.com/docs)** - Free hosting and deployment\n\n**🏁 Capstone Project:** Build and deploy a full-stack application\n\n---\n\n## 🛠️ **Essential Tools & Technologies**\n\n| 🔧 **Tool** | 🔗 **Link** | 💡 **Purpose** |\n| :--- | :--- | :--- |\n| **💻 VS Code** | [code.visualstudio.com](https://code.visualstudio.com/) | Best code editor for web dev |\n| **🌐 Chrome DevTools** | [Chrome DevTools](https://developer.chrome.com/docs/devtools/) | Browser debugging tools |\n| **📦 npm** | [npmjs.com](https://www.npmjs.com/) | JavaScript package manager |\n| **📂 Git & GitHub** | [github.com](https://github.com/) | Version control and collaboration |\n| **🎨 Figma** | [figma.com](https://www.figma.com/) | UI/UX design tool |\n| **📱 Postman** | [postman.com](https://www.postman.com/) | API testing tool |\n\n---\n\n## 📊 **Practice Platforms & Challenges**\n\n- 💻 **[Frontend Mentor](https://www.frontendmentor.io/)** - Real-world frontend challenges\n- 🏆 **[CodePen](https://codepen.io/)** - Frontend playground and inspiration\n- 🧩 **[LeetCode](https://leetcode.com/)** - Algorithm practice\n- 🎯 **[HackerRank](https://www.hackerrank.com/domains/tutorials/10-days-of-javascript)** - JavaScript challenges\n- 🌐 **[DevChallenges](https://devchallenges.io/)** - Real-world projects\n\n---\n\n## 🎓 **Free Courses & Certifications**\n\n- 🏆 **[FreeCodeCamp Certifications](https://www.freecodecamp.org/learn)** - 6 free certifications\n- 🎓 **[The Odin Project](https://www.theodinproject.com/)** - Full curriculum\n- 💚 **[Node.js Certification](https://nodejs.org/en/about/get-involved/certification)** - Official Node.js cert\n- ⚛️ **[Meta React Certificate](https://www.coursera.org/professional-certificates/meta-react-native)** - Meta's React course\n\n---\n\n## 📱 **Communities & Networking**\n\n- 💬 **[r/webdev](https://www.reddit.com/r/webdev/)** - Web development community\n- 🐦 **[Dev.to](https://dev.to/)** - Developer community and articles\n- 💼 **[Stack Overflow](https://stackoverflow.com/)** - Q&A for developers\n- 🤝 **[Discord: The Programmer's Hangout](https://discord.gg/programming)** - Active dev community\n\n---\n\n## 🚀 **Next Steps: Your Journey to Web Dev Mastery**\n\n1. **Week 1-2:** 🌐 Master HTML & CSS basics, build 3 simple pages\n2. **Week 3-4:** 🎨 Learn CSS Grid, Flexbox, and responsive design\n3. **Week 5-8:** ⚡ Complete JavaScript30 and build interactive projects\n4. **Week 9-12:** ⚛️ Learn React and build 3 React applications\n5. **Week 13-16:** 🎯 Master state management and API integration\n6. **Week 17-20:** 💚 Learn Node.js, Express, and build a REST API\n7. **Week 21-24:** 🚀 Build and deploy a full-stack application\n8. **Ongoing:** 💼 Contribute to open source and build portfolio\n\n---\n\n## 📚 **Recommended Books**\n\n- 📖 **\"Eloquent JavaScript\" by Marijn Haverbeke** - Free online JavaScript book\n- 🎨 **\"CSS Secrets\" by Lea Verou** - Advanced CSS techniques\n- ⚛️ **\"React Up & Running\" by Stoyan Stefanov** - React fundamentals\n- 💚 **\"Node.js Design Patterns\" by Mario Casciaro** - Advanced Node.js\n\n---\n\n## 🎯 **Career Resources**\n\n- 💼 **[Frontend Interview Handbook](https://www.frontendinterviewhandbook.com/)** - Interview prep\n- 📊 **[Glassdoor Web Dev Salaries](https://www.glassdoor.com/Salaries/web-developer-salary-SRCH_KO0,13.htm)** - Salary data\n- 🎓 **[LinkedIn Learning](https://www.linkedin.com/learning/)** - Professional courses\n\n---\n\n**✨ Remember:** Web development is constantly evolving. Focus on fundamentals, build projects, and never stop learning. Good luck on your journey! 🚀\n",
+        "created_at": "2026-02-04T08:47:31.173Z"
+      },
+      {
+        "id": 1770266377734,
+        "content": "\n# 🚀 Your Personalized Curriculum: Machine learning\n\n> 💡 **AI Assistant Note:** Our AI is currently at capacity, but we've prepared a comprehensive, curated learning path just for you!\n\n---\n\n## 📚 **Essential Machine Learning & AI Resources**\n\n| 🎓 **Platform / Course** | 🔗 **Link** | 💡 **Why This Matters** |\n| :--- | :--- | :--- |\n| **🏆 Andrew Ng's ML Course** | [Coursera ML Specialization](https://www.coursera.org/specializations/machine-learning-introduction) | The gold standard for ML beginners - comprehensive and well-structured |\n| **⚡ Fast.ai** | [Practical Deep Learning](https://course.fast.ai/) | Top-down approach - build real projects from day 1 |\n| **🎯 Google ML Crash Course** | [Google Developers](https://developers.google.com/machine-learning/crash-course) | Free, interactive, with TensorFlow tutorials |\n| **📊 Scikit-learn Docs** | [scikit-learn.org](https://scikit-learn.org/stable/tutorial/index.html) | Best resource for classical ML algorithms |\n| **🧠 Deep Learning Specialization** | [Coursera Deep Learning](https://www.coursera.org/specializations/deep-learning) | Advanced neural networks by Andrew Ng |\n| **🏅 Kaggle Learn** | [kaggle.com/learn](https://www.kaggle.com/learn) | Hands-on micro-courses with real datasets |\n| **⭐ Awesome Machine Learning** | [GitHub Awesome ML](https://github.com/josephmisiti/awesome-machine-learning) | Curated list of ML frameworks and libraries |\n| **📄 Papers With Code** | [paperswithcode.com](https://paperswithcode.com/) | Latest ML research with implementation code |\n\n---\n\n## 🗂️ **Detailed Learning Modules**\n\n### 📘 **Phase 1: Foundations & Core Concepts** (Weeks 1-8)\n\n**🎯 Focus:** Mathematics, Python, and Classical ML Algorithms\n\n**📖 Key Resources:**\n- 🐍 **[Python for Data Science](https://www.kaggle.com/learn/python)** - Master Python basics with interactive exercises\n- 🔢 **[NumPy Tutorial](https://numpy.org/doc/stable/user/quickstart.html)** - Essential for numerical computing\n- 🐼 **[Pandas Documentation](https://pandas.pydata.org/docs/getting_started/intro_tutorials/index.html)** - Data manipulation fundamentals\n- 📐 **[Khan Academy Linear Algebra](https://www.khanacademy.org/math/linear-algebra)** - Math foundations made easy\n- 🎨 **[3Blue1Brown Neural Networks](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi)** - Visual intuition for ML concepts\n- 📊 **[StatQuest ML Playlist](https://www.youtube.com/playlist?list=PLblh5JKOoLUICTaGLRoHQDuF_7q2GfuJF)** - Statistics made simple and fun\n\n**🏁 Milestone Project:** Build a house price predictor using linear regression\n        \n---\n\n### 📗 **Phase 2: Core Expertise & Deep Learning** (Weeks 9-16)\n\n**🎯 Focus:** Neural Networks, TensorFlow/PyTorch, Computer Vision & NLP\n\n**📖 Key Resources:**\n- 🔥 **[TensorFlow Tutorials](https://www.tensorflow.org/tutorials)** - Official TensorFlow guides\n- ⚡ **[PyTorch Tutorials](https://pytorch.org/tutorials/)** - Official PyTorch learning path\n- 👁️ **[CS231n Stanford CNN Course](http://cs231n.stanford.edu/)** - Computer vision fundamentals\n- 💬 **[CS224n Stanford NLP Course](http://web.stanford.edu/class/cs224n/)** - Natural language processing\n- 🤗 **[Hugging Face Course](https://huggingface.co/learn/nlp-course/chapter1/1)** - Modern NLP with transformers\n- 📚 **[Deep Learning Book](https://www.deeplearningbook.org/)** - Comprehensive theory by Ian Goodfellow\n- ✨ **[Distill.pub](https://distill.pub/)** - Beautiful ML explanations\n\n**🏁 Milestone Project:** Build an image classifier or sentiment analysis model\n        \n---\n\n### 📙 **Phase 3: Advanced Mastery & Specialization** (Weeks 17-24)\n\n**🎯 Focus:** MLOps, Production Deployment, Advanced Architectures\n\n**📖 Key Resources:**\n- 🚀 **[Full Stack Deep Learning](https://fullstackdeeplearning.com/)** - Production ML systems\n- ⚙️ **[MLOps Guide](https://ml-ops.org/)** - Best practices for ML operations\n- 🔧 **[TensorFlow Extended (TFX)](https://www.tensorflow.org/tfx/guide)** - End-to-end ML pipelines\n- 📊 **[MLflow Documentation](https://mlflow.org/docs/latest/index.html)** - Experiment tracking and deployment\n- 📈 **[Weights & Biases Tutorials](https://docs.wandb.ai/tutorials)** - ML experiment management\n- 🐳 **[Docker for ML](https://docs.docker.com/get-started/)** - Containerization basics\n- ☸️ **[Kubernetes ML Guide](https://kubernetes.io/docs/tutorials/)** - Scaling ML applications\n- ☁️ **[AWS SageMaker](https://aws.amazon.com/sagemaker/getting-started/)** - Cloud ML deployment\n\n**🏁 Capstone Project:** Deploy a full ML application with CI/CD pipeline\n\n---\n\n## 🎯 **Specialized Learning Paths**\n\n### 👁️ **Computer Vision Track**\n- 📷 **[OpenCV Tutorials](https://docs.opencv.org/4.x/d9/df8/tutorial_root.html)** - Image processing fundamentals\n- 🎯 **[YOLO Object Detection](https://github.com/ultralytics/yolov5)** - State-of-the-art detection\n- 🔍 **[Detectron2](https://github.com/facebookresearch/detectron2)** - Facebook's CV library\n\n### 💬 **Natural Language Processing Track**\n- 📝 **[spaCy Course](https://course.spacy.io/)** - Industrial-strength NLP\n- 📖 **[NLTK Book](https://www.nltk.org/book/)** - Classic NLP with Python\n- 🤖 **[Transformers Documentation](https://huggingface.co/docs/transformers/index)** - Modern NLP models\n\n### 🎮 **Reinforcement Learning Track**\n- 🌀 **[OpenAI Spinning Up](https://spinningup.openai.com/)** - Deep RL fundamentals\n- 🧠 **[DeepMind RL Course](https://www.deepmind.com/learning-resources/reinforcement-learning-lecture-series-2021)** - Advanced RL concepts\n- 🎯 **[Stable Baselines3](https://stable-baselines3.readthedocs.io/)** - RL algorithms implementation\n\n---\n\n## 🛠️ **Essential Tools & Frameworks**\n\n| 🔧 **Tool** | 🔗 **Link** | 💡 **Purpose** |\n| :--- | :--- | :--- |\n| **📓 Jupyter Notebook** | [jupyter.org](https://jupyter.org/) | Interactive coding environment |\n| **☁️ Google Colab** | [colab.research.google.com](https://colab.research.google.com/) | Free GPU for training |\n| **🐍 Anaconda** | [anaconda.com](https://www.anaconda.com/) | Python distribution for data science |\n| **💻 VS Code** | [code.visualstudio.com](https://code.visualstudio.com/) | Best IDE for ML development |\n| **📂 Git & GitHub** | [github.com](https://github.com/) | Version control for projects |\n\n---\n\n## 📊 **Practice Platforms & Datasets**\n\n- 🏆 **[Kaggle Competitions](https://www.kaggle.com/competitions)** - Real-world ML challenges with prizes\n- 📚 **[UCI ML Repository](https://archive.ics.uci.edu/ml/index.php)** - Classic datasets for practice\n- 🔍 **[Google Dataset Search](https://datasetsearch.research.google.com/)** - Find datasets for any domain\n- 📦 **[TensorFlow Datasets](https://www.tensorflow.org/datasets)** - Ready-to-use datasets\n- 💻 **[HackerRank AI](https://www.hackerrank.com/domains/ai)** - Coding challenges for ML\n- 🧩 **[LeetCode ML Problems](https://leetcode.com/)** - Algorithm practice\n\n---\n\n## 🎓 **University Courses (Free Online)**\n\n- 🏛️ **[MIT 6.S191 Deep Learning](http://introtodeeplearning.com/)** - Intensive 1-week bootcamp\n- 🎓 **[Stanford CS229 Machine Learning](https://cs229.stanford.edu/)** - Graduate-level ML course\n- 🐻 **[Berkeley CS188 AI](https://inst.eecs.berkeley.edu/~cs188/)** - Artificial Intelligence fundamentals\n- 🏫 **[CMU 10-701 ML](http://www.cs.cmu.edu/~tom/10701_sp11/)** - Theoretical foundations\n\n---\n\n## 📱 **Communities & Networking**\n\n- 💬 **[r/MachineLearning](https://www.reddit.com/r/MachineLearning/)** - Latest research and discussions\n- 🤝 **[AI Alignment Forum](https://www.alignmentforum.org/)** - Advanced AI safety discussions\n- ⚙️ **[MLOps Community](https://mlops.community/)** - Production ML best practices\n- ✍️ **[Towards Data Science](https://towardsdatascience.com/)** - Medium publication for ML articles\n- 📚 **[Machine Learning Mastery](https://machinelearningmastery.com/)** - Practical tutorials\n\n---\n\n## 🚀 **Next Steps: Your Journey to ML Mastery**\n\n1. **Week 1-2:** 🔧 Set up your environment (Python, Jupyter, Git) and complete Python basics\n2. **Week 3-4:** 📊 Master NumPy and Pandas through Kaggle micro-courses\n3. **Week 5-8:** 🎓 Complete Andrew Ng's ML course on Coursera\n4. **Week 9-12:** 🏗️ Build 3 projects: regression, classification, and clustering\n5. **Week 13-16:** 🧠 Learn deep learning with Fast.ai or TensorFlow tutorials\n6. **Week 17-20:** 🎯 Specialize in Computer Vision OR NLP\n7. **Week 21-24:** 🚀 Deploy a full ML application and contribute to open source\n8. **Ongoing:** 📈 Participate in Kaggle competitions and read ML papers weekly\n\n---\n\n## 📚 **Recommended Books**\n\n- 📖 **\"Hands-On Machine Learning\" by Aurélien Géron** - Best practical ML book\n- 🧠 **\"Deep Learning\" by Ian Goodfellow** - Comprehensive theory\n- 📊 **\"Pattern Recognition and Machine Learning\" by Christopher Bishop** - Mathematical foundations\n- 📝 **\"The Hundred-Page Machine Learning Book\" by Andriy Burkov** - Quick overview\n\n---\n\n## 🎯 **Career Resources**\n\n- 💼 **[ML Interview Prep](https://github.com/khangich/machine-learning-interview)** - Interview questions and answers\n- 📘 **[Chip Huyen's ML Interviews Book](https://huyenchip.com/ml-interviews-book/)** - Comprehensive interview guide\n- 🎓 **[LinkedIn Learning ML Paths](https://www.linkedin.com/learning/)** - Professional development courses\n\n---\n\n**✨ Remember:** Machine Learning is a marathon, not a sprint. Focus on understanding fundamentals, build projects consistently, and engage with the community. Good luck on your ML journey! 🚀\n",
+        "created_at": "2026-02-05T04:39:37.734Z"
+      },
+      {
+        "id": 1770283898572,
+        "content": "\n# 🚀 Your Personalized Curriculum: water technology\n\n> 💡 **AI Assistant Note:** Our AI is currently at capacity, but we've prepared a comprehensive learning path to get you started!\n\n---\n\n## 📚 **Essential Learning Resources**\n\n| 🎓 **Platform / Course** | 🔗 **Link** | 💡 **Why This Matters** |\n| :--- | :--- | :--- |\n| **🌐 Coursera** | [coursera.org](https://www.coursera.org/) | University-level courses from top institutions |\n| **🎯 edX** | [edx.org](https://www.edx.org/) | Free courses from MIT, Harvard, and more |\n| **📚 Udemy** | [udemy.com](https://www.udemy.com/) | Practical, project-based courses |\n| **🎓 Khan Academy** | [khanacademy.org](https://www.khanacademy.org/) | Free education for all subjects |\n| **💻 YouTube EDU** | [YouTube Learning](https://www.youtube.com/channel/UCSSlekSYRoyQo8uQGHvq4qQ) | Free video tutorials |\n| **📖 MIT OpenCourseWare** | [ocw.mit.edu](https://ocw.mit.edu/) | Free MIT course materials |\n| **⭐ GitHub Learning Lab** | [lab.github.com](https://lab.github.com/) | Learn by doing with GitHub |\n| **🏆 LinkedIn Learning** | [linkedin.com/learning](https://www.linkedin.com/learning/) | Professional development courses |\n\n---\n\n## 🗂️ **Learning Path Structure**\n\n### 📘 **Phase 1: Foundations** (Weeks 1-8)\n\n**🎯 Focus:** Build strong fundamentals in water technology\n\n**📖 Recommended Actions:**\n- 🔍 Research the core skills needed for water technology\n- 📚 Take introductory courses on Coursera or edX\n- 💻 Set up your learning environment and tools\n- 📝 Start a learning journal to track progress\n- 🤝 Join online communities related to water technology\n- 🏗️ Build your first small project\n\n**🏁 Milestone:** Complete foundational knowledge and create a simple project\n\n---\n\n### 📗 **Phase 2: Skill Development** (Weeks 9-16)\n\n**🎯 Focus:** Develop practical skills and build projects\n\n**📖 Recommended Actions:**\n- 🎯 Take intermediate-level courses\n- 🏗️ Build 3-5 progressively complex projects\n- 📊 Learn industry-standard tools and frameworks\n- 💼 Start building a portfolio\n- 🤝 Network with professionals in the field\n- 📚 Read industry blogs and documentation\n\n**🏁 Milestone:** Complete a portfolio-worthy project\n\n---\n\n### 📙 **Phase 3: Mastery & Specialization** (Weeks 17-24)\n\n**🎯 Focus:** Advanced topics and real-world application\n\n**📖 Recommended Actions:**\n- 🚀 Take advanced courses or specializations\n- 💼 Work on real-world projects or freelance\n- 🎓 Consider professional certifications\n- 🤝 Contribute to open-source projects\n- 📈 Build a strong online presence (GitHub, LinkedIn)\n- 💡 Mentor others or teach what you've learned\n\n**🏁 Capstone:** Complete a comprehensive project demonstrating mastery\n\n---\n\n## 🛠️ **Essential Learning Tools**\n\n| 🔧 **Tool** | 🔗 **Link** | 💡 **Purpose** |\n| :--- | :--- | :--- |\n| **💻 VS Code** | [code.visualstudio.com](https://code.visualstudio.com/) | Universal code editor |\n| **📂 GitHub** | [github.com](https://github.com/) | Version control and portfolio |\n| **📝 Notion** | [notion.so](https://www.notion.so/) | Note-taking and organization |\n| **🎨 Canva** | [canva.com](https://www.canva.com/) | Design and presentations |\n| **💬 Discord** | [discord.com](https://discord.com/) | Join learning communities |\n\n---\n\n## 📊 **Practice & Community Platforms**\n\n- 🏆 **[Reddit Communities](https://www.reddit.com/)** - Find subreddits for water technology\n- 💬 **[Stack Overflow](https://stackoverflow.com/)** - Q&A for technical questions\n- 🤝 **[Discord Servers](https://discord.com/)** - Join learning communities\n- 📚 **[Medium](https://medium.com/)** - Read articles and tutorials\n- 🎓 **[Meetup](https://www.meetup.com/)** - Find local learning groups\n\n---\n\n## 🎓 **Recommended Learning Platforms**\n\n- 🏆 **[Coursera](https://www.coursera.org/)** - University courses with certificates\n- 🎯 **[edX](https://www.edx.org/)** - Free courses from top universities\n- 📚 **[Udacity](https://www.udacity.com/)** - Nanodegree programs\n- 💻 **[Pluralsight](https://www.pluralsight.com/)** - Technology skills platform\n- 🎓 **[Skillshare](https://www.skillshare.com/)** - Creative and business skills\n\n---\n\n## 🚀 **Next Steps: Your Learning Journey**\n\n1. **Week 1-2:** 🔍 Research water technology and define your learning objectives\n2. **Week 3-4:** 📚 Enroll in foundational courses\n3. **Week 5-8:** 🏗️ Build your first project\n4. **Week 9-12:** 🎯 Develop intermediate skills\n5. **Week 13-16:** 💼 Create portfolio projects\n6. **Week 17-20:** 🚀 Learn advanced topics\n7. **Week 21-24:** 🏆 Complete capstone project\n8. **Ongoing:** 📈 Continue learning and networking\n\n---\n\n## 📚 **General Learning Resources**\n\n- 📖 **Search for books on water technology** on Amazon or Goodreads\n- 🎥 **YouTube channels** focused on water technology\n- 📝 **Medium articles** and blog posts\n- 🎓 **Professional certifications** in water technology\n\n---\n\n## 🎯 **Career Development**\n\n- 💼 **[LinkedIn](https://www.linkedin.com/)** - Build your professional network\n- 📊 **[Glassdoor](https://www.glassdoor.com/)** - Research salaries and companies\n- 🎓 **[Indeed Career Guide](https://www.indeed.com/career-advice)** - Career resources\n- 💡 **[AngelList](https://angel.co/)** - Startup jobs and opportunities\n\n---\n\n**✨ Remember:** Every expert was once a beginner. Stay consistent, build projects, and engage with the community. Good luck on your journey to becoming a water technology! 🚀\n",
+        "created_at": "2026-02-05T09:31:38.572Z"
+      },
+      {
+        "id": 1770365668664,
+        "content": "\n# 🚀 Your Personalized Curriculum: Machine learning\n\n> 💡 **AI Assistant Note:** Our AI is currently at capacity, but we've prepared a comprehensive, curated learning path just for you!\n\n---\n\n## 📚 **Essential Machine Learning & AI Resources**\n\n| 🎓 **Platform / Course** | 🔗 **Link** | 💡 **Why This Matters** |\n| :--- | :--- | :--- |\n| **🏆 Andrew Ng's ML Course** | [Coursera ML Specialization](https://www.coursera.org/specializations/machine-learning-introduction) | The gold standard for ML beginners - comprehensive and well-structured |\n| **⚡ Fast.ai** | [Practical Deep Learning](https://course.fast.ai/) | Top-down approach - build real projects from day 1 |\n| **🎯 Google ML Crash Course** | [Google Developers](https://developers.google.com/machine-learning/crash-course) | Free, interactive, with TensorFlow tutorials |\n| **📊 Scikit-learn Docs** | [scikit-learn.org](https://scikit-learn.org/stable/tutorial/index.html) | Best resource for classical ML algorithms |\n| **🧠 Deep Learning Specialization** | [Coursera Deep Learning](https://www.coursera.org/specializations/deep-learning) | Advanced neural networks by Andrew Ng |\n| **🏅 Kaggle Learn** | [kaggle.com/learn](https://www.kaggle.com/learn) | Hands-on micro-courses with real datasets |\n| **⭐ Awesome Machine Learning** | [GitHub Awesome ML](https://github.com/josephmisiti/awesome-machine-learning) | Curated list of ML frameworks and libraries |\n| **📄 Papers With Code** | [paperswithcode.com](https://paperswithcode.com/) | Latest ML research with implementation code |\n\n---\n\n## 🗂️ **Detailed Learning Modules**\n\n### 📘 **Phase 1: Foundations & Core Concepts** (Weeks 1-8)\n\n**🎯 Focus:** Mathematics, Python, and Classical ML Algorithms\n\n**📖 Key Resources:**\n- 🐍 **[Python for Data Science](https://www.kaggle.com/learn/python)** - Master Python basics with interactive exercises\n- 🔢 **[NumPy Tutorial](https://numpy.org/doc/stable/user/quickstart.html)** - Essential for numerical computing\n- 🐼 **[Pandas Documentation](https://pandas.pydata.org/docs/getting_started/intro_tutorials/index.html)** - Data manipulation fundamentals\n- 📐 **[Khan Academy Linear Algebra](https://www.khanacademy.org/math/linear-algebra)** - Math foundations made easy\n- 🎨 **[3Blue1Brown Neural Networks](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi)** - Visual intuition for ML concepts\n- 📊 **[StatQuest ML Playlist](https://www.youtube.com/playlist?list=PLblh5JKOoLUICTaGLRoHQDuF_7q2GfuJF)** - Statistics made simple and fun\n\n**🏁 Milestone Project:** Build a house price predictor using linear regression\n        \n---\n\n### 📗 **Phase 2: Core Expertise & Deep Learning** (Weeks 9-16)\n\n**🎯 Focus:** Neural Networks, TensorFlow/PyTorch, Computer Vision & NLP\n\n**📖 Key Resources:**\n- 🔥 **[TensorFlow Tutorials](https://www.tensorflow.org/tutorials)** - Official TensorFlow guides\n- ⚡ **[PyTorch Tutorials](https://pytorch.org/tutorials/)** - Official PyTorch learning path\n- 👁️ **[CS231n Stanford CNN Course](http://cs231n.stanford.edu/)** - Computer vision fundamentals\n- 💬 **[CS224n Stanford NLP Course](http://web.stanford.edu/class/cs224n/)** - Natural language processing\n- 🤗 **[Hugging Face Course](https://huggingface.co/learn/nlp-course/chapter1/1)** - Modern NLP with transformers\n- 📚 **[Deep Learning Book](https://www.deeplearningbook.org/)** - Comprehensive theory by Ian Goodfellow\n- ✨ **[Distill.pub](https://distill.pub/)** - Beautiful ML explanations\n\n**🏁 Milestone Project:** Build an image classifier or sentiment analysis model\n        \n---\n\n### 📙 **Phase 3: Advanced Mastery & Specialization** (Weeks 17-24)\n\n**🎯 Focus:** MLOps, Production Deployment, Advanced Architectures\n\n**📖 Key Resources:**\n- 🚀 **[Full Stack Deep Learning](https://fullstackdeeplearning.com/)** - Production ML systems\n- ⚙️ **[MLOps Guide](https://ml-ops.org/)** - Best practices for ML operations\n- 🔧 **[TensorFlow Extended (TFX)](https://www.tensorflow.org/tfx/guide)** - End-to-end ML pipelines\n- 📊 **[MLflow Documentation](https://mlflow.org/docs/latest/index.html)** - Experiment tracking and deployment\n- 📈 **[Weights & Biases Tutorials](https://docs.wandb.ai/tutorials)** - ML experiment management\n- 🐳 **[Docker for ML](https://docs.docker.com/get-started/)** - Containerization basics\n- ☸️ **[Kubernetes ML Guide](https://kubernetes.io/docs/tutorials/)** - Scaling ML applications\n- ☁️ **[AWS SageMaker](https://aws.amazon.com/sagemaker/getting-started/)** - Cloud ML deployment\n\n**🏁 Capstone Project:** Deploy a full ML application with CI/CD pipeline\n\n---\n\n## 🎯 **Specialized Learning Paths**\n\n### 👁️ **Computer Vision Track**\n- 📷 **[OpenCV Tutorials](https://docs.opencv.org/4.x/d9/df8/tutorial_root.html)** - Image processing fundamentals\n- 🎯 **[YOLO Object Detection](https://github.com/ultralytics/yolov5)** - State-of-the-art detection\n- 🔍 **[Detectron2](https://github.com/facebookresearch/detectron2)** - Facebook's CV library\n\n### 💬 **Natural Language Processing Track**\n- 📝 **[spaCy Course](https://course.spacy.io/)** - Industrial-strength NLP\n- 📖 **[NLTK Book](https://www.nltk.org/book/)** - Classic NLP with Python\n- 🤖 **[Transformers Documentation](https://huggingface.co/docs/transformers/index)** - Modern NLP models\n\n### 🎮 **Reinforcement Learning Track**\n- 🌀 **[OpenAI Spinning Up](https://spinningup.openai.com/)** - Deep RL fundamentals\n- 🧠 **[DeepMind RL Course](https://www.deepmind.com/learning-resources/reinforcement-learning-lecture-series-2021)** - Advanced RL concepts\n- 🎯 **[Stable Baselines3](https://stable-baselines3.readthedocs.io/)** - RL algorithms implementation\n\n---\n\n## 🛠️ **Essential Tools & Frameworks**\n\n| 🔧 **Tool** | 🔗 **Link** | 💡 **Purpose** |\n| :--- | :--- | :--- |\n| **📓 Jupyter Notebook** | [jupyter.org](https://jupyter.org/) | Interactive coding environment |\n| **☁️ Google Colab** | [colab.research.google.com](https://colab.research.google.com/) | Free GPU for training |\n| **🐍 Anaconda** | [anaconda.com](https://www.anaconda.com/) | Python distribution for data science |\n| **💻 VS Code** | [code.visualstudio.com](https://code.visualstudio.com/) | Best IDE for ML development |\n| **📂 Git & GitHub** | [github.com](https://github.com/) | Version control for projects |\n\n---\n\n## 📊 **Practice Platforms & Datasets**\n\n- 🏆 **[Kaggle Competitions](https://www.kaggle.com/competitions)** - Real-world ML challenges with prizes\n- 📚 **[UCI ML Repository](https://archive.ics.uci.edu/ml/index.php)** - Classic datasets for practice\n- 🔍 **[Google Dataset Search](https://datasetsearch.research.google.com/)** - Find datasets for any domain\n- 📦 **[TensorFlow Datasets](https://www.tensorflow.org/datasets)** - Ready-to-use datasets\n- 💻 **[HackerRank AI](https://www.hackerrank.com/domains/ai)** - Coding challenges for ML\n- 🧩 **[LeetCode ML Problems](https://leetcode.com/)** - Algorithm practice\n\n---\n\n## 🎓 **University Courses (Free Online)**\n\n- 🏛️ **[MIT 6.S191 Deep Learning](http://introtodeeplearning.com/)** - Intensive 1-week bootcamp\n- 🎓 **[Stanford CS229 Machine Learning](https://cs229.stanford.edu/)** - Graduate-level ML course\n- 🐻 **[Berkeley CS188 AI](https://inst.eecs.berkeley.edu/~cs188/)** - Artificial Intelligence fundamentals\n- 🏫 **[CMU 10-701 ML](http://www.cs.cmu.edu/~tom/10701_sp11/)** - Theoretical foundations\n\n---\n\n## 📱 **Communities & Networking**\n\n- 💬 **[r/MachineLearning](https://www.reddit.com/r/MachineLearning/)** - Latest research and discussions\n- 🤝 **[AI Alignment Forum](https://www.alignmentforum.org/)** - Advanced AI safety discussions\n- ⚙️ **[MLOps Community](https://mlops.community/)** - Production ML best practices\n- ✍️ **[Towards Data Science](https://towardsdatascience.com/)** - Medium publication for ML articles\n- 📚 **[Machine Learning Mastery](https://machinelearningmastery.com/)** - Practical tutorials\n\n---\n\n## 🚀 **Next Steps: Your Journey to ML Mastery**\n\n1. **Week 1-2:** 🔧 Set up your environment (Python, Jupyter, Git) and complete Python basics\n2. **Week 3-4:** 📊 Master NumPy and Pandas through Kaggle micro-courses\n3. **Week 5-8:** 🎓 Complete Andrew Ng's ML course on Coursera\n4. **Week 9-12:** 🏗️ Build 3 projects: regression, classification, and clustering\n5. **Week 13-16:** 🧠 Learn deep learning with Fast.ai or TensorFlow tutorials\n6. **Week 17-20:** 🎯 Specialize in Computer Vision OR NLP\n7. **Week 21-24:** 🚀 Deploy a full ML application and contribute to open source\n8. **Ongoing:** 📈 Participate in Kaggle competitions and read ML papers weekly\n\n---\n\n## 📚 **Recommended Books**\n\n- 📖 **\"Hands-On Machine Learning\" by Aurélien Géron** - Best practical ML book\n- 🧠 **\"Deep Learning\" by Ian Goodfellow** - Comprehensive theory\n- 📊 **\"Pattern Recognition and Machine Learning\" by Christopher Bishop** - Mathematical foundations\n- 📝 **\"The Hundred-Page Machine Learning Book\" by Andriy Burkov** - Quick overview\n\n---\n\n## 🎯 **Career Resources**\n\n- 💼 **[ML Interview Prep](https://github.com/khangich/machine-learning-interview)** - Interview questions and answers\n- 📘 **[Chip Huyen's ML Interviews Book](https://huyenchip.com/ml-interviews-book/)** - Comprehensive interview guide\n- 🎓 **[LinkedIn Learning ML Paths](https://www.linkedin.com/learning/)** - Professional development courses\n\n---\n\n**✨ Remember:** Machine Learning is a marathon, not a sprint. Focus on understanding fundamentals, build projects consistently, and engage with the community. Good luck on your ML journey! 🚀\n",
+        "created_at": "2026-02-06T08:14:28.664Z"
       }
     ],
     "tasks": [
       {
-        "title": "Foundation: Web Developement Analysis",
-        "description": "Perform a basic analysis and architectural setup for a Web Developement project.",
-        "starter_code": "# Project: Web Developement\n# Step 1: Initialize core components\n",
-        "solution": "print('Environment ready')",
-        "language": "python",
-        "test_cases": [
-          {
-            "input": "",
-            "expected_output": "Environment ready"
-          }
-        ],
-        "id": "1767370310156q4dpfjskh",
-        "status": "pending",
-        "assigned_at": "2026-01-02T16:11:50.156Z"
-      },
-      {
-        "title": "Logic: Web Developement Data Handler",
-        "description": "Create a function to handle incoming signals for the Web Developement system.",
-        "starter_code": "def process_data(data):\n    # Your logic here\n    pass",
-        "solution": "def process_data(data): return data",
-        "language": "python",
-        "test_cases": [
-          {
-            "input": "process_data('test')",
-            "expected_output": "test"
-          }
-        ],
-        "id": "17673703101568ok0puho5",
-        "status": "pending",
-        "assigned_at": "2026-01-02T16:11:50.156Z"
-      },
-      {
-        "title": "Production: Web Developement API Mock",
-        "description": "Implement a mock interface for testing the Web Developement integration.",
-        "starter_code": "class MockAPI:\n    def get_status(self):\n        return 'offline'",
-        "solution": "class MockAPI:\n    def get_status(self):\n        return 'online'",
-        "language": "python",
-        "test_cases": [
-          {
-            "input": "MockAPI().get_status()",
-            "expected_output": "online"
-          }
-        ],
-        "id": "1767370310156ozufdd64o",
-        "status": "pending",
-        "assigned_at": "2026-01-02T16:11:50.156Z"
-      },
-      {
-        "title": "Foundation: machine learning Analysis",
-        "description": "Perform a basic analysis and architectural setup for a machine learning project.",
-        "starter_code": "# Project: machine learning\n# Step 1: Initialize core components\n",
-        "solution": "print('Environment ready')",
-        "language": "python",
-        "test_cases": [
-          {
-            "input": "",
-            "expected_output": "Environment ready"
-          }
-        ],
-        "id": "1767370404482z8eeqz3ve",
-        "status": "pending",
-        "assigned_at": "2026-01-02T16:13:24.482Z"
-      },
-      {
-        "title": "Logic: machine learning Data Handler",
-        "description": "Create a function to handle incoming signals for the machine learning system.",
-        "starter_code": "def process_data(data):\n    # Your logic here\n    pass",
-        "solution": "def process_data(data): return data",
-        "language": "python",
-        "test_cases": [
-          {
-            "input": "process_data('test')",
-            "expected_output": "test"
-          }
-        ],
-        "id": "1767370404482q4ew7w6qk",
-        "status": "pending",
-        "assigned_at": "2026-01-02T16:13:24.482Z"
-      },
-      {
-        "title": "Production: machine learning API Mock",
-        "description": "Implement a mock interface for testing the machine learning integration.",
-        "starter_code": "class MockAPI:\n    def get_status(self):\n        return 'offline'",
-        "solution": "class MockAPI:\n    def get_status(self):\n        return 'online'",
-        "language": "python",
-        "test_cases": [
-          {
-            "input": "MockAPI().get_status()",
-            "expected_output": "online"
-          }
-        ],
-        "id": "1767370404482syt4tcrhx",
-        "status": "pending",
-        "assigned_at": "2026-01-02T16:13:24.482Z"
-      },
-      {
-        "title": "Foundation: machine learning Analysis",
-        "description": "Perform a basic analysis and architectural setup for a machine learning project.",
-        "starter_code": "# Project: machine learning\n# Step 1: Initialize core components\n",
-        "solution": "print('Environment ready')",
-        "language": "python",
-        "test_cases": [
-          {
-            "input": "",
-            "expected_output": "Environment ready"
-          }
-        ],
-        "id": "1767370602216zh49jfb62",
-        "status": "pending",
-        "assigned_at": "2026-01-02T16:16:42.216Z"
-      },
-      {
-        "title": "Logic: machine learning Data Handler",
-        "description": "Create a function to handle incoming signals for the machine learning system.",
-        "starter_code": "def process_data(data):\n    # Your logic here\n    pass",
-        "solution": "def process_data(data): return data",
-        "language": "python",
-        "test_cases": [
-          {
-            "input": "process_data('test')",
-            "expected_output": "test"
-          }
-        ],
-        "id": "1767370602216967411sxf",
-        "status": "pending",
-        "assigned_at": "2026-01-02T16:16:42.216Z"
-      },
-      {
-        "title": "Production: machine learning API Mock",
-        "description": "Implement a mock interface for testing the machine learning integration.",
-        "starter_code": "class MockAPI:\n    def get_status(self):\n        return 'offline'",
-        "solution": "class MockAPI:\n    def get_status(self):\n        return 'online'",
-        "language": "python",
-        "test_cases": [
-          {
-            "input": "MockAPI().get_status()",
-            "expected_output": "online"
-          }
-        ],
-        "id": "1767370602216m8bqvy08h",
-        "status": "pending",
-        "assigned_at": "2026-01-02T16:16:42.216Z"
-      },
-      {
         "title": "Foundation: Machine learning Analysis",
         "description": "Perform a basic analysis and architectural setup for a Machine learning project.",
         "starter_code": "# Project: Machine learning\n# Step 1: Initialize core components\n",
@@ -236,9 +111,9 @@
             "expected_output": "Environment ready"
           }
         ],
-        "id": "1767370750958vg05ul0n9",
+        "id": "1770266464498yqcok9a5e",
         "status": "pending",
-        "assigned_at": "2026-01-02T16:19:10.958Z"
+        "assigned_at": "2026-02-05T04:41:04.498Z"
       },
       {
         "title": "Logic: Machine learning Data Handler",
@@ -252,9 +127,9 @@
             "expected_output": "test"
           }
         ],
-        "id": "1767370750958z9tkcxcat",
+        "id": "1770266464499844clfw0b",
         "status": "pending",
-        "assigned_at": "2026-01-02T16:19:10.958Z"
+        "assigned_at": "2026-02-05T04:41:04.499Z"
       },
       {
         "title": "Production: Machine learning API Mock",
@@ -268,9 +143,105 @@
             "expected_output": "online"
           }
         ],
-        "id": "1767370750958tv9zjvcer",
+        "id": "1770266464499l0l36yox1",
         "status": "pending",
-        "assigned_at": "2026-01-02T16:19:10.958Z"
+        "assigned_at": "2026-02-05T04:41:04.499Z"
+      },
+      {
+        "title": "Foundation: General Coding Analysis",
+        "description": "Perform a basic analysis and architectural setup for a General Coding project.",
+        "starter_code": "# Project: General Coding\n# Step 1: Initialize core components\n",
+        "solution": "print('Environment ready')",
+        "language": "python",
+        "test_cases": [
+          {
+            "input": "",
+            "expected_output": "Environment ready"
+          }
+        ],
+        "id": "177028117629955dgs2n89",
+        "status": "pending",
+        "assigned_at": "2026-02-05T08:46:16.300Z"
+      },
+      {
+        "title": "Logic: General Coding Data Handler",
+        "description": "Create a function to handle incoming signals for the General Coding system.",
+        "starter_code": "def process_data(data):\n    # Your logic here\n    pass",
+        "solution": "def process_data(data): return data",
+        "language": "python",
+        "test_cases": [
+          {
+            "input": "process_data('test')",
+            "expected_output": "test"
+          }
+        ],
+        "id": "1770281176300b572ytlgm",
+        "status": "pending",
+        "assigned_at": "2026-02-05T08:46:16.300Z"
+      },
+      {
+        "title": "Production: General Coding API Mock",
+        "description": "Implement a mock interface for testing the General Coding integration.",
+        "starter_code": "class MockAPI:\n    def get_status(self):\n        return 'offline'",
+        "solution": "class MockAPI:\n    def get_status(self):\n        return 'online'",
+        "language": "python",
+        "test_cases": [
+          {
+            "input": "MockAPI().get_status()",
+            "expected_output": "online"
+          }
+        ],
+        "id": "1770281176300zh349t3cj",
+        "status": "pending",
+        "assigned_at": "2026-02-05T08:46:16.300Z"
+      },
+      {
+        "title": "Foundation: water technology Analysis",
+        "description": "Perform a basic analysis and architectural setup for a water technology project.",
+        "starter_code": "# Project: water technology\n# Step 1: Initialize core components\n",
+        "solution": "print('Environment ready')",
+        "language": "python",
+        "test_cases": [
+          {
+            "input": "",
+            "expected_output": "Environment ready"
+          }
+        ],
+        "id": "1770283898707yj6817mvg",
+        "status": "pending",
+        "assigned_at": "2026-02-05T09:31:38.708Z"
+      },
+      {
+        "title": "Logic: water technology Data Handler",
+        "description": "Create a function to handle incoming signals for the water technology system.",
+        "starter_code": "def process_data(data):\n    # Your logic here\n    pass",
+        "solution": "def process_data(data): return data",
+        "language": "python",
+        "test_cases": [
+          {
+            "input": "process_data('test')",
+            "expected_output": "test"
+          }
+        ],
+        "id": "177028389870809ci60syi",
+        "status": "pending",
+        "assigned_at": "2026-02-05T09:31:38.708Z"
+      },
+      {
+        "title": "Production: water technology API Mock",
+        "description": "Implement a mock interface for testing the water technology integration.",
+        "starter_code": "class MockAPI:\n    def get_status(self):\n        return 'offline'",
+        "solution": "class MockAPI:\n    def get_status(self):\n        return 'online'",
+        "language": "python",
+        "test_cases": [
+          {
+            "input": "MockAPI().get_status()",
+            "expected_output": "online"
+          }
+        ],
+        "id": "1770283898708jvcxr7cg0",
+        "status": "pending",
+        "assigned_at": "2026-02-05T09:31:38.708Z"
       },
       {
         "title": "Foundation: Machine learning Analysis",
@@ -284,9 +255,9 @@
             "expected_output": "Environment ready"
           }
         ],
-        "id": "1767370894523hmirguq5j",
+        "id": "1770365670041t5gqai90r",
         "status": "pending",
-        "assigned_at": "2026-01-02T16:21:34.523Z"
+        "assigned_at": "2026-02-06T08:14:30.041Z"
       },
       {
         "title": "Logic: Machine learning Data Handler",
@@ -300,9 +271,9 @@
             "expected_output": "test"
           }
         ],
-        "id": "1767370894523a2tw8fy2l",
+        "id": "17703656700413pwo89fz2",
         "status": "pending",
-        "assigned_at": "2026-01-02T16:21:34.523Z"
+        "assigned_at": "2026-02-06T08:14:30.041Z"
       },
       {
         "title": "Production: Machine learning API Mock",
@@ -316,249 +287,9 @@
             "expected_output": "online"
           }
         ],
-        "id": "17673708945237nrz4ct7w",
+        "id": "1770365670041p3i4cuxo3",
         "status": "pending",
-        "assigned_at": "2026-01-02T16:21:34.523Z"
-      },
-      {
-        "title": "Foundation: Machine learning Analysis",
-        "description": "Perform a basic analysis and architectural setup for a Machine learning project.",
-        "starter_code": "# Project: Machine learning\n# Step 1: Initialize core components\n",
-        "solution": "print('Environment ready')",
-        "language": "python",
-        "test_cases": [
-          {
-            "input": "",
-            "expected_output": "Environment ready"
-          }
-        ],
-        "id": "17673711683578mvwno45w",
-        "status": "pending",
-        "assigned_at": "2026-01-02T16:26:08.357Z"
-      },
-      {
-        "title": "Logic: Machine learning Data Handler",
-        "description": "Create a function to handle incoming signals for the Machine learning system.",
-        "starter_code": "def process_data(data):\n    # Your logic here\n    pass",
-        "solution": "def process_data(data): return data",
-        "language": "python",
-        "test_cases": [
-          {
-            "input": "process_data('test')",
-            "expected_output": "test"
-          }
-        ],
-        "id": "1767371168357u0vqt6h7b",
-        "status": "pending",
-        "assigned_at": "2026-01-02T16:26:08.357Z"
-      },
-      {
-        "title": "Production: Machine learning API Mock",
-        "description": "Implement a mock interface for testing the Machine learning integration.",
-        "starter_code": "class MockAPI:\n    def get_status(self):\n        return 'offline'",
-        "solution": "class MockAPI:\n    def get_status(self):\n        return 'online'",
-        "language": "python",
-        "test_cases": [
-          {
-            "input": "MockAPI().get_status()",
-            "expected_output": "online"
-          }
-        ],
-        "id": "1767371168357yd7t3i6n6",
-        "status": "pending",
-        "assigned_at": "2026-01-02T16:26:08.357Z"
-      },
-      {
-        "title": "Foundation: machine learning Analysis",
-        "description": "Perform a basic analysis and architectural setup for a machine learning project.",
-        "starter_code": "# Project: machine learning\n# Step 1: Initialize core components\n",
-        "solution": "print('Environment ready')",
-        "language": "python",
-        "test_cases": [
-          {
-            "input": "",
-            "expected_output": "Environment ready"
-          }
-        ],
-        "id": "1767371436202jkc6759a7",
-        "status": "pending",
-        "assigned_at": "2026-01-02T16:30:36.202Z"
-      },
-      {
-        "title": "Logic: machine learning Data Handler",
-        "description": "Create a function to handle incoming signals for the machine learning system.",
-        "starter_code": "def process_data(data):\n    # Your logic here\n    pass",
-        "solution": "def process_data(data): return data",
-        "language": "python",
-        "test_cases": [
-          {
-            "input": "process_data('test')",
-            "expected_output": "test"
-          }
-        ],
-        "id": "1767371436202hg0ovprqt",
-        "status": "pending",
-        "assigned_at": "2026-01-02T16:30:36.202Z"
-      },
-      {
-        "title": "Production: machine learning API Mock",
-        "description": "Implement a mock interface for testing the machine learning integration.",
-        "starter_code": "class MockAPI:\n    def get_status(self):\n        return 'offline'",
-        "solution": "class MockAPI:\n    def get_status(self):\n        return 'online'",
-        "language": "python",
-        "test_cases": [
-          {
-            "input": "MockAPI().get_status()",
-            "expected_output": "online"
-          }
-        ],
-        "id": "1767371436202kihdxwshn",
-        "status": "pending",
-        "assigned_at": "2026-01-02T16:30:36.202Z"
-      },
-      {
-        "title": "Foundation: machine learning Analysis",
-        "description": "Perform a basic analysis and architectural setup for a machine learning project.",
-        "starter_code": "# Project: machine learning\n# Step 1: Initialize core components\n",
-        "solution": "print('Environment ready')",
-        "language": "python",
-        "test_cases": [
-          {
-            "input": "",
-            "expected_output": "Environment ready"
-          }
-        ],
-        "id": "1767374326711sknyopm0c",
-        "status": "pending",
-        "assigned_at": "2026-01-02T17:18:46.712Z"
-      },
-      {
-        "title": "Logic: machine learning Data Handler",
-        "description": "Create a function to handle incoming signals for the machine learning system.",
-        "starter_code": "def process_data(data):\n    # Your logic here\n    pass",
-        "solution": "def process_data(data): return data",
-        "language": "python",
-        "test_cases": [
-          {
-            "input": "process_data('test')",
-            "expected_output": "test"
-          }
-        ],
-        "id": "1767374326713jo59ai9qx",
-        "status": "pending",
-        "assigned_at": "2026-01-02T17:18:46.713Z"
-      },
-      {
-        "title": "Production: machine learning API Mock",
-        "description": "Implement a mock interface for testing the machine learning integration.",
-        "starter_code": "class MockAPI:\n    def get_status(self):\n        return 'offline'",
-        "solution": "class MockAPI:\n    def get_status(self):\n        return 'online'",
-        "language": "python",
-        "test_cases": [
-          {
-            "input": "MockAPI().get_status()",
-            "expected_output": "online"
-          }
-        ],
-        "id": "1767374326713ucxkhl685",
-        "status": "pending",
-        "assigned_at": "2026-01-02T17:18:46.713Z"
-      },
-      {
-        "title": "Foundation: Data Analyst Analysis",
-        "description": "Perform a basic analysis and architectural setup for a Data Analyst project.",
-        "starter_code": "# Project: Data Analyst\n# Step 1: Initialize core components\n",
-        "solution": "print('Environment ready')",
-        "language": "python",
-        "test_cases": [
-          {
-            "input": "",
-            "expected_output": "Environment ready"
-          }
-        ],
-        "id": "1767375188433rh18ub8jf",
-        "status": "pending",
-        "assigned_at": "2026-01-02T17:33:08.433Z"
-      },
-      {
-        "title": "Logic: Data Analyst Data Handler",
-        "description": "Create a function to handle incoming signals for the Data Analyst system.",
-        "starter_code": "def process_data(data):\n    # Your logic here\n    pass",
-        "solution": "def process_data(data): return data",
-        "language": "python",
-        "test_cases": [
-          {
-            "input": "process_data('test')",
-            "expected_output": "test"
-          }
-        ],
-        "id": "17673751884333pwe4ac4s",
-        "status": "pending",
-        "assigned_at": "2026-01-02T17:33:08.433Z"
-      },
-      {
-        "title": "Production: Data Analyst API Mock",
-        "description": "Implement a mock interface for testing the Data Analyst integration.",
-        "starter_code": "class MockAPI:\n    def get_status(self):\n        return 'offline'",
-        "solution": "class MockAPI:\n    def get_status(self):\n        return 'online'",
-        "language": "python",
-        "test_cases": [
-          {
-            "input": "MockAPI().get_status()",
-            "expected_output": "online"
-          }
-        ],
-        "id": "1767375188433uk023qojq",
-        "status": "pending",
-        "assigned_at": "2026-01-02T17:33:08.433Z"
-      },
-      {
-        "title": "Foundation: machine learning Analysis",
-        "description": "Perform a basic analysis and architectural setup for a machine learning project.",
-        "starter_code": "# Project: machine learning\n# Step 1: Initialize core components\n",
-        "solution": "print('Environment ready')",
-        "language": "python",
-        "test_cases": [
-          {
-            "input": "",
-            "expected_output": "Environment ready"
-          }
-        ],
-        "id": "1767468431292lyjws3j9a",
-        "status": "pending",
-        "assigned_at": "2026-01-03T19:27:11.292Z"
-      },
-      {
-        "title": "Logic: machine learning Data Handler",
-        "description": "Create a function to handle incoming signals for the machine learning system.",
-        "starter_code": "def process_data(data):\n    # Your logic here\n    pass",
-        "solution": "def process_data(data): return data",
-        "language": "python",
-        "test_cases": [
-          {
-            "input": "process_data('test')",
-            "expected_output": "test"
-          }
-        ],
-        "id": "1767468431292ouyyn6mt5",
-        "status": "pending",
-        "assigned_at": "2026-01-03T19:27:11.292Z"
-      },
-      {
-        "title": "Production: machine learning API Mock",
-        "description": "Implement a mock interface for testing the machine learning integration.",
-        "starter_code": "class MockAPI:\n    def get_status(self):\n        return 'offline'",
-        "solution": "class MockAPI:\n    def get_status(self):\n        return 'online'",
-        "language": "python",
-        "test_cases": [
-          {
-            "input": "MockAPI().get_status()",
-            "expected_output": "online"
-          }
-        ],
-        "id": "1767468431292lhn7lknzc",
-        "status": "pending",
-        "assigned_at": "2026-01-03T19:27:11.292Z"
+        "assigned_at": "2026-02-06T08:14:30.041Z"
       }
     ],
     "progress": {
@@ -568,5 +299,153 @@
       "total_time": 62,
       "active_days": 1
     }
+  },
+  "Ranjith Kumar K": {
+    "username": "Ranjith Kumar K",
+    "email": "ranjithkumark1130@gmail.com",
+    "password": "ranjith",
+    "profile": {
+      "skills": [
+        "Python",
+        "SQL",
+        "Machine learning",
+        "Data science",
+        "Java",
+        "C"
+      ],
+      "experience_level": "Intermediate",
+      "bio": "",
+      "learning_goals": [
+        "Software Development"
+      ],
+      "interests": [],
+      "time_commitment": "6-10 hours / week",
+      "learning_style": "Visual",
+      "difficulty_preference": "Accelerated",
+      "onboarding_completed": true,
+      "linkedin": "https://www.linkedin.com/in/ranjith-kumar-042574351/",
+      "phone": "9791910758"
+    },
+    "learning_paths": [
+      {
+        "id": 1770192134331,
+        "content": "\n        ### 🚀 Your Personalized Curriculum: Data analyst (Fallback)\n        \n        It looks like our AI is currently taking a coffee break (or hitting rate limits), but don't worry! Here is a solid starting point for your journey to becoming a Data analyst.\n        \n        ### 📚 Recommended Open Source Resources\n        \n        | 🎓 Platform / Course | 🔗 Link | 💡 Why this? |\n        | :--- | :--- | :--- |\n        | FreeCodeCamp | https://www.freecodecamp.org/ | Great for foundations |\n        | MDN Web Docs | https://developer.mozilla.org/ | Industry standard documentation |\n        | Roadmap.sh | https://roadmap.sh/ | Visual guides for career paths |\n        | GitHub Awesome Lists | https://github.com/sindresorhus/awesome | Curated lists of resources |\n\n        ### 🗂️ Detailed Learning Modules\n        \n        #### 1. Phase 1: Foundations & Core Concepts\n        *   **Focus:** Core technologies and basics\n        *   **Key Resources:**\n            *   [Intro to Data analyst](https://www.google.com/search?q=introduction+to+Data analyst) - General overview\n            *   [Official Docs](https://www.google.com/search?q=official+documentation+for+Data analyst) - Start with the source\n                \n        #### 2. Phase 2: Core Expertise & Integration\n        *   **Focus:** Building functional projects\n        *   **Action Items:**\n            *   Set up your development environment\n            *   Build a simple CRUD application related to Data analyst\n                \n        #### 3. Phase 3: Advanced Mastery & Real-world Projects\n        *   **Focus:** Scaling and complex features\n        *   **Portfolio Project:** Build a comprehensive project that solves a real-world problem.\n\n        #### 🚀 Next Steps: Journey to Success\n        *   Keep practicing daily\n        *   Contribute to Open Source\n        *   Network with other developers in the field\n        ",
+        "created_at": "2026-02-04T08:02:14.331Z"
+      },
+      {
+        "id": 1770193491132,
+        "content": "\n# 🚀 Your Personalized Curriculum: Machine learning\n\n> 💡 **AI Assistant Note:** Our AI is currently at capacity, but we've prepared a comprehensive, curated learning path just for you!\n\n---\n\n## 📚 **Essential Machine Learning & AI Resources**\n\n| 🎓 **Platform / Course** | 🔗 **Link** | 💡 **Why This Matters** |\n| :--- | :--- | :--- |\n| **🏆 Andrew Ng's ML Course** | [Coursera ML Specialization](https://www.coursera.org/specializations/machine-learning-introduction) | The gold standard for ML beginners - comprehensive and well-structured |\n| **⚡ Fast.ai** | [Practical Deep Learning](https://course.fast.ai/) | Top-down approach - build real projects from day 1 |\n| **🎯 Google ML Crash Course** | [Google Developers](https://developers.google.com/machine-learning/crash-course) | Free, interactive, with TensorFlow tutorials |\n| **📊 Scikit-learn Docs** | [scikit-learn.org](https://scikit-learn.org/stable/tutorial/index.html) | Best resource for classical ML algorithms |\n| **🧠 Deep Learning Specialization** | [Coursera Deep Learning](https://www.coursera.org/specializations/deep-learning) | Advanced neural networks by Andrew Ng |\n| **🏅 Kaggle Learn** | [kaggle.com/learn](https://www.kaggle.com/learn) | Hands-on micro-courses with real datasets |\n| **⭐ Awesome Machine Learning** | [GitHub Awesome ML](https://github.com/josephmisiti/awesome-machine-learning) | Curated list of ML frameworks and libraries |\n| **📄 Papers With Code** | [paperswithcode.com](https://paperswithcode.com/) | Latest ML research with implementation code |\n\n---\n\n## 🗂️ **Detailed Learning Modules**\n\n### 📘 **Phase 1: Foundations & Core Concepts** (Weeks 1-8)\n\n**🎯 Focus:** Mathematics, Python, and Classical ML Algorithms\n\n**📖 Key Resources:**\n- 🐍 **[Python for Data Science](https://www.kaggle.com/learn/python)** - Master Python basics with interactive exercises\n- 🔢 **[NumPy Tutorial](https://numpy.org/doc/stable/user/quickstart.html)** - Essential for numerical computing\n- 🐼 **[Pandas Documentation](https://pandas.pydata.org/docs/getting_started/intro_tutorials/index.html)** - Data manipulation fundamentals\n- 📐 **[Khan Academy Linear Algebra](https://www.khanacademy.org/math/linear-algebra)** - Math foundations made easy\n- 🎨 **[3Blue1Brown Neural Networks](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi)** - Visual intuition for ML concepts\n- 📊 **[StatQuest ML Playlist](https://www.youtube.com/playlist?list=PLblh5JKOoLUICTaGLRoHQDuF_7q2GfuJF)** - Statistics made simple and fun\n\n**🏁 Milestone Project:** Build a house price predictor using linear regression\n        \n---\n\n### 📗 **Phase 2: Core Expertise & Deep Learning** (Weeks 9-16)\n\n**🎯 Focus:** Neural Networks, TensorFlow/PyTorch, Computer Vision & NLP\n\n**📖 Key Resources:**\n- 🔥 **[TensorFlow Tutorials](https://www.tensorflow.org/tutorials)** - Official TensorFlow guides\n- ⚡ **[PyTorch Tutorials](https://pytorch.org/tutorials/)** - Official PyTorch learning path\n- 👁️ **[CS231n Stanford CNN Course](http://cs231n.stanford.edu/)** - Computer vision fundamentals\n- 💬 **[CS224n Stanford NLP Course](http://web.stanford.edu/class/cs224n/)** - Natural language processing\n- 🤗 **[Hugging Face Course](https://huggingface.co/learn/nlp-course/chapter1/1)** - Modern NLP with transformers\n- 📚 **[Deep Learning Book](https://www.deeplearningbook.org/)** - Comprehensive theory by Ian Goodfellow\n- ✨ **[Distill.pub](https://distill.pub/)** - Beautiful ML explanations\n\n**🏁 Milestone Project:** Build an image classifier or sentiment analysis model\n        \n---\n\n### 📙 **Phase 3: Advanced Mastery & Specialization** (Weeks 17-24)\n\n**🎯 Focus:** MLOps, Production Deployment, Advanced Architectures\n\n**📖 Key Resources:**\n- 🚀 **[Full Stack Deep Learning](https://fullstackdeeplearning.com/)** - Production ML systems\n- ⚙️ **[MLOps Guide](https://ml-ops.org/)** - Best practices for ML operations\n- 🔧 **[TensorFlow Extended (TFX)](https://www.tensorflow.org/tfx/guide)** - End-to-end ML pipelines\n- 📊 **[MLflow Documentation](https://mlflow.org/docs/latest/index.html)** - Experiment tracking and deployment\n- 📈 **[Weights & Biases Tutorials](https://docs.wandb.ai/tutorials)** - ML experiment management\n- 🐳 **[Docker for ML](https://docs.docker.com/get-started/)** - Containerization basics\n- ☸️ **[Kubernetes ML Guide](https://kubernetes.io/docs/tutorials/)** - Scaling ML applications\n- ☁️ **[AWS SageMaker](https://aws.amazon.com/sagemaker/getting-started/)** - Cloud ML deployment\n\n**🏁 Capstone Project:** Deploy a full ML application with CI/CD pipeline\n\n---\n\n## 🎯 **Specialized Learning Paths**\n\n### 👁️ **Computer Vision Track**\n- 📷 **[OpenCV Tutorials](https://docs.opencv.org/4.x/d9/df8/tutorial_root.html)** - Image processing fundamentals\n- 🎯 **[YOLO Object Detection](https://github.com/ultralytics/yolov5)** - State-of-the-art detection\n- 🔍 **[Detectron2](https://github.com/facebookresearch/detectron2)** - Facebook's CV library\n\n### 💬 **Natural Language Processing Track**\n- 📝 **[spaCy Course](https://course.spacy.io/)** - Industrial-strength NLP\n- 📖 **[NLTK Book](https://www.nltk.org/book/)** - Classic NLP with Python\n- 🤖 **[Transformers Documentation](https://huggingface.co/docs/transformers/index)** - Modern NLP models\n\n### 🎮 **Reinforcement Learning Track**\n- 🌀 **[OpenAI Spinning Up](https://spinningup.openai.com/)** - Deep RL fundamentals\n- 🧠 **[DeepMind RL Course](https://www.deepmind.com/learning-resources/reinforcement-learning-lecture-series-2021)** - Advanced RL concepts\n- 🎯 **[Stable Baselines3](https://stable-baselines3.readthedocs.io/)** - RL algorithms implementation\n\n---\n\n## 🛠️ **Essential Tools & Frameworks**\n\n| 🔧 **Tool** | 🔗 **Link** | 💡 **Purpose** |\n| :--- | :--- | :--- |\n| **📓 Jupyter Notebook** | [jupyter.org](https://jupyter.org/) | Interactive coding environment |\n| **☁️ Google Colab** | [colab.research.google.com](https://colab.research.google.com/) | Free GPU for training |\n| **🐍 Anaconda** | [anaconda.com](https://www.anaconda.com/) | Python distribution for data science |\n| **💻 VS Code** | [code.visualstudio.com](https://code.visualstudio.com/) | Best IDE for ML development |\n| **📂 Git & GitHub** | [github.com](https://github.com/) | Version control for projects |\n\n---\n\n## 📊 **Practice Platforms & Datasets**\n\n- 🏆 **[Kaggle Competitions](https://www.kaggle.com/competitions)** - Real-world ML challenges with prizes\n- 📚 **[UCI ML Repository](https://archive.ics.uci.edu/ml/index.php)** - Classic datasets for practice\n- 🔍 **[Google Dataset Search](https://datasetsearch.research.google.com/)** - Find datasets for any domain\n- 📦 **[TensorFlow Datasets](https://www.tensorflow.org/datasets)** - Ready-to-use datasets\n- 💻 **[HackerRank AI](https://www.hackerrank.com/domains/ai)** - Coding challenges for ML\n- 🧩 **[LeetCode ML Problems](https://leetcode.com/)** - Algorithm practice\n\n---\n\n## 🎓 **University Courses (Free Online)**\n\n- 🏛️ **[MIT 6.S191 Deep Learning](http://introtodeeplearning.com/)** - Intensive 1-week bootcamp\n- 🎓 **[Stanford CS229 Machine Learning](https://cs229.stanford.edu/)** - Graduate-level ML course\n- 🐻 **[Berkeley CS188 AI](https://inst.eecs.berkeley.edu/~cs188/)** - Artificial Intelligence fundamentals\n- 🏫 **[CMU 10-701 ML](http://www.cs.cmu.edu/~tom/10701_sp11/)** - Theoretical foundations\n\n---\n\n## 📱 **Communities & Networking**\n\n- 💬 **[r/MachineLearning](https://www.reddit.com/r/MachineLearning/)** - Latest research and discussions\n- 🤝 **[AI Alignment Forum](https://www.alignmentforum.org/)** - Advanced AI safety discussions\n- ⚙️ **[MLOps Community](https://mlops.community/)** - Production ML best practices\n- ✍️ **[Towards Data Science](https://towardsdatascience.com/)** - Medium publication for ML articles\n- 📚 **[Machine Learning Mastery](https://machinelearningmastery.com/)** - Practical tutorials\n\n---\n\n## 🚀 **Next Steps: Your Journey to ML Mastery**\n\n1. **Week 1-2:** 🔧 Set up your environment (Python, Jupyter, Git) and complete Python basics\n2. **Week 3-4:** 📊 Master NumPy and Pandas through Kaggle micro-courses\n3. **Week 5-8:** 🎓 Complete Andrew Ng's ML course on Coursera\n4. **Week 9-12:** 🏗️ Build 3 projects: regression, classification, and clustering\n5. **Week 13-16:** 🧠 Learn deep learning with Fast.ai or TensorFlow tutorials\n6. **Week 17-20:** 🎯 Specialize in Computer Vision OR NLP\n7. **Week 21-24:** 🚀 Deploy a full ML application and contribute to open source\n8. **Ongoing:** 📈 Participate in Kaggle competitions and read ML papers weekly\n\n---\n\n## 📚 **Recommended Books**\n\n- 📖 **\"Hands-On Machine Learning\" by Aurélien Géron** - Best practical ML book\n- 🧠 **\"Deep Learning\" by Ian Goodfellow** - Comprehensive theory\n- 📊 **\"Pattern Recognition and Machine Learning\" by Christopher Bishop** - Mathematical foundations\n- 📝 **\"The Hundred-Page Machine Learning Book\" by Andriy Burkov** - Quick overview\n\n---\n\n## 🎯 **Career Resources**\n\n- 💼 **[ML Interview Prep](https://github.com/khangich/machine-learning-interview)** - Interview questions and answers\n- 📘 **[Chip Huyen's ML Interviews Book](https://huyenchip.com/ml-interviews-book/)** - Comprehensive interview guide\n- 🎓 **[LinkedIn Learning ML Paths](https://www.linkedin.com/learning/)** - Professional development courses\n\n---\n\n**✨ Remember:** Machine Learning is a marathon, not a sprint. Focus on understanding fundamentals, build projects consistently, and engage with the community. Good luck on your ML journey! 🚀\n",
+        "created_at": "2026-02-04T08:24:51.132Z"
+      }
+    ],
+    "tasks": [
+      {
+        "title": "Foundation: Data analyst Analysis",
+        "description": "Perform a basic analysis and architectural setup for a Data analyst project.",
+        "starter_code": "# Project: Data analyst\n# Step 1: Initialize core components\n",
+        "solution": "print('Environment ready')",
+        "language": "python",
+        "test_cases": [
+          {
+            "input": "",
+            "expected_output": "Environment ready"
+          }
+        ],
+        "id": "1770192134394zhybhepcj",
+        "status": "pending",
+        "assigned_at": "2026-02-04T08:02:14.394Z"
+      },
+      {
+        "title": "Logic: Data analyst Data Handler",
+        "description": "Create a function to handle incoming signals for the Data analyst system.",
+        "starter_code": "def process_data(data):\n    # Your logic here\n    pass",
+        "solution": "def process_data(data): return data",
+        "language": "python",
+        "test_cases": [
+          {
+            "input": "process_data('test')",
+            "expected_output": "test"
+          }
+        ],
+        "id": "17701921343945f6i96yvh",
+        "status": "pending",
+        "assigned_at": "2026-02-04T08:02:14.394Z"
+      },
+      {
+        "title": "Production: Data analyst API Mock",
+        "description": "Implement a mock interface for testing the Data analyst integration.",
+        "starter_code": "class MockAPI:\n    def get_status(self):\n        return 'offline'",
+        "solution": "class MockAPI:\n    def get_status(self):\n        return 'online'",
+        "language": "python",
+        "test_cases": [
+          {
+            "input": "MockAPI().get_status()",
+            "expected_output": "online"
+          }
+        ],
+        "id": "177019213439466xe93d8j",
+        "status": "pending",
+        "assigned_at": "2026-02-04T08:02:14.394Z"
+      },
+      {
+        "title": "Foundation: Machine learning Analysis",
+        "description": "Perform a basic analysis and architectural setup for a Machine learning project.",
+        "starter_code": "# Project: Machine learning\n# Step 1: Initialize core components\n",
+        "solution": "print('Environment ready')",
+        "language": "python",
+        "test_cases": [
+          {
+            "input": "",
+            "expected_output": "Environment ready"
+          }
+        ],
+        "id": "17701934922527ct4ocija",
+        "status": "pending",
+        "assigned_at": "2026-02-04T08:24:52.252Z"
+      },
+      {
+        "title": "Logic: Machine learning Data Handler",
+        "description": "Create a function to handle incoming signals for the Machine learning system.",
+        "starter_code": "def process_data(data):\n    # Your logic here\n    pass",
+        "solution": "def process_data(data): return data",
+        "language": "python",
+        "test_cases": [
+          {
+            "input": "process_data('test')",
+            "expected_output": "test"
+          }
+        ],
+        "id": "1770193492252pvgep9spz",
+        "status": "pending",
+        "assigned_at": "2026-02-04T08:24:52.252Z"
+      },
+      {
+        "title": "Production: Machine learning API Mock",
+        "description": "Implement a mock interface for testing the Machine learning integration.",
+        "starter_code": "class MockAPI:\n    def get_status(self):\n        return 'offline'",
+        "solution": "class MockAPI:\n    def get_status(self):\n        return 'online'",
+        "language": "python",
+        "test_cases": [
+          {
+            "input": "MockAPI().get_status()",
+            "expected_output": "online"
+          }
+        ],
+        "id": "1770193492252i27pftg8q",
+        "status": "pending",
+        "assigned_at": "2026-02-04T08:24:52.252Z"
+      }
+    ],
+    "progress": {
+      "streak": 0,
+      "completed_tasks": 0,
+      "last_active": null
+    },
+    "login_logs": [
+      {
+        "timestamp": "2026-02-04T07:59:32.682Z",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"
+      }
+    ]
   }
 }
