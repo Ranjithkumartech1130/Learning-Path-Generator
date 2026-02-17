@@ -29,6 +29,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy", "timestamp": datetime.now().isoformat()}
+
 # AI Models Configuration
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 if not GEMINI_API_KEY:
@@ -178,6 +182,7 @@ async def generate_path(request: PathRequest):
         import traceback
         traceback.print_exc()
         print(f"AI Generation Failed: {e}. Returning fallback content.")
+        print(f"Goal: {request.goal}, Level: {request.user_profile.experience_level}")
         
         # Dynamic fallback based on goal
         goal_lower = request.goal.lower()
@@ -1553,6 +1558,60 @@ async def generate_resume(request: Dict):
             }
         }
 
+
+class VoiceCommandRequest(BaseModel):
+    transcript: str
+    current_context: Optional[str] = "navigation"
+
+@app.post("/voice-command")
+async def process_voice_command(request: VoiceCommandRequest):
+    try:
+        # Construct prompt for JARVIS NLP
+        prompt = f"""
+        Act as an Advanced Voice Operating System (JARVIS). Analyze the user's voice command and map it to a specific JSON action.
+        
+        USER COMMAND: "{request.transcript}"
+        CURRENT CONTEXT: "{request.current_context}"
+
+        YOUR GOAL: Return ONLY raw JSON (no markdown) mapping the intent to one of these structures:
+
+        1. NAVIGATION {{ "type": "navigate", "target": "dashboard" | "ide" | "profile" | "resume" | "progress" | "path" | "landing" }}
+           - "Go to dashboard", "Open IDE", "Show my stats", "Open my profile", "Go to resume builder", "Show learning path"
+           - NOTE: "path" maps to the learning path view. "home" maps to "landing".
+           - IF the user says "open this page" or "reload", return {{ "type": "system", "action": "reload" }} if they mean reload, otherwise treat as chat.
+
+        2. CODING ACTION {{ "type": "code", "action": "insert" | "delete_line" | "undo" | "redo" | "clear" | "run", "code": "code_snippet_here" }}
+           - If user asks for code (e.g. "Create a fibonacci function"), generate the ACTUAL python/js code in the 'code' field.
+           - If user says "print hello", 'code' should be "print('hello')"
+           - Keep code concise.
+
+        3. SYSTEM CONTROL {{ "type": "system", "action": "scroll_up" | "scroll_down" | "scroll_top" | "scroll_bottom" | "logout" | "reload" }}
+
+        4. TERMINAL {{ "type": "terminal", "action": "open" | "close" | "clear" }}
+
+        5. CHAT / UNKNOWN {{ "type": "chat", "response": "Your short, witty, JARVIS-like response here." }}
+
+        IMPORTANT - MULTI-LANGUAGE SUPPORT:
+        - The user may speak in ANY language (Hindi, Spanish, French, Chinese, Tamil, etc.).
+        - You MUST translate the INTENT into the English JSON actions above.
+        - Example: "Mujhe dashboard jana hai" -> {{ "type": "navigate", "target": "dashboard" }}
+        - Example: "Ek loop likho" -> {{ "type": "code", "action": "insert", "code": "for i in range(10):\\n    pass" }}
+        - Example: "Open this page" (if ambiguous) -> {{ "type": "chat", "response": "Which page would you like me to open, sir? I can access the Dashboard, IDE, Profile, or Learning Path." }}
+        """
+
+        response = model.generate_content(prompt)
+        text = response.text
+        # Clean markdown
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0].strip()
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0].strip()
+            
+        return json.loads(text)
+    except Exception as e:
+        print(f"Voice Command Error: {e}")
+        return {"type": "chat", "response": "Processing error, sir. Please repeat."}
+
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8001)
+    uvicorn.run(app, host="0.0.0.0", port=8002)
