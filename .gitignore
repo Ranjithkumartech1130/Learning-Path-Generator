@@ -35,3 +35,25 @@ backend/node_modules/
 ai/venv/
 ai/*.log
 backend/*.log
+
+# Python Cache & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.tox/
+
+# IDEs and Tools
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# AI/ML specific
+.ipynb_checkpoints/
+
+# Agent Tools
+.qodo/
+.zencoder/
+.zenflow/
+.agent/
